@@ -1,0 +1,28 @@
+name: ❓ Question report
+description: Create a question report to help us improve
+labels: [ "question", "priority/p2" ]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **Thanks for helping us to improve AI!**
+
+        We welcome all questions reports. Please fill out each area of the form so we can better help you.
+        If you are reporting, make sure that we do not have any duplicates already open.
+        You can ensure this by searching the [issue list](https://github.com/ChikiChat/ai/issues?q=is:issue+label:question) for this repository.
+        If there is a duplicate, please close your issue and add a comment to the existing issue instead.
+        
+        ---
+  - type: textarea
+    attributes:
+      label: Our question?
+      placeholder: How can we help you?
+    validations:
+      required: true
+  - type: checkboxes
+    attributes:
+      label: Code of Conduct
+      description: By submitting this question issue, you agree to follow our [Code of Conduct](https://github.com/ChikiChat/ai/blob/main/CODE_OF_CONDUCT.md)
+      options:
+        - label: I agree to follow this repository Code of Conduct
+          required: true

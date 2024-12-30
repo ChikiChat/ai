@@ -1,0 +1,45 @@
+name: 📋 Documentation report
+description: Create a documentation report to help us improve
+labels: [ "documentation", "status/0-triage", "priority/p3" ]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **Thanks for helping us to improve AI!**
+
+        We welcome all documentations reports. Please fill out each area of the form so we can better help you.
+        If you are reporting, make sure that we do not have any duplicates already open.
+        You can ensure this by searching the [issue list](https://github.com/ChikiChat/ai/issues?q=is:issue+label:documentation) for this repository.
+        If there is a duplicate, please close your issue and add a comment to the existing issue instead.
+        
+        ---
+  - type: textarea
+    attributes:
+      label: What happened?
+      description: Also tell us, what did you expect to happen?
+      placeholder: Tell us what you see!
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: How solve?
+      description: Also tell us, how we can solve it?
+      placeholder: Tell us how you see!
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Anything else?
+      description: |
+        Links? References? Anything that will give us more context about the documentation issue you are encountering!
+
+        Tip: You can attach images or log files by clicking this area to highlight it and then dragging files in.
+    validations:
+      required: false
+  - type: checkboxes
+    attributes:
+      label: Code of Conduct
+      description: By submitting this documentation issue, you agree to follow our [Code of Conduct](https://github.com/ChikiChat/ai/blob/main/CODE_OF_CONDUCT.md)
+      options:
+        - label: I agree to follow this repository Code of Conduct
+          required: true
