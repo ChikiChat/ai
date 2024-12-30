@@ -5,12 +5,12 @@ import {AnthropicProvider, createAnthropic} from '@ai-sdk/anthropic';
 export class Anthropic extends Provider {
     id = 'anthropic';
     name = 'Anthropic';
-    description = 'Anthropic is an AI safety and research company based in San Francisco. Our interdisciplinary team has experience across ML, physics, policy, and product. Together, we generate research and create reliable, beneficial AI systems.';
+    description = `Anthropic is an AI safety and research company based in San Francisco. Our interdisciplinary team has experience across ML, physics, policy, and product. Together, we generate research and create reliable, beneficial AI systems.`;
     models = [
         {
             id: `${this.id}/claude-3-5-sonnet-20241022`,
             name: 'Claude 3.5 Sonnet',
-            description: 'Our most intelligent model. Highest level of intelligence and capability.',
+            description: `Our most intelligent model. Highest level of intelligence and capability.`,
             architecture: '',
             capabilities: {
                 embedding: false,
@@ -28,7 +28,7 @@ export class Anthropic extends Provider {
         {
             id: `${this.id}/claude-3-5-haiku-20241022`,
             name: 'Claude 3.5 Haiku',
-            description: 'Our fastest model. Intelligence at blazing speeds.',
+            description: `Our fastest model. Intelligence at blazing speeds.`,
             architecture: '',
             capabilities: {
                 embedding: false,
@@ -46,7 +46,7 @@ export class Anthropic extends Provider {
         {
             id: `${this.id}/claude-3-opus-20240229`,
             name: 'Claude 3 Opus',
-            description: 'Powerful model for highly complex tasks. Top-level intelligence, fluency, and understanding.',
+            description: `Powerful model for highly complex tasks. Top-level intelligence, fluency, and understanding.`,
             architecture: '',
             capabilities: {
                 embedding: false,
@@ -64,7 +64,7 @@ export class Anthropic extends Provider {
         {
             id: `${this.id}/claude-3-sonnet-20240229`,
             name: 'Claude 3 Sonnet',
-            description: 'Balance of intelligence and speed. Strong utility, balanced for scaled deployments.',
+            description: `Balance of intelligence and speed. Strong utility, balanced for scaled deployments.`,
             architecture: '',
             capabilities: {
                 embedding: false,
@@ -82,7 +82,7 @@ export class Anthropic extends Provider {
         {
             id: `${this.id}/claude-3-haiku-20240307`,
             name: 'Claude 3 Haiku',
-            description: 'Fastest and most compact model for near-instant responsiveness. Quick and accurate targeted performance.',
+            description: `Fastest and most compact model for near-instant responsiveness. Quick and accurate targeted performance.`,
             architecture: '',
             capabilities: {
                 embedding: false,
@@ -102,22 +102,22 @@ export class Anthropic extends Provider {
     pricingURL = 'https://www.anthropic.com/pricing';
 
     create(apiKey: string): AnthropicProvider {
-        return createAnthropic({baseURL: this.apiURL, apiKey: apiKey})
+        return createAnthropic({baseURL: this.apiURL, apiKey: this.apiKey(apiKey)})
     }
 
-    languageModel(apiKey: string, model: string): LanguageModel {
+    languageModel(model: string, apiKey: string = ''): LanguageModel {
         return this.create(apiKey)(model);
     }
 
-    embeddingModel(_apiKey: string, _model: string): EmbeddingModel<string> {
-        throw new Error('Provider ' + this.name + ' does not support embeddings');
+    embeddingModel(_model: string, _apiKey: string): EmbeddingModel<string> {
+        throw new Error(`Provider ${this.name} does not support embeddings`);
     }
 
     async check(apiKey: string) {
         try {
             await generateText({
                 model: this.languageModel(apiKey, 'claude-3-haiku-20240307'),
-                prompt: 'hi',
+                prompt: `hi`,
                 maxTokens: 1,
             });
 

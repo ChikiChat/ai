@@ -5,12 +5,12 @@ import {createOpenAI, OpenAIProvider} from "@ai-sdk/openai";
 export class SambaNova extends Provider {
     id = 'sambanova';
     name = 'SambaNova';
-    description = 'Sambanova is an AI platform for natural language processing that offers advanced models for text generation and understanding.';
+    description = `Sambanova is an AI platform for natural language processing that offers advanced models for text generation and understanding.`;
     models = [
         {
             id: `${this.id}/Qwen2.5-Coder-32B-Instruct`,
             name: 'Qwen 2.5 (32B) Coder Instruct',
-            description: '',
+            description: ``,
             architecture: '',
             capabilities: {
                 embedding: false,
@@ -28,7 +28,7 @@ export class SambaNova extends Provider {
         {
             id: `${this.id}/Qwen2.5-72B-Instruct`,
             name: 'Qwen 2.5 (72B) Instruct',
-            description: '',
+            description: ``,
             architecture: '',
             capabilities: {
                 embedding: false,
@@ -46,7 +46,7 @@ export class SambaNova extends Provider {
         {
             id: `${this.id}/Meta-Llama-3.3-70B-Instruct`,
             name: 'Llama 3.3 (70B) Instruct',
-            description: '',
+            description: ``,
             architecture: '',
             capabilities: {
                 embedding: false,
@@ -64,7 +64,7 @@ export class SambaNova extends Provider {
         {
             id: `${this.id}/Llama-3.2-90B-Vision-Instruct`,
             name: 'Llama 3.2 (90B) Vision Instruct',
-            description: '',
+            description: ``,
             architecture: '',
             capabilities: {
                 embedding: false,
@@ -82,7 +82,7 @@ export class SambaNova extends Provider {
         {
             id: `${this.id}/Llama-3.2-11B-Vision-Instruct`,
             name: 'Llama 3.2 (11B) Vision Instruct',
-            description: '',
+            description: ``,
             architecture: '',
             capabilities: {
                 embedding: false,
@@ -100,7 +100,7 @@ export class SambaNova extends Provider {
         {
             id: `${this.id}/Llama-3.2-3B-Instruct`,
             name: 'Llama 3.2 (3B) Instruct',
-            description: '',
+            description: ``,
             architecture: '',
             capabilities: {
                 embedding: false,
@@ -118,7 +118,7 @@ export class SambaNova extends Provider {
         {
             id: `${this.id}/Llama-3.2-1B-Instruct`,
             name: 'Llama 3.2 (1B) Instruct',
-            description: '',
+            description: ``,
             architecture: '',
             capabilities: {
                 embedding: false,
@@ -136,7 +136,7 @@ export class SambaNova extends Provider {
         {
             id: `${this.id}/Meta-Llama-3.1-405B-Instruct`,
             name: 'Llama 3.1 (405B) Instruct',
-            description: '',
+            description: ``,
             architecture: '',
             capabilities: {
                 embedding: false,
@@ -154,7 +154,7 @@ export class SambaNova extends Provider {
         {
             id: `${this.id}/Meta-Llama-3.1-70B-Instruct`,
             name: 'Llama 3.1 (70B) Instruct',
-            description: '',
+            description: ``,
             architecture: '',
             capabilities: {
                 embedding: false,
@@ -172,7 +172,7 @@ export class SambaNova extends Provider {
         {
             id: `${this.id}/Meta-Llama-3.1-8B-Instruct`,
             name: 'Llama 3.1 (8B) Instruct',
-            description: '',
+            description: ``,
             architecture: '',
             capabilities: {
                 embedding: false,
@@ -192,22 +192,22 @@ export class SambaNova extends Provider {
     pricingURL = 'https://cloud.sambanova.ai/pricing';
 
     create(apiKey: string): OpenAIProvider {
-        return createOpenAI({name: this.name, baseURL: this.apiURL, apiKey: apiKey});
+        return createOpenAI({name: this.name, baseURL: this.apiURL, apiKey: this.apiKey(apiKey)});
     }
 
-    languageModel(apiKey: string, model: string): LanguageModel {
+    languageModel(model: string, apiKey: string = ''): LanguageModel {
         return this.create(apiKey)(model);
     }
 
-    embeddingModel(_apiKey: string, _model: string): EmbeddingModel<string> {
-        throw new Error('Provider ' + this.name + ' does not support embeddings');
+    embeddingModel(_model: string, _apiKey: string): EmbeddingModel<string> {
+        throw new Error(`Provider ${this.name} does not support embeddings`);
     }
 
     async check(apiKey: string) {
         try {
             await generateText({
-                model: this.languageModel(apiKey, 'jamba-1.5-mini'),
-                prompt: 'hi',
+                model: this.languageModel(apiKey, 'Llama-3.2-1B-Instruct'),
+                prompt: `hi`,
                 maxTokens: 1,
             });
 

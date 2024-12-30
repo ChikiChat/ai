@@ -5,12 +5,12 @@ import {CohereProvider, createCohere} from '@ai-sdk/cohere';
 export class Cohere extends Provider {
     id = 'cohere';
     name = 'Cohere';
-    description = 'Cohere is an AI platform for natural language processing that offers powerful language models for text generation and understanding.';
+    description = `Cohere is an AI platform for natural language processing that offers powerful language models for text generation and understanding.`;
     models = [
         {
             id: `${this.id}/command`,
             name: 'Command',
-            description: 'An instruction-following conversational model that performs language tasks with high quality, more reliably and with a longer context than our base generative models.',
+            description: `An instruction-following conversational model that performs language tasks with high quality, more reliably and with a longer context than our base generative models.`,
             architecture: 'CohereForCausalLM',
             capabilities: {
                 embedding: false,
@@ -28,7 +28,7 @@ export class Cohere extends Provider {
         {
             id: `${this.id}/command-light`,
             name: 'Command Light',
-            description: 'A smaller, faster version of command. Almost as capable, but a lot faster.',
+            description: `A smaller, faster version of command. Almost as capable, but a lot faster.`,
             architecture: 'CohereForCausalLM',
             capabilities: {
                 embedding: false,
@@ -46,7 +46,7 @@ export class Cohere extends Provider {
         {
             id: `${this.id}/command-r-08-2024`,
             name: 'Command R 08-2024 (32B)',
-            description: 'Command R 08-2024 is a research release of a 32 billion parameter highly performant generative model. Command R 08-2024 is a large language model with open weights optimized for a variety of use cases including reasoning, summarization, and question answering.',
+            description: `Command R 08-2024 is a research release of a 32 billion parameter highly performant generative model. Command R 08-2024 is a large language model with open weights optimized for a variety of use cases including reasoning, summarization, and question answering.`,
             architecture: 'CohereForCausalLM',
             capabilities: {
                 embedding: false,
@@ -64,7 +64,7 @@ export class Cohere extends Provider {
         {
             id: `${this.id}/command-r`,
             name: 'Command R (35B)',
-            description: 'Command-R is a research release of a 35 billion parameter highly performant generative model. Command-R is a large language model with open weights optimized for a variety of use cases including reasoning, summarization, and question answering.',
+            description: `Command-R is a research release of a 35 billion parameter highly performant generative model. Command-R is a large language model with open weights optimized for a variety of use cases including reasoning, summarization, and question answering.`,
             architecture: 'CohereForCausalLM',
             capabilities: {
                 embedding: false,
@@ -82,7 +82,7 @@ export class Cohere extends Provider {
         {
             id: `${this.id}/command-r-plus-08-2024`,
             name: 'Command R+ 08-2024 (104B)',
-            description: 'Command R+ 08-2024 is an open weights research release of a 104 billion parameter model with highly advanced capabilities, this includes Retrieval Augmented Generation (RAG) and tool use to automate sophisticated tasks. The tool use in this model generation enables multi-step tool use which allows the model to combine multiple tools over multiple steps to accomplish difficult tasks.',
+            description: `Command R+ 08-2024 is an open weights research release of a 104 billion parameter model with highly advanced capabilities, this includes Retrieval Augmented Generation (RAG) and tool use to automate sophisticated tasks. The tool use in this model generation enables multi-step tool use which allows the model to combine multiple tools over multiple steps to accomplish difficult tasks.`,
             architecture: 'CohereForCausalLM',
             capabilities: {
                 embedding: false,
@@ -100,7 +100,7 @@ export class Cohere extends Provider {
         {
             id: `${this.id}/command-r-plus`,
             name: 'Command R+ (104B)',
-            description: 'Command R+ is an open weights research release of a 104 billion parameter model with highly advanced capabilities, this includes Retrieval Augmented Generation (RAG) and tool use to automate sophisticated tasks. The tool use in this model generation enables multi-step tool use which allows the model to combine multiple tools over multiple steps to accomplish difficult tasks.',
+            description: `Command R+ is an open weights research release of a 104 billion parameter model with highly advanced capabilities, this includes Retrieval Augmented Generation (RAG) and tool use to automate sophisticated tasks. The tool use in this model generation enables multi-step tool use which allows the model to combine multiple tools over multiple steps to accomplish difficult tasks.`,
             architecture: 'CohereForCausalLM',
             capabilities: {
                 embedding: false,
@@ -118,7 +118,7 @@ export class Cohere extends Provider {
         {
             id: `${this.id}/c4ai-aya-expanse-8b`,
             name: 'Aya Expanse (8B)',
-            description: 'Aya Expanse 8B is an open-weight research release of a model with highly advanced multilingual capabilities. It focuses on pairing a highly performant pre-trained Command family of models with the result of a year’s dedicated research from Cohere For AI, including data arbitrage, multilingual preference training, safety tuning, and model merging. The result is a powerful multilingual large language model.',
+            description: `Aya Expanse 8B is an open-weight research release of a model with highly advanced multilingual capabilities. It focuses on pairing a highly performant pre-trained Command family of models with the result of a year’s dedicated research from Cohere For AI, including data arbitrage, multilingual preference training, safety tuning, and model merging. The result is a powerful multilingual large language model.`,
             architecture: 'CohereForCausalLM',
             capabilities: {
                 embedding: false,
@@ -136,7 +136,7 @@ export class Cohere extends Provider {
         {
             id: `${this.id}/c4ai-aya-expanse-32b`,
             name: 'Aya Expanse (32B)',
-            description: 'Aya Expanse 32B is an open-weight research release of a model with highly advanced multilingual capabilities. It focuses on pairing a highly performant pre-trained Command family of models with the result of a year’s dedicated research from Cohere For AI, including data arbitrage, multilingual preference training, safety tuning, and model merging. The result is a powerful multilingual large language model serving 23 languages.',
+            description: `Aya Expanse 32B is an open-weight research release of a model with highly advanced multilingual capabilities. It focuses on pairing a highly performant pre-trained Command family of models with the result of a year’s dedicated research from Cohere For AI, including data arbitrage, multilingual preference training, safety tuning, and model merging. The result is a powerful multilingual large language model serving 23 languages.`,
             architecture: 'CohereForCausalLM',
             capabilities: {
                 embedding: false,
@@ -154,7 +154,7 @@ export class Cohere extends Provider {
         {
             id: `${this.id}/embed-english-v3.0`,
             name: 'Embed English v3.0',
-            description: 'A model that allows for text to be classified or turned into embeddings. English only.',
+            description: `A model that allows for text to be classified or turned into embeddings. English only.`,
             architecture: '',
             capabilities: {
                 embedding: true,
@@ -172,7 +172,7 @@ export class Cohere extends Provider {
         {
             id: `${this.id}/embed-english-v3.0-image`,
             name: 'Embed English v3.0 Image',
-            description: 'A model that allows for text and images to be classified or turned into embeddings. English only.',
+            description: `A model that allows for text and images to be classified or turned into embeddings. English only.`,
             architecture: '',
             capabilities: {
                 embedding: true,
@@ -190,7 +190,7 @@ export class Cohere extends Provider {
         {
             id: `${this.id}/embed-english-light-v3.0`,
             name: 'Embed English Light v3.0',
-            description: 'A smaller, faster version of embed-english-v3.0. Almost as capable, but a lot faster. English only.',
+            description: `A smaller, faster version of embed-english-v3.0. Almost as capable, but a lot faster. English only.`,
             architecture: '',
             capabilities: {
                 embedding: true,
@@ -208,7 +208,7 @@ export class Cohere extends Provider {
         {
             id: `${this.id}/embed-english-light-v3.0-image`,
             name: 'Embed English Light v3.0 Image',
-            description: 'A smaller, faster version of embed-english-v3.0. Almost as capable, but a lot faster. English only.',
+            description: `A smaller, faster version of embed-english-v3.0. Almost as capable, but a lot faster. English only.`,
             architecture: '',
             capabilities: {
                 embedding: true,
@@ -226,7 +226,7 @@ export class Cohere extends Provider {
         {
             id: `${this.id}/embed-english-v2.0`,
             name: 'Embed English v2.0',
-            description: 'Allows for text to be classified or turned into embeddings. English only.',
+            description: `Allows for text to be classified or turned into embeddings. English only.`,
             architecture: '',
             capabilities: {
                 embedding: true,
@@ -244,7 +244,7 @@ export class Cohere extends Provider {
         {
             id: `${this.id}/embed-english-light-v2.0`,
             name: 'Embed English Light v2.0',
-            description: 'A smaller, faster version of embed-english-v2.0. Almost as capable, but a lot faster. English only.',
+            description: `A smaller, faster version of embed-english-v2.0. Almost as capable, but a lot faster. English only.`,
             architecture: '',
             capabilities: {
                 embedding: true,
@@ -262,7 +262,7 @@ export class Cohere extends Provider {
         {
             id: `${this.id}/embed-multilingual-v3.0`,
             name: 'Embed Multilingual v3.0',
-            description: 'Provides multilingual classification and embedding support.',
+            description: `Provides multilingual classification and embedding support.`,
             architecture: '',
             capabilities: {
                 embedding: true,
@@ -280,7 +280,7 @@ export class Cohere extends Provider {
         {
             id: `${this.id}/embed-multilingual-v3.0-image`,
             name: 'Embed Multilingual v3.0 Image',
-            description: 'Provides multilingual classification and embedding support.',
+            description: `Provides multilingual classification and embedding support.`,
             architecture: '',
             capabilities: {
                 embedding: true,
@@ -298,7 +298,7 @@ export class Cohere extends Provider {
         {
             id: `${this.id}/embed-multilingual-light-v3.0`,
             name: 'Embed Multilingual Light v3.0',
-            description: 'A smaller, faster version of embed-multilingual-v3.0. Almost as capable, but a lot faster.',
+            description: `A smaller, faster version of embed-multilingual-v3.0. Almost as capable, but a lot faster.`,
             architecture: '',
             capabilities: {
                 embedding: true,
@@ -316,7 +316,7 @@ export class Cohere extends Provider {
         {
             id: `${this.id}/embed-multilingual-light-v3.0-image`,
             name: 'Embed Multilingual Light v3.0 Image',
-            description: 'A smaller, faster version of embed-multilingual-v3.0. Almost as capable, but a lot faster.',
+            description: `A smaller, faster version of embed-multilingual-v3.0. Almost as capable, but a lot faster.`,
             architecture: '',
             capabilities: {
                 embedding: true,
@@ -334,7 +334,7 @@ export class Cohere extends Provider {
         {
             id: `${this.id}/embed-multilingual-v2.0`,
             name: 'Embed Multilingual v2.0',
-            description: 'Provides multilingual classification and embedding support.',
+            description: `Provides multilingual classification and embedding support.`,
             architecture: '',
             capabilities: {
                 embedding: true,
@@ -350,18 +350,18 @@ export class Cohere extends Provider {
             price: {input: 0.0000000000, output: 0.0000000000},
         },
     ];
-    apiURL = 'https://api.cohere.ai/v1';
+    apiURL = 'https://api.cohere.ai/v2';
     pricingURL = 'https://cohere.com/pricing';
 
     create(apiKey: string): CohereProvider {
-        return createCohere({baseURL: this.apiURL, apiKey: apiKey});
+        return createCohere({baseURL: this.apiURL, apiKey: this.apiKey(apiKey)});
     }
 
-    languageModel(apiKey: string, model: string): LanguageModel {
+    languageModel(model: string, apiKey: string = ''): LanguageModel {
         return this.create(apiKey)(model);
     }
 
-    embeddingModel(apiKey: string, model: string): EmbeddingModel<string> {
+    embeddingModel(model: string, apiKey: string = ''): EmbeddingModel<string> {
         return this.create(apiKey).embedding(model);
     }
 
@@ -369,7 +369,7 @@ export class Cohere extends Provider {
         try {
             await generateText({
                 model: this.languageModel(apiKey, 'c4ai-aya-expanse-32b'),
-                prompt: 'hi',
+                prompt: `hi`,
                 maxTokens: 1,
             });
 
