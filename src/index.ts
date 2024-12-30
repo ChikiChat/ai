@@ -7,10 +7,11 @@ import {Groq} from "./Groq";
 import {Mistral} from "./Mistral";
 import {OpenAI} from "./OpenAI";
 import {SambaNova} from "./SambaNova";
+import {xAI} from "./xAI";
 import {EmbeddingModel, LanguageModel} from "ai";
 
 export * from "./types";
-export {AI21, Anthropic, Cohere, GoogleGenerativeAI, Groq, Mistral, OpenAI, SambaNova};
+export {AI21, Anthropic, Cohere, GoogleGenerativeAI, Groq, Mistral, OpenAI, SambaNova, xAI};
 
 export const providers: Array<Provider> = [
     new AI21(),
@@ -21,6 +22,7 @@ export const providers: Array<Provider> = [
     new Mistral(),
     new OpenAI(),
     new SambaNova(),
+    new xAI(),
 ];
 
 export const getProvider = (id: string) => providers.find(provider => provider.id === id);
