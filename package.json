@@ -1,7 +1,7 @@
 {
   "name": "@chikichat/ai",
   "description": "",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "license": "Apache-2.0",
   "author": "ChikiChat",
   "main": "./dist/index.js",
@@ -22,6 +22,7 @@
     "@ai-sdk/groq": "^1.0.9",
     "@ai-sdk/mistral": "^1.0.6",
     "@ai-sdk/openai": "^1.0.11",
+    "@ai-sdk/xai": "^1.0.14",
     "ai": "^4.0.22"
   },
   "devDependencies": {
