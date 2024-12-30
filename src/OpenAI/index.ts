@@ -5,12 +5,12 @@ import {createOpenAI, OpenAIProvider} from "@ai-sdk/openai";
 export class OpenAI extends Provider {
     id = 'openai';
     name = 'OpenAI';
-    description = 'OpenAI offers a suite of powerful AI models for various natural language processing tasks.';
+    description = `OpenAI offers a suite of powerful AI models for various natural language processing tasks.`;
     models = [
         {
             id: `${this.id}/gpt-4o`,
             name: 'GPT-4o',
-            description: '',
+            description: ``,
             architecture: '',
             capabilities: {
                 embedding: false,
@@ -28,7 +28,7 @@ export class OpenAI extends Provider {
         {
             id: `${this.id}/gpt-4o-mini`,
             name: 'GPT-4o mini',
-            description: '',
+            description: ``,
             architecture: '',
             capabilities: {
                 embedding: false,
@@ -46,7 +46,7 @@ export class OpenAI extends Provider {
         {
             id: `${this.id}/o1`,
             name: 'OpenAI o1',
-            description: '',
+            description: ``,
             architecture: '',
             capabilities: {
                 embedding: false,
@@ -64,7 +64,7 @@ export class OpenAI extends Provider {
         {
             id: `${this.id}/o1-mini`,
             name: 'OpenAI o1-mini',
-            description: '',
+            description: ``,
             architecture: '',
             capabilities: {
                 embedding: false,
@@ -82,7 +82,7 @@ export class OpenAI extends Provider {
         {
             id: `${this.id}/chatgpt-4o-latest`,
             name: 'ChatGPT 4o',
-            description: '',
+            description: ``,
             architecture: '',
             capabilities: {
                 embedding: false,
@@ -100,7 +100,7 @@ export class OpenAI extends Provider {
         {
             id: `${this.id}/gpt-4-turbo`,
             name: 'GPT 4 Turbo',
-            description: '',
+            description: ``,
             architecture: '',
             capabilities: {
                 embedding: false,
@@ -118,7 +118,7 @@ export class OpenAI extends Provider {
         {
             id: `${this.id}/gpt-4`,
             name: 'GPT 4',
-            description: '',
+            description: ``,
             architecture: '',
             capabilities: {
                 embedding: false,
@@ -136,7 +136,7 @@ export class OpenAI extends Provider {
         {
             id: `${this.id}/gpt-3.5-turbo-instruct`,
             name: 'GPT 3.5 Turbo Instruct',
-            description: '',
+            description: ``,
             architecture: '',
             capabilities: {
                 embedding: false,
@@ -154,7 +154,7 @@ export class OpenAI extends Provider {
         {
             id: `${this.id}/gpt-3.5-turbo`,
             name: 'GPT 3.5 Turbo',
-            description: '',
+            description: ``,
             architecture: '',
             capabilities: {
                 embedding: false,
@@ -172,7 +172,7 @@ export class OpenAI extends Provider {
         {
             id: `${this.id}/gpt-3.5-turbo-16k`,
             name: 'GPT 3.5 Turbo 16k',
-            description: '',
+            description: ``,
             architecture: '',
             capabilities: {
                 embedding: false,
@@ -190,7 +190,7 @@ export class OpenAI extends Provider {
         {
             id: `${this.id}/text-embedding-3-large`,
             name: 'Text Embedding 3 Large',
-            description: '',
+            description: ``,
             architecture: '',
             capabilities: {
                 embedding: true,
@@ -208,7 +208,7 @@ export class OpenAI extends Provider {
         {
             id: `${this.id}/text-embedding-3-small`,
             name: 'Text Embedding 3 Small',
-            description: '',
+            description: ``,
             architecture: '',
             capabilities: {
                 embedding: true,
@@ -226,7 +226,7 @@ export class OpenAI extends Provider {
         {
             id: `${this.id}/text-embedding-ada-002`,
             name: 'Text Embedding Ada 002',
-            description: '',
+            description: ``,
             architecture: '',
             capabilities: {
                 embedding: true,
@@ -246,14 +246,14 @@ export class OpenAI extends Provider {
     pricingURL = 'https://openai.com/api/pricing';
 
     create(apiKey: string): OpenAIProvider {
-        return createOpenAI({name: this.name, baseURL: this.apiURL, apiKey: apiKey});
+        return createOpenAI({name: this.name, baseURL: this.apiURL, apiKey: this.apiKey(apiKey)});
     }
 
-    languageModel(apiKey: string, model: string): LanguageModel {
+    languageModel(model: string, apiKey: string = ''): LanguageModel {
         return this.create(apiKey)(model);
     }
 
-    embeddingModel(apiKey: string, model: string): EmbeddingModel<string> {
+    embeddingModel(model: string, apiKey: string = ''): EmbeddingModel<string> {
         return this.create(apiKey).embedding(model)
     }
 
@@ -261,7 +261,7 @@ export class OpenAI extends Provider {
         try {
             await generateText({
                 model: this.languageModel(apiKey, 'gpt-3.5-turbo-0125'),
-                prompt: 'hi',
+                prompt: `hi`,
                 maxTokens: 1,
             });
 

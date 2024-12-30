@@ -8,11 +8,19 @@ export abstract class Provider {
     abstract apiURL: string;
     abstract pricingURL: string;
 
-    abstract languageModel(apiKey: string, model: string): LanguageModel;
+    abstract languageModel(model: string, apiKey: string): LanguageModel;
 
-    abstract embeddingModel(apiKey: string, model: string): EmbeddingModel<string>;
+    abstract embeddingModel(model: string, apiKey: string): EmbeddingModel<string>;
 
     abstract check(apiKey: string): Promise<boolean>;
+
+    apiKey(apiKey: string): string {
+        if (apiKey !== '') {
+            return apiKey;
+        }
+
+        return process.env[`${this.id.toUpperCase().replace(/-/g, '_')}_API_KEY`] ?? '';
+    }
 }
 
 export type Model = {
@@ -49,4 +57,15 @@ export type IO = {
 export type Price = {
     input: number;
     output: number;
+}
+
+export type Usage = {
+    usage: {
+        input: number;
+        output: number;
+    },
+    cost: {
+        input: number;
+        output: number;
+    }
 }

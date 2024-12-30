@@ -5,12 +5,12 @@ import {createXai, XaiProvider} from "@ai-sdk/xai";
 export class xAI extends Provider {
     id = 'xai';
     name = 'xAI';
-    description = 'xAI is a grok model provider.';
+    description = `xAI is a grok model provider.`;
     models = [
         {
             id: `${this.id}/grok-2-1212`,
             name: 'Grok 2',
-            description: '',
+            description: ``,
             architecture: '',
             capabilities: {
                 embedding: false,
@@ -28,7 +28,7 @@ export class xAI extends Provider {
         {
             id: `${this.id}/grok-2-vision-1212`,
             name: 'Grok 2 Vision',
-            description: '',
+            description: ``,
             architecture: '',
             capabilities: {
                 embedding: false,
@@ -46,7 +46,7 @@ export class xAI extends Provider {
         {
             id: `${this.id}/grok-beta`,
             name: 'Grok Beta',
-            description: '',
+            description: ``,
             architecture: '',
             capabilities: {
                 embedding: false,
@@ -64,7 +64,7 @@ export class xAI extends Provider {
         {
             id: `${this.id}/grok-vision-beta`,
             name: 'Grok Vision Beta',
-            description: '',
+            description: ``,
             architecture: '',
             capabilities: {
                 embedding: false,
@@ -84,22 +84,22 @@ export class xAI extends Provider {
     pricingURL = 'https://docs.x.ai/docs/models';
 
     create(apiKey: string): XaiProvider {
-        return createXai({baseURL: this.apiURL, apiKey: apiKey});
+        return createXai({baseURL: this.apiURL, apiKey: this.apiKey(apiKey)});
     }
 
-    languageModel(apiKey: string, model: string): LanguageModel {
+    languageModel(model: string, apiKey: string = ''): LanguageModel {
         return this.create(apiKey)(model);
     }
 
-    embeddingModel(_apiKey: string, _model: string): EmbeddingModel<string> {
-        throw new Error('Provider ' + this.name + ' does not support embeddings');
+    embeddingModel(_model: string, _apiKey: string): EmbeddingModel<string> {
+        throw new Error(`Provider ${this.name} does not support embeddings`);
     }
 
     async check(apiKey: string) {
         try {
             await generateText({
                 model: this.languageModel(apiKey, 'grok-2-1212'),
-                prompt: 'hi',
+                prompt: `hi`,
                 maxTokens: 1,
             });
 

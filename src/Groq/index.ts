@@ -5,12 +5,12 @@ import {createGroq, GroqProvider} from "@ai-sdk/groq";
 export class Groq extends Provider {
     id = 'groq';
     name = 'Groq';
-    description = 'Groq AI API provides access to advanced models for text generation and understanding.';
+    description = `Groq AI API provides access to advanced models for text generation and understanding.`;
     models = [
         {
             id: `${this.id}/llama-3.3-70b-specdec`,
             name: 'LLaMA 3.3 (70B) Specdec',
-            description: '',
+            description: ``,
             architecture: '',
             capabilities: {
                 embedding: false,
@@ -28,7 +28,7 @@ export class Groq extends Provider {
         {
             id: `${this.id}/gemma2-9b-it`,
             name: 'Gemma 2 (9B) Instruct',
-            description: '',
+            description: ``,
             architecture: '',
             capabilities: {
                 embedding: false,
@@ -46,7 +46,7 @@ export class Groq extends Provider {
         {
             id: `${this.id}/llama-3.3-70b-versatile`,
             name: 'LLaMA 3.3 (70B) Versatile',
-            description: '',
+            description: ``,
             architecture: '',
             capabilities: {
                 embedding: false,
@@ -64,7 +64,7 @@ export class Groq extends Provider {
         {
             id: `${this.id}/gemma-7b-it`,
             name: 'Gemma (7B) Instruct',
-            description: '',
+            description: ``,
             architecture: '',
             capabilities: {
                 embedding: false,
@@ -82,7 +82,7 @@ export class Groq extends Provider {
         {
             id: `${this.id}/llama-3.2-90b-vision-preview`,
             name: 'LLaMA 3.2 (90B) Vision (Preview)',
-            description: '',
+            description: ``,
             architecture: '',
             capabilities: {
                 embedding: false,
@@ -100,7 +100,7 @@ export class Groq extends Provider {
         {
             id: `${this.id}/llama-3.2-11b-vision-preview`,
             name: 'LLaMA 3.2 (11B) Vision (Preview)',
-            description: '',
+            description: ``,
             architecture: '',
             capabilities: {
                 embedding: false,
@@ -118,7 +118,7 @@ export class Groq extends Provider {
         {
             id: `${this.id}/llama-3.2-3b-preview`,
             name: 'LLaMA 3.2 (3B) (Preview)',
-            description: '',
+            description: ``,
             architecture: '',
             capabilities: {
                 embedding: false,
@@ -136,7 +136,7 @@ export class Groq extends Provider {
         {
             id: `${this.id}/llama-3.2-1b-preview`,
             name: 'LLaMA 3.2 (1B) (Preview)',
-            description: '',
+            description: ``,
             architecture: '',
             capabilities: {
                 embedding: false,
@@ -154,7 +154,7 @@ export class Groq extends Provider {
         {
             id: `${this.id}/llama-3.1-70b-versatile`,
             name: 'LLaMA 3.1 (70B) Versatile',
-            description: '',
+            description: ``,
             architecture: '',
             capabilities: {
                 embedding: false,
@@ -172,7 +172,7 @@ export class Groq extends Provider {
         {
             id: `${this.id}/llama-3.1-8b-instant`,
             name: 'LLaMA 3.1 (8B) Instant',
-            description: '',
+            description: ``,
             architecture: '',
             capabilities: {
                 embedding: false,
@@ -190,7 +190,7 @@ export class Groq extends Provider {
         {
             id: `${this.id}/llama3-groq-70b-8192-tool-use-preview`,
             name: 'LLaMA 3 (70B) Groq Tool Use (Preview)',
-            description: '',
+            description: ``,
             architecture: '',
             capabilities: {
                 embedding: false,
@@ -208,7 +208,7 @@ export class Groq extends Provider {
         {
             id: `${this.id}/llama3-70b-8192`,
             name: 'LLaMA 3 (70B)',
-            description: '',
+            description: ``,
             architecture: '',
             capabilities: {
                 embedding: false,
@@ -226,7 +226,7 @@ export class Groq extends Provider {
         {
             id: `${this.id}/llama3-groq-8b-8192-tool-use-preview`,
             name: 'LLaMA 3 (8B) Groq Tool Use (Preview)',
-            description: '',
+            description: ``,
             architecture: '',
             capabilities: {
                 embedding: false,
@@ -244,7 +244,7 @@ export class Groq extends Provider {
         {
             id: `${this.id}/llama3-8b-8192`,
             name: 'LLaMA 3 (8B)',
-            description: '',
+            description: ``,
             architecture: '',
             capabilities: {
                 embedding: false,
@@ -262,7 +262,7 @@ export class Groq extends Provider {
         {
             id: `${this.id}/llama-guard-3-8b`,
             name: 'LLaMA Guard 3 (8B)',
-            description: '',
+            description: ``,
             architecture: '',
             capabilities: {
                 embedding: false,
@@ -280,7 +280,7 @@ export class Groq extends Provider {
         {
             id: `${this.id}/mixtral-8x7b-32768`,
             name: 'Mixtral (8X7B) Instruct',
-            description: '',
+            description: ``,
             architecture: '',
             capabilities: {
                 embedding: false,
@@ -300,22 +300,22 @@ export class Groq extends Provider {
     pricingURL = 'https://groq.com/pricing';
 
     create(apiKey: string): GroqProvider {
-        return createGroq({baseURL: this.apiURL, apiKey: apiKey});
+        return createGroq({baseURL: this.apiURL, apiKey: this.apiKey(apiKey)});
     }
 
-    languageModel(apiKey: string, model: string): LanguageModel {
+    languageModel(model: string, apiKey: string = ''): LanguageModel {
         return this.create(apiKey)(model);
     }
 
-    embeddingModel(_apiKey: string, _model: string): EmbeddingModel<string> {
-        throw new Error('Provider ' + this.name + ' does not support embeddings');
+    embeddingModel(_model: string, _apiKey: string): EmbeddingModel<string> {
+        throw new Error(`Provider ${this.name} does not support embeddings`);
     }
 
     async check(apiKey: string) {
         try {
             await generateText({
                 model: this.languageModel(apiKey, 'llama-3.1-8b-instant'),
-                prompt: 'hi',
+                prompt: `hi`,
                 maxTokens: 1,
             });
 
