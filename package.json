@@ -1,7 +1,7 @@
 {
   "name": "@chikichat/ai",
   "description": "",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "license": "Apache-2.0",
   "author": "ChikiChat",
   "main": "./dist/index.js",
