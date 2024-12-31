@@ -59,8 +59,8 @@ export type Price = {
     output: number;
 }
 
-export type Usage = {
-    usage: {
+export type UsageModel = {
+    tokens: {
         input: number;
         output: number;
     },
