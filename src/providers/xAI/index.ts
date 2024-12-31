@@ -1,5 +1,5 @@
 import {Provider} from '../../types';
-import {EmbeddingModel, generateText, LanguageModel} from "ai";
+import {EmbeddingModel, LanguageModel} from "ai";
 import {createXai, XaiProvider} from "@ai-sdk/xai";
 
 export class xAI extends Provider {
@@ -80,11 +80,14 @@ export class xAI extends Provider {
             price: {input: 0.0000050000, output: 0.0000150000},
         },
     ];
-    apiURL = 'https://api.x.ai/v1';
-    pricingURL = 'https://docs.x.ai/docs/models';
+    default = {
+        apiURL: 'https://api.x.ai/v1',
+        pricingURL: 'https://docs.x.ai/docs/models',
+        model: `grok-2-1212`,
+    };
 
     create(apiKey: string): XaiProvider {
-        return createXai({baseURL: this.apiURL, apiKey: this.apiKey(apiKey)});
+        return createXai({baseURL: this.default.apiURL, apiKey: this.apiKey(apiKey)});
     }
 
     languageModel(model: string, apiKey: string = ''): LanguageModel {
@@ -93,19 +96,5 @@ export class xAI extends Provider {
 
     embeddingModel(_model: string, _apiKey: string): EmbeddingModel<string> {
         throw new Error(`Provider ${this.name} does not support embeddings`);
-    }
-
-    async check(apiKey: string) {
-        try {
-            await generateText({
-                model: this.languageModel(apiKey, 'grok-2-1212'),
-                prompt: `hi`,
-                maxTokens: 1,
-            });
-
-            return true;
-        } catch (e) {
-            return false;
-        }
     }
 }

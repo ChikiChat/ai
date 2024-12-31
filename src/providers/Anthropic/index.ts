@@ -1,5 +1,5 @@
 import {Provider} from '../../types';
-import {EmbeddingModel, generateText, LanguageModel} from 'ai';
+import {EmbeddingModel, LanguageModel} from 'ai';
 import {AnthropicProvider, createAnthropic} from '@ai-sdk/anthropic';
 
 export class Anthropic extends Provider {
@@ -98,11 +98,14 @@ export class Anthropic extends Provider {
             price: {input: 0.0000002500, output: 0.0000012500},
         },
     ];
-    apiURL = 'https://api.anthropic.com/v1';
-    pricingURL = 'https://www.anthropic.com/pricing';
+    default = {
+        apiURL: 'https://api.anthropic.com/v1',
+        pricingURL: 'https://www.anthropic.com/pricing',
+        model: 'claude-3-haiku-20240307',
+    };
 
     create(apiKey: string): AnthropicProvider {
-        return createAnthropic({baseURL: this.apiURL, apiKey: this.apiKey(apiKey)})
+        return createAnthropic({baseURL: this.default.apiURL, apiKey: this.apiKey(apiKey)})
     }
 
     languageModel(model: string, apiKey: string = ''): LanguageModel {
@@ -111,19 +114,5 @@ export class Anthropic extends Provider {
 
     embeddingModel(_model: string, _apiKey: string): EmbeddingModel<string> {
         throw new Error(`Provider ${this.name} does not support embeddings`);
-    }
-
-    async check(apiKey: string) {
-        try {
-            await generateText({
-                model: this.languageModel(apiKey, 'claude-3-haiku-20240307'),
-                prompt: `hi`,
-                maxTokens: 1,
-            });
-
-            return true;
-        } catch (e) {
-            return false;
-        }
     }
 }

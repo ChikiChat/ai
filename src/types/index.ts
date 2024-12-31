@@ -1,18 +1,19 @@
-import {EmbeddingModel, LanguageModel} from "ai";
+import {EmbeddingModel, generateText, LanguageModel} from "ai";
 
 export abstract class Provider {
     abstract id: string;
     abstract name: string;
     abstract description: string;
     abstract models: Array<Model>;
-    abstract apiURL: string;
-    abstract pricingURL: string;
+    abstract default: {
+        apiURL: string;
+        pricingURL: string;
+        model: string;
+    }
 
     abstract languageModel(model: string, apiKey: string): LanguageModel;
 
     abstract embeddingModel(model: string, apiKey: string): EmbeddingModel<string>;
-
-    abstract check(apiKey: string): Promise<boolean>;
 
     apiKey(apiKey: string): string {
         if (apiKey !== '') {
@@ -20,6 +21,20 @@ export abstract class Provider {
         }
 
         return process.env[`${this.id.toUpperCase().replace(/-/g, '_')}_API_KEY`] ?? '';
+    }
+
+    async probe(apiKey: string): Promise<boolean> {
+        try {
+            await generateText({
+                model: this.languageModel(this.apiKey(apiKey), this.default.model),
+                prompt: `hi`,
+                maxTokens: 1,
+            });
+
+            return true;
+        } catch (e) {
+            return false;
+        }
     }
 }
 

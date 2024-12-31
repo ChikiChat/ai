@@ -1,5 +1,5 @@
 import {Provider} from '../../types';
-import {EmbeddingModel, generateText, LanguageModel} from "ai";
+import {EmbeddingModel, LanguageModel} from "ai";
 import {createGroq, GroqProvider} from "@ai-sdk/groq";
 
 export class Groq extends Provider {
@@ -296,11 +296,14 @@ export class Groq extends Provider {
             price: {input: 0.0000002400, output: 0.0000002400},
         },
     ];
-    apiURL = 'https://api.groq.com/openai/v1';
-    pricingURL = 'https://groq.com/pricing';
+    default = {
+        apiURL: 'https://api.groq.com/openai/v1',
+        pricingURL: 'https://groq.com/pricing',
+        model: 'llama-3.1-8b-instant',
+    };
 
     create(apiKey: string): GroqProvider {
-        return createGroq({baseURL: this.apiURL, apiKey: this.apiKey(apiKey)});
+        return createGroq({baseURL: this.default.apiURL, apiKey: this.apiKey(apiKey)});
     }
 
     languageModel(model: string, apiKey: string = ''): LanguageModel {
@@ -309,19 +312,5 @@ export class Groq extends Provider {
 
     embeddingModel(_model: string, _apiKey: string): EmbeddingModel<string> {
         throw new Error(`Provider ${this.name} does not support embeddings`);
-    }
-
-    async check(apiKey: string) {
-        try {
-            await generateText({
-                model: this.languageModel(apiKey, 'llama-3.1-8b-instant'),
-                prompt: `hi`,
-                maxTokens: 1,
-            });
-
-            return true;
-        } catch (e) {
-            return false;
-        }
     }
 }
