@@ -1,4 +1,4 @@
-import {Provider} from '../types';
+import {Provider} from '../../types';
 import {EmbeddingModel, generateText, LanguageModel} from "ai";
 import {createGoogleGenerativeAI, GoogleGenerativeAIProvider} from "@ai-sdk/google";
 

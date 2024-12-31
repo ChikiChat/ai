@@ -1,17 +1,9 @@
 import {Model, Provider, UsageModel} from "./types";
-import {AI21} from "./AI21";
-import {Anthropic} from "./Anthropic";
-import {Cohere} from "./Cohere";
-import {GoogleGenerativeAI} from "./GoogleGenerativeAI";
-import {Groq} from "./Groq";
-import {Mistral} from "./Mistral";
-import {OpenAI} from "./OpenAI";
-import {SambaNova} from "./SambaNova";
-import {xAI} from "./xAI";
+import {AI21, Anthropic, Cohere, GoogleGenerativeAI, Groq, Mistral, OpenAI, SambaNova, xAI} from "./providers";
 import {EmbeddingModel, EmbeddingModelUsage, LanguageModel, LanguageModelUsage} from "ai";
 
 export * from "./types";
-export {AI21, Anthropic, Cohere, GoogleGenerativeAI, Groq, Mistral, OpenAI, SambaNova, xAI};
+export * from "./providers";
 
 export const DEFAULT_LANGUAGE_MODEL_NAME: string = 'anthropic/claude-3-5-sonnet-20241022';
 export const DEFAULT_EMBEDDING_MODEL_NAME: string = 'mistral/mistral-embed';
