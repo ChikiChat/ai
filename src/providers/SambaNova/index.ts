@@ -1,5 +1,5 @@
-import {Provider} from '../types';
-import {EmbeddingModel, generateText, LanguageModel} from "ai";
+import {Provider} from '../../types';
+import {EmbeddingModel, LanguageModel} from "ai";
 import {createOpenAI, OpenAIProvider} from "@ai-sdk/openai";
 
 export class SambaNova extends Provider {
@@ -188,11 +188,14 @@ export class SambaNova extends Provider {
             price: {input: 0.0000001000, output: 0.0000002000},
         },
     ];
-    apiURL = 'https://api.sambanova.ai/v1';
-    pricingURL = 'https://cloud.sambanova.ai/pricing';
+    default = {
+        apiURL: 'https://api.sambanova.ai/v1',
+        pricingURL: 'https://cloud.sambanova.ai/pricing',
+        model: `Llama-3.2-1B-Instruct`,
+    };
 
     create(apiKey: string): OpenAIProvider {
-        return createOpenAI({name: this.name, baseURL: this.apiURL, apiKey: this.apiKey(apiKey)});
+        return createOpenAI({name: this.name, baseURL: this.default.apiURL, apiKey: this.apiKey(apiKey)});
     }
 
     languageModel(model: string, apiKey: string = ''): LanguageModel {
@@ -201,19 +204,5 @@ export class SambaNova extends Provider {
 
     embeddingModel(_model: string, _apiKey: string): EmbeddingModel<string> {
         throw new Error(`Provider ${this.name} does not support embeddings`);
-    }
-
-    async check(apiKey: string) {
-        try {
-            await generateText({
-                model: this.languageModel(apiKey, 'Llama-3.2-1B-Instruct'),
-                prompt: `hi`,
-                maxTokens: 1,
-            });
-
-            return true;
-        } catch (e) {
-            return false;
-        }
     }
 }

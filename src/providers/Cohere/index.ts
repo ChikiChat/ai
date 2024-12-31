@@ -1,5 +1,5 @@
-import {Provider} from '../types';
-import {EmbeddingModel, generateText, LanguageModel} from 'ai';
+import {Provider} from '../../types';
+import {EmbeddingModel, LanguageModel} from 'ai';
 import {CohereProvider, createCohere} from '@ai-sdk/cohere';
 
 export class Cohere extends Provider {
@@ -350,11 +350,14 @@ export class Cohere extends Provider {
             price: {input: 0.0000000000, output: 0.0000000000},
         },
     ];
-    apiURL = 'https://api.cohere.ai/v2';
-    pricingURL = 'https://cohere.com/pricing';
+    default = {
+        apiURL: 'https://api.cohere.ai/v2',
+        pricingURL: 'https://cohere.com/pricing',
+        model: 'c4ai-aya-expanse-32b',
+    };
 
     create(apiKey: string): CohereProvider {
-        return createCohere({baseURL: this.apiURL, apiKey: this.apiKey(apiKey)});
+        return createCohere({baseURL: this.default.apiURL, apiKey: this.apiKey(apiKey)});
     }
 
     languageModel(model: string, apiKey: string = ''): LanguageModel {
@@ -363,19 +366,5 @@ export class Cohere extends Provider {
 
     embeddingModel(model: string, apiKey: string = ''): EmbeddingModel<string> {
         return this.create(apiKey).embedding(model);
-    }
-
-    async check(apiKey: string) {
-        try {
-            await generateText({
-                model: this.languageModel(apiKey, 'c4ai-aya-expanse-32b'),
-                prompt: `hi`,
-                maxTokens: 1,
-            });
-
-            return true;
-        } catch (e) {
-            return false;
-        }
     }
 }

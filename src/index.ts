@@ -1,17 +1,12 @@
-import {Model, Provider, Usage} from "./types";
-import {AI21} from "./AI21";
-import {Anthropic} from "./Anthropic";
-import {Cohere} from "./Cohere";
-import {GoogleGenerativeAI} from "./GoogleGenerativeAI";
-import {Groq} from "./Groq";
-import {Mistral} from "./Mistral";
-import {OpenAI} from "./OpenAI";
-import {SambaNova} from "./SambaNova";
-import {xAI} from "./xAI";
-import {EmbeddingModel, LanguageModel, LanguageModelUsage} from "ai";
+import {Model, Provider, UsageModel} from "./types";
+import {AI21, Anthropic, Cohere, GoogleGenerativeAI, Groq, Mistral, OpenAI, SambaNova, xAI} from "./providers";
+import {EmbeddingModel, EmbeddingModelUsage, LanguageModel, LanguageModelUsage} from "ai";
 
 export * from "./types";
-export {AI21, Anthropic, Cohere, GoogleGenerativeAI, Groq, Mistral, OpenAI, SambaNova, xAI};
+export * from "./providers";
+
+export const DEFAULT_LANGUAGE_MODEL_NAME: string = 'anthropic/claude-3-5-sonnet-20241022';
+export const DEFAULT_EMBEDDING_MODEL_NAME: string = 'mistral/mistral-embed';
 
 export const providers: Array<Provider> = [
     new AI21(),
@@ -25,10 +20,7 @@ export const providers: Array<Provider> = [
     new xAI(),
 ];
 
-export const getProvider = (id: string) => providers.find(provider => provider.id === id);
 export const models = providers.flatMap(provider => provider.models);
-export const DEFAULT_LANGUAGE_MODEL_NAME: string = 'anthropic/claude-3-5-sonnet-20241022';
-export const DEFAULT_EMBEDDING_MODEL_NAME: string = 'mistral/mistral-embed';
 
 export const languageModel = (model: string, apiKey: string = ''): LanguageModel => {
     return <LanguageModel>getModel(model, apiKey, (provider: Provider, modelID: string, apiKey: string) => provider.languageModel(modelID, apiKey));
@@ -38,11 +30,24 @@ export const embeddingModel = (model: string, apiKey: string = ''): EmbeddingMod
     return <EmbeddingModel<string>>getModel(model, apiKey, (provider: Provider, modelID: string, apiKey: string) => provider.embeddingModel(modelID, apiKey));
 }
 
-export const usageModel = (model: string, usage: LanguageModelUsage): Usage => {
+export const usageModel = (model: string, usage: LanguageModelUsage | EmbeddingModelUsage): UsageModel => {
     const {model: m} = providerAndModel(model);
 
+    if (isEmbeddingModelUsage(usage)) {
+        return {
+            tokens: {
+                input: usage.tokens,
+                output: 0
+            },
+            cost: {
+                input: m.price.input * usage.tokens,
+                output: 0
+            }
+        };
+    }
+
     return {
-        usage: {
+        tokens: {
             input: usage.promptTokens,
             output: usage.completionTokens
         },
@@ -59,8 +64,8 @@ export const providerAndModel = (model: string): {
     providerID: string,
     modelID: string
 } => {
-    const providerID = model.split('/')[0] ?? '';
-    const p = getProvider(providerID);
+    const providerID = model.split('/')[0]?.toLowerCase() ?? '';
+    const p = providers.find(p => p.id === providerID);
     if (!p) {
         throw new Error(`Provider ${providerID} not found`);
     }
@@ -78,4 +83,8 @@ const getModel = (model: string, apiKey: string, fn: (provider: Provider, modelI
     const {provider, modelID} = providerAndModel(model);
 
     return fn(provider, modelID, apiKey);
+};
+
+const isEmbeddingModelUsage = (usage: LanguageModelUsage | EmbeddingModelUsage): usage is EmbeddingModelUsage => {
+    return (usage as EmbeddingModelUsage).tokens !== undefined;
 };

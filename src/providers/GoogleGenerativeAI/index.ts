@@ -1,5 +1,5 @@
-import {Provider} from '../types';
-import {EmbeddingModel, generateText, LanguageModel} from "ai";
+import {Provider} from '../../types';
+import {EmbeddingModel, LanguageModel} from "ai";
 import {createGoogleGenerativeAI, GoogleGenerativeAIProvider} from "@ai-sdk/google";
 
 export class GoogleGenerativeAI extends Provider {
@@ -224,11 +224,14 @@ export class GoogleGenerativeAI extends Provider {
             price: {input: 0.0000000000, output: 0.0000000000},
         },
     ];
-    apiURL = 'https://generativelanguage.googleapis.com/v1beta';
-    pricingURL = 'https://ai.google.dev/pricing';
+    default = {
+        apiURL: 'https://generativelanguage.googleapis.com/v1beta',
+        pricingURL: 'https://ai.google.dev/pricing',
+        model: 'models/gemini-1.5-flash-8b-latest',
+    };
 
     create(apiKey: string): GoogleGenerativeAIProvider {
-        return createGoogleGenerativeAI({baseURL: this.apiURL, apiKey: this.apiKey(apiKey)});
+        return createGoogleGenerativeAI({baseURL: this.default.apiURL, apiKey: this.apiKey(apiKey)});
     }
 
     languageModel(model: string, apiKey: string = ''): LanguageModel {
@@ -237,19 +240,5 @@ export class GoogleGenerativeAI extends Provider {
 
     embeddingModel(model: string, apiKey: string = ''): EmbeddingModel<string> {
         return this.create(apiKey).textEmbeddingModel(model);
-    }
-
-    async check(apiKey: string) {
-        try {
-            await generateText({
-                model: this.languageModel(apiKey, 'models/gemini-1.5-flash-8b-latest'),
-                prompt: `hi`,
-                maxTokens: 1,
-            });
-
-            return true;
-        } catch (e) {
-            return false;
-        }
     }
 }

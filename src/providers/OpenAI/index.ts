@@ -1,5 +1,5 @@
-import {Provider} from '../types';
-import {EmbeddingModel, generateText, LanguageModel} from "ai";
+import {Provider} from '../../types';
+import {EmbeddingModel, LanguageModel} from "ai";
 import {createOpenAI, OpenAIProvider} from "@ai-sdk/openai";
 
 export class OpenAI extends Provider {
@@ -242,11 +242,14 @@ export class OpenAI extends Provider {
             price: {input: 0.0000001000, output: 0.0000000000},
         },
     ];
-    apiURL = 'https://api.openai.com/v1';
-    pricingURL = 'https://openai.com/api/pricing';
+    default = {
+        apiURL: 'https://api.openai.com/v1',
+        pricingURL: 'https://openai.com/api/pricing',
+        model: `gpt-3.5-turbo-0125`,
+    };
 
     create(apiKey: string): OpenAIProvider {
-        return createOpenAI({name: this.name, baseURL: this.apiURL, apiKey: this.apiKey(apiKey)});
+        return createOpenAI({name: this.name, baseURL: this.default.apiURL, apiKey: this.apiKey(apiKey)});
     }
 
     languageModel(model: string, apiKey: string = ''): LanguageModel {
@@ -255,19 +258,5 @@ export class OpenAI extends Provider {
 
     embeddingModel(model: string, apiKey: string = ''): EmbeddingModel<string> {
         return this.create(apiKey).embedding(model)
-    }
-
-    async check(apiKey: string) {
-        try {
-            await generateText({
-                model: this.languageModel(apiKey, 'gpt-3.5-turbo-0125'),
-                prompt: `hi`,
-                maxTokens: 1,
-            });
-
-            return true;
-        } catch (e) {
-            return false;
-        }
     }
 }
