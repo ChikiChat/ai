@@ -1,6 +1,7 @@
 export * from './AI21'
 export * from './Anthropic'
 export * from './Cohere'
+export * from './DeepSeek'
 export * from './GoogleGenerativeAI'
 export * from './Groq'
 export * from './Mistral'
