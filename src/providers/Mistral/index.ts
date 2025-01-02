@@ -278,23 +278,6 @@ export class Mistral extends Provider {
             price: {input: 0.0000002500, output: 0.0000002500},
         },
         {
-            id: `${this.id}/open-mistral-7b`,
-            name: 'Mistral (7B)',
-            description: `Official open-mistral-7b Mistral AI model`,
-            architecture: 'MistralForCausalLM',
-            capabilities: {
-                embedding: false,
-                tool_call: true,
-                rerank: false,
-                features: [],
-                size: {vocab: 32000, embedding: 4096, input: 32768, output: 0},
-                text: {input: true, output: true},
-                image: {input: false, output: false},
-                audio: {input: false, output: false},
-                video: {input: false, output: false},
-            },
-            price: {input: 0.0000002500, output: 0.0000002500},
-        }, {
             id: `${this.id}/mistral-embed`,
             name: 'Mistral Embed',
             description: `State-of-the-art semantic for extracting representation of text extracts.`,
@@ -316,6 +299,7 @@ export class Mistral extends Provider {
     default = {
         apiURL: 'https://api.mistral.ai/v1',
         pricingURL: 'https://mistral.ai/technology',
+        manageAPIKeysURL: 'https://console.mistral.ai/api-keys/',
         model: 'open-mistral-7b',
     };
 

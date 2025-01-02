@@ -5,7 +5,7 @@ import {CohereProvider, createCohere} from '@ai-sdk/cohere';
 export class Cohere extends Provider {
     id = 'cohere';
     name = 'Cohere';
-    description = `Cohere is an AI platform for natural language processing that offers powerful language models for text generation and understanding.`;
+    description = `Cohere is the leading AI platform for enterprise. Augment your workforce, automate workflows, and enrich customer experiences with secure and scalable AI.`;
     models = [
         {
             id: `${this.id}/command`,
@@ -153,7 +153,7 @@ export class Cohere extends Provider {
         },
         {
             id: `${this.id}/embed-english-v3.0`,
-            name: 'Embed English v3.0',
+            name: 'English v3.0',
             description: `A model that allows for text to be classified or turned into embeddings. English only.`,
             architecture: '',
             capabilities: {
@@ -170,26 +170,8 @@ export class Cohere extends Provider {
             price: {input: 0.0000001000, output: 0.0000000000},
         },
         {
-            id: `${this.id}/embed-english-v3.0-image`,
-            name: 'Embed English v3.0 Image',
-            description: `A model that allows for text and images to be classified or turned into embeddings. English only.`,
-            architecture: '',
-            capabilities: {
-                embedding: true,
-                tool_call: false,
-                rerank: false,
-                features: [],
-                size: {vocab: 0, embedding: 1024, input: 512, output: 0},
-                text: {input: false, output: false},
-                image: {input: true, output: false},
-                audio: {input: false, output: false},
-                video: {input: false, output: false},
-            },
-            price: {input: 0.0001000000, output: 0.0000000000},
-        },
-        {
             id: `${this.id}/embed-english-light-v3.0`,
-            name: 'Embed English Light v3.0',
+            name: 'English Light v3.0',
             description: `A smaller, faster version of embed-english-v3.0. Almost as capable, but a lot faster. English only.`,
             architecture: '',
             capabilities: {
@@ -203,29 +185,11 @@ export class Cohere extends Provider {
                 audio: {input: false, output: false},
                 video: {input: false, output: false},
             },
-            price: {input: 0.0000000000, output: 0.0000000000},
-        },
-        {
-            id: `${this.id}/embed-english-light-v3.0-image`,
-            name: 'Embed English Light v3.0 Image',
-            description: `A smaller, faster version of embed-english-v3.0. Almost as capable, but a lot faster. English only.`,
-            architecture: '',
-            capabilities: {
-                embedding: true,
-                tool_call: false,
-                rerank: false,
-                features: [],
-                size: {vocab: 0, embedding: 384, input: 512, output: 0},
-                text: {input: false, output: false},
-                image: {input: true, output: false},
-                audio: {input: false, output: false},
-                video: {input: false, output: false},
-            },
-            price: {input: 0.0000000000, output: 0.0000000000},
+            price: {input: 0.0000001000, output: 0.0000000000},
         },
         {
             id: `${this.id}/embed-english-v2.0`,
-            name: 'Embed English v2.0',
+            name: 'English v2.0',
             description: `Allows for text to be classified or turned into embeddings. English only.`,
             architecture: '',
             capabilities: {
@@ -243,7 +207,7 @@ export class Cohere extends Provider {
         },
         {
             id: `${this.id}/embed-english-light-v2.0`,
-            name: 'Embed English Light v2.0',
+            name: 'English Light v2.0',
             description: `A smaller, faster version of embed-english-v2.0. Almost as capable, but a lot faster. English only.`,
             architecture: '',
             capabilities: {
@@ -261,7 +225,7 @@ export class Cohere extends Provider {
         },
         {
             id: `${this.id}/embed-multilingual-v3.0`,
-            name: 'Embed Multilingual v3.0',
+            name: 'Multilingual v3.0',
             description: `Provides multilingual classification and embedding support.`,
             architecture: '',
             capabilities: {
@@ -278,26 +242,8 @@ export class Cohere extends Provider {
             price: {input: 0.0000001000, output: 0.0000000000},
         },
         {
-            id: `${this.id}/embed-multilingual-v3.0-image`,
-            name: 'Embed Multilingual v3.0 Image',
-            description: `Provides multilingual classification and embedding support.`,
-            architecture: '',
-            capabilities: {
-                embedding: true,
-                tool_call: false,
-                rerank: false,
-                features: [],
-                size: {vocab: 0, embedding: 1024, input: 512, output: 0},
-                text: {input: false, output: false},
-                image: {input: true, output: false},
-                audio: {input: false, output: false},
-                video: {input: false, output: false},
-            },
-            price: {input: 0.0001000000, output: 0.0000000000},
-        },
-        {
             id: `${this.id}/embed-multilingual-light-v3.0`,
-            name: 'Embed Multilingual Light v3.0',
+            name: 'Multilingual Light v3.0',
             description: `A smaller, faster version of embed-multilingual-v3.0. Almost as capable, but a lot faster.`,
             architecture: '',
             capabilities: {
@@ -311,29 +257,11 @@ export class Cohere extends Provider {
                 audio: {input: false, output: false},
                 video: {input: false, output: false},
             },
-            price: {input: 0.0000000000, output: 0.0000000000},
-        },
-        {
-            id: `${this.id}/embed-multilingual-light-v3.0-image`,
-            name: 'Embed Multilingual Light v3.0 Image',
-            description: `A smaller, faster version of embed-multilingual-v3.0. Almost as capable, but a lot faster.`,
-            architecture: '',
-            capabilities: {
-                embedding: true,
-                tool_call: false,
-                rerank: false,
-                features: [],
-                size: {vocab: 0, embedding: 384, input: 512, output: 0},
-                text: {input: false, output: false},
-                image: {input: true, output: false},
-                audio: {input: false, output: false},
-                video: {input: false, output: false},
-            },
-            price: {input: 0.0000000000, output: 0.0000000000},
+            price: {input: 0.0000001000, output: 0.0000000000},
         },
         {
             id: `${this.id}/embed-multilingual-v2.0`,
-            name: 'Embed Multilingual v2.0',
+            name: 'Multilingual v2.0',
             description: `Provides multilingual classification and embedding support.`,
             architecture: '',
             capabilities: {
@@ -353,6 +281,7 @@ export class Cohere extends Provider {
     default = {
         apiURL: 'https://api.cohere.ai/v2',
         pricingURL: 'https://cohere.com/pricing',
+        manageAPIKeysURL: 'https://dashboard.cohere.com/api-keys',
         model: 'c4ai-aya-expanse-32b',
     };
 

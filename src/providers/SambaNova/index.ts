@@ -5,7 +5,7 @@ import {createOpenAI, OpenAIProvider} from "@ai-sdk/openai";
 export class SambaNova extends Provider {
     id = 'sambanova';
     name = 'SambaNova';
-    description = `Sambanova is an AI platform for natural language processing that offers advanced models for text generation and understanding.`;
+    description = `SambaNova is a leading enterprise AI company specializing in advanced AI platforms.`;
     models = [
         {
             id: `${this.id}/Qwen2.5-Coder-32B-Instruct`,
@@ -191,6 +191,7 @@ export class SambaNova extends Provider {
     default = {
         apiURL: 'https://api.sambanova.ai/v1',
         pricingURL: 'https://cloud.sambanova.ai/pricing',
+        manageAPIKeysURL: 'https://cloud.sambanova.ai/apis',
         model: `Llama-3.2-1B-Instruct`,
     };
 

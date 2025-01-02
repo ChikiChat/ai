@@ -5,7 +5,7 @@ import {createGroq, GroqProvider} from "@ai-sdk/groq";
 export class Groq extends Provider {
     id = 'groq';
     name = 'Groq';
-    description = `Groq AI API provides access to advanced models for text generation and understanding.`;
+    description = `The LPU™ Inference Engine by Groq is a hardware and software platform that delivers exceptional compute speed, quality, and energy efficiency.`;
     models = [
         {
             id: `${this.id}/llama-3.3-70b-specdec`,
@@ -299,6 +299,7 @@ export class Groq extends Provider {
     default = {
         apiURL: 'https://api.groq.com/openai/v1',
         pricingURL: 'https://groq.com/pricing',
+        manageAPIKeysURL: 'https://console.groq.com/keys',
         model: 'llama-3.1-8b-instant',
     };
 

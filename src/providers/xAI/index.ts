@@ -5,7 +5,7 @@ import {createXai, XaiProvider} from "@ai-sdk/xai";
 export class xAI extends Provider {
     id = 'xai';
     name = 'xAI';
-    description = `xAI is a grok model provider.`;
+    description = `xAI is an AI company with the mission of advancing scientific discovery and gaining a deeper understanding of our universe.`;
     models = [
         {
             id: `${this.id}/grok-2-1212`,
@@ -83,6 +83,7 @@ export class xAI extends Provider {
     default = {
         apiURL: 'https://api.x.ai/v1',
         pricingURL: 'https://docs.x.ai/docs/models',
+        manageAPIKeysURL: 'https://console.x.ai/team',
         model: `grok-2-1212`,
     };
 
