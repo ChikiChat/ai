@@ -29,3 +29,6 @@ updates:
       - "priority/p2"
     schedule:
       interval: "weekly"
+    ignore:
+      - dependency-name: '@types/node'
+        versions: '>=18.0.0'
