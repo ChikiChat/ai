@@ -47,7 +47,7 @@ bun i @chikichat/ai
 - [x] AI21 Labs
 - [x] Anthropic
 - [x] Cohere
-- [ ] DeepSeek
+- [x] DeepSeek
 - [x] Google Generative AI
 - [x] Groq
 - [ ] Hugging Face

@@ -1,5 +1,16 @@
 import {Model, Provider, UsageModel} from "./types";
-import {AI21, Anthropic, Cohere, GoogleGenerativeAI, Groq, Mistral, OpenAI, SambaNova, xAI} from "./providers";
+import {
+    AI21,
+    Anthropic,
+    Cohere,
+    DeepSeek,
+    GoogleGenerativeAI,
+    Groq,
+    Mistral,
+    OpenAI,
+    SambaNova,
+    xAI
+} from "./providers";
 import {EmbeddingModel, EmbeddingModelUsage, LanguageModel, LanguageModelUsage} from "ai";
 
 export * from "./types";
@@ -12,6 +23,7 @@ export const providers: Array<Provider> = [
     new AI21(),
     new Anthropic(),
     new Cohere(),
+    new DeepSeek(),
     new GoogleGenerativeAI(),
     new Groq(),
     new Mistral(),
