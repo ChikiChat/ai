@@ -5,7 +5,7 @@ import {createOpenAI, OpenAIProvider} from "@ai-sdk/openai";
 export class OpenAI extends Provider {
     id = 'openai';
     name = 'OpenAI';
-    description = `OpenAI offers a suite of powerful AI models for various natural language processing tasks.`;
+    description = `Abstract painting with vibrant pink and red tones dominating the composition. Soft streaks of yellow. Safety & Alignment.`;
     models = [
         {
             id: `${this.id}/gpt-4o`,
@@ -245,6 +245,7 @@ export class OpenAI extends Provider {
     default = {
         apiURL: 'https://api.openai.com/v1',
         pricingURL: 'https://openai.com/api/pricing',
+        manageAPIKeysURL: 'https://platform.openai.com/api-keys',
         model: `gpt-3.5-turbo-0125`,
     };
 

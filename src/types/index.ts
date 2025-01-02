@@ -8,8 +8,9 @@ export abstract class Provider {
     abstract default: {
         apiURL: string;
         pricingURL: string;
+        manageAPIKeysURL: string;
         model: string;
-    }
+    };
 
     abstract languageModel(model: string, apiKey: string): LanguageModel;
 

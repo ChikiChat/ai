@@ -4,7 +4,7 @@ import {createOpenAI, OpenAIProvider} from "@ai-sdk/openai";
 
 export class AI21 extends Provider {
     id = 'ai21';
-    name = 'AI21';
+    name = 'AI21 Labs';
     description = `AI21 Labs builds Foundation Models and AI Systems for the enterprise that accelerate the use of GenAI in production.`;
     models = [
         {
@@ -47,6 +47,7 @@ export class AI21 extends Provider {
     default = {
         apiURL: 'https://api.ai21.com/studio/v1',
         pricingURL: 'https://www.ai21.com/pricing',
+        manageAPIKeysURL: 'https://studio.ai21.com/v2/account/api-key',
         model: 'jamba-1.5-mini',
     };
 

@@ -5,7 +5,7 @@ import {AnthropicProvider, createAnthropic} from '@ai-sdk/anthropic';
 export class Anthropic extends Provider {
     id = 'anthropic';
     name = 'Anthropic';
-    description = `Anthropic is an AI safety and research company based in San Francisco. Our interdisciplinary team has experience across ML, physics, policy, and product. Together, we generate research and create reliable, beneficial AI systems.`;
+    description = `Anthropic is an AI safety and research company that's working to build reliable, interpretable, and steerable AI systems.`;
     models = [
         {
             id: `${this.id}/claude-3-5-sonnet-20241022`,
@@ -101,6 +101,7 @@ export class Anthropic extends Provider {
     default = {
         apiURL: 'https://api.anthropic.com/v1',
         pricingURL: 'https://www.anthropic.com/pricing',
+        manageAPIKeysURL: 'https://console.anthropic.com/settings/keys',
         model: 'claude-3-haiku-20240307',
     };
 
