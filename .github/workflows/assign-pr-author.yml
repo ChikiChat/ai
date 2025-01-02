@@ -1,0 +1,15 @@
+name: Assign PR Author
+
+on:
+  pull_request:
+    types: [ opened, reopened ]
+
+permissions:
+  pull-requests: write
+
+jobs:
+  assign-author:
+    name: Assign PR Author
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: toshimaru/auto-author-assign@v2.1.1

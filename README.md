@@ -36,10 +36,10 @@ developers building AI-powered applications.
 
 ## Installation
 
-You will need Node.js 18+ and npm installed on your local development machine.
+You will need Bun or Node.js 18+ and pnpm installed on your local development machine.
 
 ```shell
-npm install @chikichat/ai
+bun i @chikichat/ai
 ```
 
 ## Providers
