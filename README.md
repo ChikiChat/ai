@@ -53,7 +53,7 @@ bun i @chikichat/ai
 - [ ] Hugging Face
 - [x] Mistral
 - [ ] Novita
-- [ ] Nvidia
+- [x] Nvidia
 - [x] OpenAI
 - [ ] OpenRouter AI
 - [ ] Perplexity

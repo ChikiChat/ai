@@ -7,6 +7,7 @@ import {
     GoogleGenerativeAI,
     Groq,
     Mistral,
+    Nvidia,
     OpenAI,
     SambaNova,
     xAI
@@ -27,6 +28,7 @@ export const providers: Array<Provider> = [
     new GoogleGenerativeAI(),
     new Groq(),
     new Mistral(),
+    new Nvidia(),
     new OpenAI(),
     new SambaNova(),
     new xAI(),

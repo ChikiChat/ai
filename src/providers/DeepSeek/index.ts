@@ -5,7 +5,7 @@ import {createOpenAI, OpenAIProvider} from "@ai-sdk/openai";
 export class DeepSeek extends Provider {
     id = 'deepseek';
     name = 'DeepSeek';
-    description = ``;
+    description = `DeepSeek, unravel the mystery of AGI with curiosity. Answer the essential question with long-termism.`;
     models = [
         {
             id: `${this.id}/deepseek-chat`,

@@ -17,7 +17,7 @@ export class GoogleGenerativeAI extends Provider {
                 tool_call: true,
                 rerank: false,
                 features: [],
-                size: {vocab: 0, embedding: 0, input: 1000000, output: 8192},
+                size: {vocab: 0, embedding: 0, input: 1048576, output: 8192},
                 text: {input: true, output: true},
                 image: {input: true, output: false},
                 audio: {input: true, output: false},
