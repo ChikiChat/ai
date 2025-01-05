@@ -9,6 +9,7 @@ import {
     Mistral,
     Nvidia,
     OpenAI,
+    OpenRouter,
     SambaNova,
     xAI
 } from "./providers";
@@ -30,6 +31,7 @@ export const providers: Array<Provider> = [
     new Mistral(),
     new Nvidia(),
     new OpenAI(),
+    new OpenRouter(),
     new SambaNova(),
     new xAI(),
 ];

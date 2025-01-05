@@ -55,7 +55,7 @@ bun i @chikichat/ai
 - [ ] Novita
 - [x] Nvidia
 - [x] OpenAI
-- [ ] OpenRouter AI
+- [x] OpenRouter AI
 - [ ] Perplexity
 - [ ] Qwen
 - [x] SambaNova
