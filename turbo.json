@@ -1,0 +1,71 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "globalEnv": [
+    "CI",
+    "PORT"
+  ],
+  "tasks": {
+    "build": {
+      "dependsOn": [
+        "^build"
+      ],
+      "env": [
+        "AI21_API_KEY",
+        "ANTHROPIC_API_KEY",
+        "COHERE_API_KEY",
+        "DEEPSEEK_API_KEY",
+        "GOOGLE_GENERATIVE_AI_API_KEY",
+        "GROQ_API_KEY",
+        "MISTRAL_API_KEY",
+        "NODE_ENV",
+        "NVIDIA_API_KEY",
+        "OPENAI_API_KEY",
+        "OPENROUTER_API_KEY",
+        "SAMBANOVA_API_KEY",
+        "XAI_API_KEY"
+      ],
+      "outputs": [
+        "dist/**"
+      ]
+    },
+    "lint": {
+      "dependsOn": [
+        "^lint"
+      ]
+    },
+    "type-check": {
+      "dependsOn": [
+        "^build",
+        "build"
+      ]
+    },
+    "test": {
+      "dependsOn": [
+        "^build",
+        "build"
+      ]
+    },
+    "publint": {
+      "dependsOn": [
+        "^build",
+        "build"
+      ]
+    },
+    "clean": {
+      "dependsOn": [
+        "^clean"
+      ]
+    },
+    "dev": {
+      "cache": false,
+      "persistent": true
+    },
+    "prettier-check": {},
+    "integration-test": {
+      "dependsOn": [
+        "^build",
+        "build"
+      ]
+    }
+  }
+}

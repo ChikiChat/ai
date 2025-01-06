@@ -1,6 +1,8 @@
 .DS_Store
-dist
-node_modules
-
+.turbo
+.husky
 .vscode
 .idea
+
+dist
+node_modules

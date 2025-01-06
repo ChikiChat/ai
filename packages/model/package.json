@@ -1,0 +1,52 @@
+{
+  "name": "@chikichat/model",
+  "description": "",
+  "version": "0.0.0",
+  "license": "Apache-2.0",
+  "author": "Leliuga",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist/**/*"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "build:watch": "tsup --watch",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "@ai-sdk/anthropic": "^1.0.6",
+    "@ai-sdk/cohere": "^1.0.6",
+    "@ai-sdk/google": "^1.0.12",
+    "@ai-sdk/groq": "^1.0.9",
+    "@ai-sdk/mistral": "^1.0.6",
+    "@ai-sdk/openai": "^1.0.11",
+    "@ai-sdk/xai": "^1.0.14",
+    "ai": "^4.0.22"
+  },
+  "devDependencies": {
+    "@types/node": "^18",
+    "tsup": "^8.3.5",
+    "typescript": "^5.7.2"
+  },
+  "engines": {
+    "node": "^18.0.0 || ^20.0.0 || ^22.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ChikiChat/ai.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ChikiChat/ai/issues"
+  },
+  "keywords": [
+    "ai",
+    "llm",
+    "chiki",
+    "providers"
+  ]
+}
