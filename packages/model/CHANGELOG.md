@@ -1,5 +1,11 @@
 # AI SDK (model) 👋
 
+## 1.0.1
+
+### Patch Changes
+
+- aa04daf: chore (models): update tool call supporting
+
 ## 1.0.0
 
 ### Major Changes
