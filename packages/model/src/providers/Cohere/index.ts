@@ -14,7 +14,7 @@ export class Cohere extends Provider {
             architecture: 'CohereForCausalLM',
             capabilities: {
                 embedding: false,
-                tool_call: true,
+                tool_call: false,
                 rerank: false,
                 features: [],
                 size: {vocab: 0, embedding: 0, input: 4096, output: 4096},
@@ -32,7 +32,7 @@ export class Cohere extends Provider {
             architecture: 'CohereForCausalLM',
             capabilities: {
                 embedding: false,
-                tool_call: true,
+                tool_call: false,
                 rerank: false,
                 features: [],
                 size: {vocab: 0, embedding: 0, input: 4096, output: 4096},
@@ -122,7 +122,7 @@ export class Cohere extends Provider {
             architecture: 'CohereForCausalLM',
             capabilities: {
                 embedding: false,
-                tool_call: true,
+                tool_call: false,
                 rerank: false,
                 features: [],
                 size: {vocab: 256000, embedding: 4096, input: 8192, output: 4096},
@@ -140,7 +140,7 @@ export class Cohere extends Provider {
             architecture: 'CohereForCausalLM',
             capabilities: {
                 embedding: false,
-                tool_call: true,
+                tool_call: false,
                 rerank: false,
                 features: [],
                 size: {vocab: 256000, embedding: 8192, input: 8192, output: 4096},

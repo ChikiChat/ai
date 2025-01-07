@@ -14,7 +14,7 @@ export class AI21 extends Provider {
             architecture: 'JambaForCausalLM',
             capabilities: {
                 embedding: false,
-                tool_call: true,
+                tool_call: false,
                 rerank: false,
                 features: [],
                 size: {vocab: 65536, embedding: 8192, input: 262144, output: 4096},
@@ -32,7 +32,7 @@ export class AI21 extends Provider {
             architecture: 'JambaForCausalLM',
             capabilities: {
                 embedding: false,
-                tool_call: true,
+                tool_call: false,
                 rerank: false,
                 features: [],
                 size: {vocab: 65536, embedding: 8192, input: 262144, output: 4096},
