@@ -248,7 +248,7 @@ export class Groq extends Provider {
             architecture: '',
             capabilities: {
                 embedding: false,
-                tool_call: true,
+                tool_call: false,
                 rerank: false,
                 features: [],
                 size: {vocab: 128256, embedding: 4096, input: 8192, output: 8192},

@@ -8,42 +8,6 @@ export class Mistral extends Provider {
     description = `Mistrals models provide cutting-edge generative capabilities for a variety of use cases.`;
     models = [
         {
-            id: `${this.id}/mistral-moderation-latest`,
-            name: 'Mistral Moderation Latest',
-            description: `Official mistral-moderation-2411 Mistral AI model`,
-            architecture: '',
-            capabilities: {
-                embedding: false,
-                tool_call: false,
-                rerank: false,
-                features: [],
-                size: {vocab: 0, embedding: 0, input: 32768, output: 0},
-                text: {input: true, output: true},
-                image: {input: false, output: false},
-                audio: {input: false, output: false},
-                video: {input: false, output: false},
-            },
-            price: {input: 0.0000001000, output: 0.0000000000},
-        },
-        {
-            id: `${this.id}/mistral-moderation-2411`,
-            name: 'Mistral Moderation',
-            description: `Official mistral-moderation-2411 Mistral AI model`,
-            architecture: '',
-            capabilities: {
-                embedding: false,
-                tool_call: false,
-                rerank: false,
-                features: [],
-                size: {vocab: 0, embedding: 0, input: 32768, output: 0},
-                text: {input: true, output: true},
-                image: {input: false, output: false},
-                audio: {input: false, output: false},
-                video: {input: false, output: false},
-            },
-            price: {input: 0.0000001000, output: 0.0000000000},
-        },
-        {
             id: `${this.id}/mistral-large-2411`,
             name: 'Mistral Large',
             description: `Official mistral-large-2411 Mistral AI model`,

@@ -14,7 +14,7 @@ export class SambaNova extends Provider {
             architecture: 'Qwen2ForCausalLM',
             capabilities: {
                 embedding: false,
-                tool_call: true,
+                tool_call: false,
                 rerank: false,
                 features: [],
                 size: {vocab: 152064, embedding: 5120, input: 8192, output: 1600},
@@ -32,7 +32,7 @@ export class SambaNova extends Provider {
             architecture: 'Qwen2ForCausalLM',
             capabilities: {
                 embedding: false,
-                tool_call: true,
+                tool_call: false,
                 rerank: false,
                 features: [],
                 size: {vocab: 152064, embedding: 8192, input: 8192, output: 1600},

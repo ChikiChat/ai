@@ -14,7 +14,7 @@ export class OpenRouter extends Provider {
             architecture: 'Qwen2VLForConditionalGeneration',
             capabilities: {
                 embedding: false,
-                tool_call: true,
+                tool_call: false,
                 rerank: false,
                 features: [],
                 size: {vocab: 152064, embedding: 8192, input: 128000, output: 0},
@@ -32,7 +32,7 @@ export class OpenRouter extends Provider {
             architecture: 'LlamaForCausalLM',
             capabilities: {
                 embedding: false,
-                tool_call: true,
+                tool_call: false,
                 rerank: false,
                 features: [],
                 size: {vocab: 128256, embedding: 8192, input: 16384, output: 0},
@@ -50,7 +50,7 @@ export class OpenRouter extends Provider {
             architecture: 'MistralForCausalLM',
             capabilities: {
                 embedding: false,
-                tool_call: true,
+                tool_call: false,
                 rerank: false,
                 features: [],
                 size: {vocab: 131072, embedding: 5120, input: 16000, output: 0},
@@ -68,7 +68,7 @@ export class OpenRouter extends Provider {
             architecture: 'LlamaForCausalLM',
             capabilities: {
                 embedding: false,
-                tool_call: true,
+                tool_call: false,
                 rerank: false,
                 features: [],
                 size: {vocab: 128256, embedding: 8192, input: 16384, output: 0},
@@ -86,7 +86,7 @@ export class OpenRouter extends Provider {
             architecture: 'LlamaForCausalLM',
             capabilities: {
                 embedding: false,
-                tool_call: true,
+                tool_call: false,
                 rerank: false,
                 features: [],
                 size: {vocab: 128256, embedding: 8192, input: 131072, output: 0},
@@ -104,7 +104,7 @@ export class OpenRouter extends Provider {
             architecture: 'Qwen2ForCausalLM',
             capabilities: {
                 embedding: false,
-                tool_call: true,
+                tool_call: false,
                 rerank: false,
                 features: [],
                 size: {vocab: 152064, embedding: 5120, input: 32768, output: 0},
@@ -122,7 +122,7 @@ export class OpenRouter extends Provider {
             architecture: 'Qwen2ForCausalLM',
             capabilities: {
                 embedding: false,
-                tool_call: true,
+                tool_call: false,
                 rerank: false,
                 features: [],
                 size: {vocab: 152064, embedding: 8192, input: 16384, output: 0},
@@ -140,7 +140,7 @@ export class OpenRouter extends Provider {
             architecture: 'MistralForCausalLM',
             capabilities: {
                 embedding: false,
-                tool_call: true,
+                tool_call: false,
                 rerank: false,
                 features: [],
                 size: {vocab: 131072, embedding: 5120, input: 32000, output: 0},
@@ -158,7 +158,7 @@ export class OpenRouter extends Provider {
             architecture: 'Qwen2ForCausalLM',
             capabilities: {
                 embedding: false,
-                tool_call: true,
+                tool_call: false,
                 rerank: false,
                 features: [],
                 size: {vocab: 152064, embedding: 5120, input: 33000, output: 0},
@@ -176,7 +176,7 @@ export class OpenRouter extends Provider {
             architecture: 'MixtralForCausalLM',
             capabilities: {
                 embedding: false,
-                tool_call: true,
+                tool_call: false,
                 rerank: false,
                 features: [],
                 size: {vocab: 32000, embedding: 6144, input: 16000, output: 0},
@@ -194,7 +194,7 @@ export class OpenRouter extends Provider {
             architecture: 'Qwen2ForCausalLM',
             capabilities: {
                 embedding: false,
-                tool_call: true,
+                tool_call: false,
                 rerank: false,
                 features: [],
                 size: {vocab: 152064, embedding: 5120, input: 16384, output: 0},
@@ -212,7 +212,7 @@ export class OpenRouter extends Provider {
             architecture: 'MistralForCausalLM',
             capabilities: {
                 embedding: false,
-                tool_call: true,
+                tool_call: false,
                 rerank: false,
                 features: [],
                 size: {vocab: 131072, embedding: 5120, input: 32000, output: 0},
@@ -230,7 +230,7 @@ export class OpenRouter extends Provider {
             architecture: 'Qwen2ForCausalLM',
             capabilities: {
                 embedding: false,
-                tool_call: true,
+                tool_call: false,
                 rerank: false,
                 features: [],
                 size: {vocab: 152064, embedding: 8192, input: 16384, output: 0},
@@ -248,7 +248,7 @@ export class OpenRouter extends Provider {
             architecture: 'Qwen2ForCausalLM',
             capabilities: {
                 embedding: false,
-                tool_call: true,
+                tool_call: false,
                 rerank: false,
                 features: [],
                 size: {vocab: 152064, embedding: 3584, input: 32768, output: 0},
@@ -266,7 +266,7 @@ export class OpenRouter extends Provider {
             architecture: 'LlamaForCausalLM',
             capabilities: {
                 embedding: false,
-                tool_call: true,
+                tool_call: false,
                 rerank: false,
                 features: [],
                 size: {vocab: 128256, embedding: 8192, input: 131000, output: 0},
@@ -284,7 +284,7 @@ export class OpenRouter extends Provider {
             architecture: 'Qwen2ForCausalLM',
             capabilities: {
                 embedding: false,
-                tool_call: true,
+                tool_call: false,
                 rerank: false,
                 features: [],
                 size: {vocab: 152064, embedding: 8192, input: 32768, output: 0},
@@ -302,7 +302,7 @@ export class OpenRouter extends Provider {
             architecture: 'MistralForCausalLM',
             capabilities: {
                 embedding: false,
-                tool_call: true,
+                tool_call: false,
                 rerank: false,
                 features: [],
                 size: {vocab: 131072, embedding: 5120, input: 32768, output: 0},
@@ -320,7 +320,7 @@ export class OpenRouter extends Provider {
             architecture: 'LlamaForCausalLM',
             capabilities: {
                 embedding: false,
-                tool_call: true,
+                tool_call: false,
                 rerank: false,
                 features: [],
                 size: {vocab: 128256, embedding: 3072, input: 4096, output: 0},
@@ -338,7 +338,7 @@ export class OpenRouter extends Provider {
             architecture: 'LlamaForCausalLM',
             capabilities: {
                 embedding: false,
-                tool_call: true,
+                tool_call: false,
                 rerank: false,
                 features: [],
                 size: {vocab: 128256, embedding: 3072, input: 131000, output: 0},
@@ -356,7 +356,7 @@ export class OpenRouter extends Provider {
             architecture: 'LlamaForCausalLM',
             capabilities: {
                 embedding: false,
-                tool_call: true,
+                tool_call: false,
                 rerank: false,
                 features: [],
                 size: {vocab: 128256, embedding: 2048, input: 4096, output: 0},
@@ -374,7 +374,7 @@ export class OpenRouter extends Provider {
             architecture: 'LlamaForCausalLM',
             capabilities: {
                 embedding: false,
-                tool_call: true,
+                tool_call: false,
                 rerank: false,
                 features: [],
                 size: {vocab: 128256, embedding: 2048, input: 131072, output: 0},
@@ -392,7 +392,7 @@ export class OpenRouter extends Provider {
             architecture: 'Qwen2ForCausalLM',
             capabilities: {
                 embedding: false,
-                tool_call: true,
+                tool_call: false,
                 rerank: false,
                 features: [],
                 size: {vocab: 152064, embedding: 8192, input: 32000, output: 0},
@@ -410,7 +410,7 @@ export class OpenRouter extends Provider {
             architecture: 'Qwen2VLForConditionalGeneration',
             capabilities: {
                 embedding: false,
-                tool_call: true,
+                tool_call: false,
                 rerank: false,
                 features: [],
                 size: {vocab: 152064, embedding: 8192, input: 4096, output: 0},
@@ -428,7 +428,7 @@ export class OpenRouter extends Provider {
             architecture: 'Qwen2VLForConditionalGeneration',
             capabilities: {
                 embedding: false,
-                tool_call: true,
+                tool_call: false,
                 rerank: false,
                 features: [],
                 size: {vocab: 152064, embedding: 3584, input: 4096, output: 0},
@@ -446,7 +446,7 @@ export class OpenRouter extends Provider {
             architecture: 'LlamaForCausalLM',
             capabilities: {
                 embedding: false,
-                tool_call: true,
+                tool_call: false,
                 rerank: false,
                 features: [],
                 size: {vocab: 128256, embedding: 8192, input: 128000, output: 0},
@@ -464,7 +464,7 @@ export class OpenRouter extends Provider {
             architecture: 'JambaForCausalLM',
             capabilities: {
                 embedding: false,
-                tool_call: true,
+                tool_call: false,
                 rerank: false,
                 features: [],
                 size: {vocab: 65536, embedding: 8192, input: 256000, output: 0},
@@ -482,7 +482,7 @@ export class OpenRouter extends Provider {
             architecture: 'JambaForCausalLM',
             capabilities: {
                 embedding: false,
-                tool_call: true,
+                tool_call: false,
                 rerank: false,
                 features: [],
                 size: {vocab: 65536, embedding: 4096, input: 256000, output: 0},
@@ -500,7 +500,7 @@ export class OpenRouter extends Provider {
             architecture: 'Phi3ForCausalLM',
             capabilities: {
                 embedding: false,
-                tool_call: true,
+                tool_call: false,
                 rerank: false,
                 features: [],
                 size: {vocab: 32064, embedding: 3072, input: 128000, output: 0},
@@ -518,7 +518,7 @@ export class OpenRouter extends Provider {
             architecture: 'LlamaForCausalLM',
             capabilities: {
                 embedding: false,
-                tool_call: true,
+                tool_call: false,
                 rerank: false,
                 features: [],
                 size: {vocab: 128256, embedding: 8192, input: 131000, output: 0},
@@ -536,7 +536,7 @@ export class OpenRouter extends Provider {
             architecture: 'LlamaForCausalLM',
             capabilities: {
                 embedding: false,
-                tool_call: true,
+                tool_call: false,
                 rerank: false,
                 features: [],
                 size: {vocab: 128256, embedding: 16384, input: 131072, output: 0},
@@ -554,7 +554,7 @@ export class OpenRouter extends Provider {
             architecture: 'LlamaForCausalLM',
             capabilities: {
                 embedding: false,
-                tool_call: true,
+                tool_call: false,
                 rerank: false,
                 features: [],
                 size: {vocab: 128256, embedding: 4096, input: 8192, output: 0},
@@ -572,7 +572,7 @@ export class OpenRouter extends Provider {
             architecture: 'LlamaForCausalLM',
             capabilities: {
                 embedding: false,
-                tool_call: true,
+                tool_call: false,
                 rerank: false,
                 features: [],
                 size: {vocab: 128256, embedding: 16384, input: 32768, output: 0},
@@ -590,7 +590,7 @@ export class OpenRouter extends Provider {
             architecture: 'MistralForCausalLM',
             capabilities: {
                 embedding: false,
-                tool_call: true,
+                tool_call: false,
                 rerank: false,
                 features: [],
                 size: {vocab: 131072, embedding: 5120, input: 16384, output: 0},
@@ -608,7 +608,7 @@ export class OpenRouter extends Provider {
             architecture: 'LlamaForCausalLM',
             capabilities: {
                 embedding: false,
-                tool_call: true,
+                tool_call: false,
                 rerank: false,
                 features: [],
                 size: {vocab: 128256, embedding: 16384, input: 8000, output: 0},
@@ -626,7 +626,7 @@ export class OpenRouter extends Provider {
             architecture: 'LlamaForCausalLM',
             capabilities: {
                 embedding: false,
-                tool_call: true,
+                tool_call: false,
                 rerank: false,
                 features: [],
                 size: {vocab: 128256, embedding: 16384, input: 32000, output: 0},
@@ -644,7 +644,7 @@ export class OpenRouter extends Provider {
             architecture: 'LlamaForCausalLM',
             capabilities: {
                 embedding: false,
-                tool_call: true,
+                tool_call: false,
                 rerank: false,
                 features: [],
                 size: {vocab: 128256, embedding: 4096, input: 8192, output: 0},
@@ -662,7 +662,7 @@ export class OpenRouter extends Provider {
             architecture: 'LlamaForCausalLM',
             capabilities: {
                 embedding: false,
-                tool_call: true,
+                tool_call: false,
                 rerank: false,
                 features: [],
                 size: {vocab: 128256, embedding: 4096, input: 131072, output: 0},
@@ -680,7 +680,7 @@ export class OpenRouter extends Provider {
             architecture: 'LlamaForCausalLM',
             capabilities: {
                 embedding: false,
-                tool_call: true,
+                tool_call: false,
                 rerank: false,
                 features: [],
                 size: {vocab: 128256, embedding: 8192, input: 8192, output: 0},
@@ -698,7 +698,7 @@ export class OpenRouter extends Provider {
             architecture: 'LlamaForCausalLM',
             capabilities: {
                 embedding: false,
-                tool_call: true,
+                tool_call: false,
                 rerank: false,
                 features: [],
                 size: {vocab: 128256, embedding: 8192, input: 131072, output: 0},
@@ -716,7 +716,7 @@ export class OpenRouter extends Provider {
             architecture: 'Qwen2ForCausalLM',
             capabilities: {
                 embedding: false,
-                tool_call: true,
+                tool_call: false,
                 rerank: false,
                 features: [],
                 size: {vocab: 152064, embedding: 3584, input: 8192, output: 0},
@@ -734,7 +734,7 @@ export class OpenRouter extends Provider {
             architecture: 'Qwen2ForCausalLM',
             capabilities: {
                 embedding: false,
-                tool_call: true,
+                tool_call: false,
                 rerank: false,
                 features: [],
                 size: {vocab: 152064, embedding: 3584, input: 32768, output: 0},
@@ -752,7 +752,7 @@ export class OpenRouter extends Provider {
             architecture: 'LlamaForCausalLM',
             capabilities: {
                 embedding: false,
-                tool_call: true,
+                tool_call: false,
                 rerank: false,
                 features: [],
                 size: {vocab: 128256, embedding: 8192, input: 8192, output: 0},
@@ -770,7 +770,7 @@ export class OpenRouter extends Provider {
             architecture: 'MixtralForCausalLM',
             capabilities: {
                 embedding: false,
-                tool_call: true,
+                tool_call: false,
                 rerank: false,
                 features: [],
                 size: {vocab: 32002, embedding: 6144, input: 16000, output: 0},
@@ -788,7 +788,7 @@ export class OpenRouter extends Provider {
             architecture: 'Qwen2ForCausalLM',
             capabilities: {
                 embedding: false,
-                tool_call: true,
+                tool_call: false,
                 rerank: false,
                 features: [],
                 size: {vocab: 152064, embedding: 8192, input: 32768, output: 0},
@@ -806,7 +806,7 @@ export class OpenRouter extends Provider {
             architecture: 'LlamaForCausalLM',
             capabilities: {
                 embedding: false,
-                tool_call: true,
+                tool_call: false,
                 rerank: false,
                 features: [],
                 size: {vocab: 128288, embedding: 4096, input: 131000, output: 0},
@@ -824,7 +824,7 @@ export class OpenRouter extends Provider {
             architecture: 'Phi3ForCausalLM',
             capabilities: {
                 embedding: false,
-                tool_call: true,
+                tool_call: false,
                 rerank: false,
                 features: [],
                 size: {vocab: 32064, embedding: 3072, input: 8192, output: 0},
@@ -842,7 +842,7 @@ export class OpenRouter extends Provider {
             architecture: 'Phi3ForCausalLM',
             capabilities: {
                 embedding: false,
-                tool_call: true,
+                tool_call: false,
                 rerank: false,
                 features: [],
                 size: {vocab: 32064, embedding: 3072, input: 128000, output: 0},
@@ -860,7 +860,7 @@ export class OpenRouter extends Provider {
             architecture: 'Phi3ForCausalLM',
             capabilities: {
                 embedding: false,
-                tool_call: true,
+                tool_call: false,
                 rerank: false,
                 features: [],
                 size: {vocab: 32064, embedding: 5120, input: 8192, output: 0},
@@ -878,7 +878,7 @@ export class OpenRouter extends Provider {
             architecture: 'Phi3ForCausalLM',
             capabilities: {
                 embedding: false,
-                tool_call: true,
+                tool_call: false,
                 rerank: false,
                 features: [],
                 size: {vocab: 32064, embedding: 5120, input: 128000, output: 0},
@@ -896,7 +896,7 @@ export class OpenRouter extends Provider {
             architecture: 'LlamaForCausalLM',
             capabilities: {
                 embedding: false,
-                tool_call: true,
+                tool_call: false,
                 rerank: false,
                 features: [],
                 size: {vocab: 128256, embedding: 8192, input: 8192, output: 0},
@@ -914,7 +914,7 @@ export class OpenRouter extends Provider {
             architecture: 'LlamaForCausalLM',
             capabilities: {
                 embedding: false,
-                tool_call: true,
+                tool_call: false,
                 rerank: false,
                 features: [],
                 size: {vocab: 128256, embedding: 4096, input: 8192, output: 0},
@@ -932,7 +932,7 @@ export class OpenRouter extends Provider {
             architecture: 'LlamaForCausalLM',
             capabilities: {
                 embedding: false,
-                tool_call: true,
+                tool_call: false,
                 rerank: false,
                 features: [],
                 size: {vocab: 128256, embedding: 4096, input: 24576, output: 0},
@@ -950,7 +950,7 @@ export class OpenRouter extends Provider {
             architecture: 'LlamaForCausalLM',
             capabilities: {
                 embedding: false,
-                tool_call: true,
+                tool_call: false,
                 rerank: false,
                 features: [],
                 size: {vocab: 128256, embedding: 4096, input: 8192, output: 0},
@@ -968,7 +968,7 @@ export class OpenRouter extends Provider {
             architecture: 'LlamaForCausalLM',
             capabilities: {
                 embedding: false,
-                tool_call: true,
+                tool_call: false,
                 rerank: false,
                 features: [],
                 size: {vocab: 128256, embedding: 8192, input: 8192, output: 0},
@@ -986,7 +986,7 @@ export class OpenRouter extends Provider {
             architecture: 'DbrxForCausalLM',
             capabilities: {
                 embedding: false,
-                tool_call: true,
+                tool_call: false,
                 rerank: false,
                 features: [],
                 size: {vocab: 100352, embedding: 0, input: 32768, output: 0},
@@ -1004,7 +1004,7 @@ export class OpenRouter extends Provider {
             architecture: 'LlamaForCausalLM',
             capabilities: {
                 embedding: false,
-                tool_call: true,
+                tool_call: false,
                 rerank: false,
                 features: [],
                 size: {vocab: 32000, embedding: 8192, input: 4096, output: 0},
@@ -1022,7 +1022,7 @@ export class OpenRouter extends Provider {
             architecture: 'MixtralForCausalLM',
             capabilities: {
                 embedding: false,
-                tool_call: true,
+                tool_call: false,
                 rerank: false,
                 features: [],
                 size: {vocab: 32002, embedding: 4096, input: 32768, output: 0},
@@ -1040,7 +1040,7 @@ export class OpenRouter extends Provider {
             architecture: 'MixtralForCausalLM',
             capabilities: {
                 embedding: false,
-                tool_call: true,
+                tool_call: false,
                 rerank: false,
                 features: [],
                 size: {vocab: 32002, embedding: 4096, input: 32768, output: 0},
@@ -1058,7 +1058,7 @@ export class OpenRouter extends Provider {
             architecture: 'LlamaForCausalLM',
             capabilities: {
                 embedding: false,
-                tool_call: true,
+                tool_call: false,
                 rerank: false,
                 features: [],
                 size: {vocab: 128256, embedding: 4096, input: 8192, output: 0},
@@ -1076,7 +1076,7 @@ export class OpenRouter extends Provider {
             architecture: 'LlamaForCausalLM',
             capabilities: {
                 embedding: false,
-                tool_call: true,
+                tool_call: false,
                 rerank: false,
                 features: [],
                 size: {vocab: 32000, embedding: 5120, input: 8192, output: 0},
@@ -1094,7 +1094,7 @@ export class OpenRouter extends Provider {
             architecture: 'MistralForCausalLM',
             capabilities: {
                 embedding: false,
-                tool_call: true,
+                tool_call: false,
                 rerank: false,
                 features: [],
                 size: {vocab: 32002, embedding: 4096, input: 4096, output: 0},
@@ -1112,7 +1112,7 @@ export class OpenRouter extends Provider {
             architecture: 'MistralForCausalLM',
             capabilities: {
                 embedding: false,
-                tool_call: true,
+                tool_call: false,
                 rerank: false,
                 features: [],
                 size: {vocab: 32000, embedding: 4096, input: 4096, output: 0},
@@ -1130,7 +1130,7 @@ export class OpenRouter extends Provider {
             architecture: 'LlamaForCausalLM',
             capabilities: {
                 embedding: false,
-                tool_call: true,
+                tool_call: false,
                 rerank: false,
                 features: [],
                 size: {vocab: 32000, embedding: 8192, input: 6144, output: 0},
@@ -1148,7 +1148,7 @@ export class OpenRouter extends Provider {
             architecture: 'LlamaForCausalLM',
             capabilities: {
                 embedding: false,
-                tool_call: true,
+                tool_call: false,
                 rerank: false,
                 features: [],
                 size: {vocab: 32000, embedding: 8192, input: 4096, output: 0},
@@ -1166,7 +1166,7 @@ export class OpenRouter extends Provider {
             architecture: 'LlamaForCausalLM',
             capabilities: {
                 embedding: false,
-                tool_call: true,
+                tool_call: false,
                 rerank: false,
                 features: [],
                 size: {vocab: 32000, embedding: 8192, input: 8192, output: 0},
@@ -1184,7 +1184,7 @@ export class OpenRouter extends Provider {
             architecture: 'LlamaForCausalLM',
             capabilities: {
                 embedding: false,
-                tool_call: true,
+                tool_call: false,
                 rerank: false,
                 features: [],
                 size: {vocab: 32000, embedding: 5120, input: 4096, output: 0},
@@ -1202,7 +1202,7 @@ export class OpenRouter extends Provider {
             architecture: 'LlamaForCausalLM',
             capabilities: {
                 embedding: false,
-                tool_call: true,
+                tool_call: false,
                 rerank: false,
                 features: [],
                 size: {vocab: 32032, embedding: 5120, input: 4096, output: 0},
@@ -1220,7 +1220,7 @@ export class OpenRouter extends Provider {
             architecture: 'MistralForCausalLM',
             capabilities: {
                 embedding: false,
-                tool_call: true,
+                tool_call: false,
                 rerank: false,
                 features: [],
                 size: {vocab: 32000, embedding: 4096, input: 4096, output: 0},
@@ -1238,7 +1238,7 @@ export class OpenRouter extends Provider {
             architecture: 'LlamaForCausalLM',
             capabilities: {
                 embedding: false,
-                tool_call: true,
+                tool_call: false,
                 rerank: false,
                 features: [],
                 size: {vocab: 32000, embedding: 5120, input: 4096, output: 0},
@@ -1256,7 +1256,7 @@ export class OpenRouter extends Provider {
             architecture: 'LlamaForCausalLM',
             capabilities: {
                 embedding: false,
-                tool_call: true,
+                tool_call: false,
                 rerank: false,
                 features: [],
                 size: {vocab: 32000, embedding: 5120, input: 4096, output: 0},
@@ -1274,7 +1274,7 @@ export class OpenRouter extends Provider {
             architecture: 'LlamaForCausalLM',
             capabilities: {
                 embedding: false,
-                tool_call: true,
+                tool_call: false,
                 rerank: false,
                 features: [],
                 size: {vocab: 32000, embedding: 5120, input: 4096, output: 0},
@@ -1292,7 +1292,7 @@ export class OpenRouter extends Provider {
             architecture: 'LlamaForCausalLM',
             capabilities: {
                 embedding: false,
-                tool_call: true,
+                tool_call: false,
                 rerank: false,
                 features: [],
                 size: {vocab: 32000, embedding: 5120, input: 4096, output: 0},
