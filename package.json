@@ -6,7 +6,7 @@
     "build": "turbo build",
     "changeset": "changeset",
     "clean": "turbo clean",
-    "dev": "turbo dev --no-cache  --concurrency 16 --continue",
+    "dev": "turbo dev --cache=local:r,remote:r  --concurrency 16 --continue",
     "lint": "turbo lint",
     "prepare": "husky install",
     "prettier-check": "prettier --check \"**/*.{js,ts,tsx,md,mdx}\"",
@@ -32,8 +32,11 @@
     "turbo": "2.3.3",
     "typescript": "5.7.2"
   },
+  "optionalDependencies": {
+    "@rollup/rollup-linux-x64-gnu": "^4.30.1"
+  },
   "engines": {
-    "node": "^18.0.0 || ^20.0.0 || ^22.0.0"
+    "node": "^20.0.0 || ^22.0.0"
   },
   "homepage": "https://chiki.chat",
   "repository": {

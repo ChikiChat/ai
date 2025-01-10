@@ -1,0 +1,73 @@
+{
+  "name": "@chikichat/backend",
+  "description": "",
+  "version": "0.0.0",
+  "license": "Apache-2.0",
+  "author": "Leliuga",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist/**/*"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "build:watch": "tsup --watch",
+    "dev": "nodemon",
+    "clean": "rm -rf dist",
+    "start": "node dist/index.js"
+  },
+  "prisma": {
+    "schema": "src/prisma/schema.prisma",
+    "seed": "ts-node src/prisma/seed.ts"
+  },
+  "dependencies": {
+    "@chikichat/model": "^1.0.1",
+    "@fastify/compress": "^8.0.1",
+    "@fastify/cookie": "^11.0.1",
+    "@fastify/cors": "^10.0.1",
+    "@fastify/etag": "^6.0.2",
+    "@fastify/rate-limit": "^10.2.1",
+    "@fastify/secure-session": "^8.1.0",
+    "@fastify/type-provider-typebox": "^5.1.0",
+    "@prisma/client": "^6.2.1",
+    "@prisma/extension-accelerate": "^1.2.1",
+    "dotenv": "^16.4.7",
+    "fastify": "^5.2.0",
+    "graphql": "^16.10.0",
+    "graphql-scalars": "^1.24.0",
+    "mercurius": "^16.0.0",
+    "uuid": "^11.0.3"
+  },
+  "peerDependencies": {
+    "@sinclair/typebox": "^0.34.13",
+    "zod": "^3.24.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "nodemon": "^3.1.9",
+    "prisma": "^6.2.1",
+    "ts-node": "^10.9.2",
+    "tsup": "^8.3.5",
+    "typescript": "^5.7.2"
+  },
+  "engines": {
+    "node": "^20.0.0 || ^22.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ChikiChat/ai.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ChikiChat/ai/issues"
+  },
+  "keywords": [
+    "ai",
+    "llm",
+    "chiki",
+    "backend"
+  ]
+}

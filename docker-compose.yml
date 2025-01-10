@@ -1,0 +1,85 @@
+x-restart: &restart
+  unless-stopped
+
+x-logging: &logging
+  driver: json-file
+  options:
+    max-size: "50m"
+    max-file: "3"
+    tag: "{{.ImageName}}|{{.Name}}|{{.ImageFullID}}|{{.FullID}}"
+
+x-security-opt: &security-opt
+  - seccomp:unconfined
+  - apparmor:unconfined
+
+services:
+  backend:
+    build:
+      target: development
+      context: packages/backend
+    image: backend:development
+    container_name: backend
+    hostname: backend
+    restart: *restart
+    logging: *logging
+    security_opt: *security-opt
+    environment:
+      NODE_ENV: development
+      REDIS_URL: redis://@redis:6379
+      DATABASE_URL: "postgresql://development:passwdChiki@database:5432/chiki?schema=public"
+    healthcheck:
+      test: wget -qO- http://0.0.0.0:3000/ping | grep -q "Pong"
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 5s
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./packages/backend:/app
+    depends_on:
+      database:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+  database:
+    image: pgvector/pgvector:0.8.0-pg17
+    container_name: database
+    hostname: database
+    restart: *restart
+    logging: *logging
+    security_opt: *security-opt
+    environment:
+      POSTGRES_USER: development
+      POSTGRES_PASSWORD: "passwdChiki"
+      POSTGRES_DB: chiki
+    healthcheck:
+      test: pg_isready -U development -d chiki -h localhost
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 5s
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  redis:
+    image: redis:alpine
+    container_name: redis
+    hostname: redis
+    restart: *restart
+    logging: *logging
+    security_opt: *security-opt
+    healthcheck:
+      test: redis-cli ping
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 5s
+    ports:
+      - "6379:6379"
+
+volumes:
+  postgres_data:
