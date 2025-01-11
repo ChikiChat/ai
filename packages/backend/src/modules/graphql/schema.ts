@@ -3,9 +3,6 @@ scalar DateTime
 scalar JSON
 scalar UUID
 
-""" The \`@default\` directive is used to specify a default value for a field """
-directive @default(value: JSON!) on FIELD_DEFINITION
-
 """ The ID scalar represents a unique identifier """
 interface Node {
     """ The unique identifier for the node """
@@ -50,7 +47,7 @@ type Feature implements Node {
     name: String!
     description: String
     kind: FeatureKind!
-    enabled: Boolean! @default(value: true)
+    enabled: Boolean!
     integrations: [Integration!]!
     created_at: DateTime!
     updated_at: DateTime!
@@ -62,7 +59,7 @@ type Integration implements Node {
     name: String!
     credentials: String!
     settings: JSON!
-    enabled: Boolean! @default(value: true)
+    enabled: Boolean!
     feature: Feature!
     created_at: DateTime!
     updated_at: DateTime!
@@ -107,7 +104,7 @@ type ProjectThreadMessage implements Node {
     id: ID!
     thread_id: UUID!
     role: MessageRole!
-    content_type: ContentType! @default(value: "Text")
+    content_type: ContentType!
     content: String!
     created_at: DateTime!
     updated_at: DateTime!
@@ -121,14 +118,14 @@ type ProjectThreadPreset implements Node {
     name: String!
     description: String
     model: String!
-    temperature: Float! @default(value: 0.8)
-    max_tokens: Int! @default(value: 1024)
-    top_p: Float! @default(value: 0.95)
-    top_k: Int! @default(value: 40)
-    min_p: Float! @default(value: 0.05)
-    frequency_penalty: Float! @default(value: 0.0)
-    presence_penalty: Float! @default(value: 0.0)
-    repetition_penalty: Float! @default(value: 1.10)
+    temperature: Float!
+    max_tokens: Int!
+    top_p: Float!
+    top_k: Int!
+    min_p: Float!
+    frequency_penalty: Float!
+    presence_penalty: Float!
+    repetition_penalty: Float!
     created_at: DateTime!
     updated_at: DateTime!
     project: Project!
@@ -141,14 +138,14 @@ type ProjectThread implements Node {
     name: String!
     description: String
     model: String!
-    temperature: Float! @default(value: 0.8)
-    max_tokens: Int! @default(value: 1024)
-    top_p: Float! @default(value: 0.95)
-    top_k: Int! @default(value: 40)
-    min_p: Float! @default(value: 0.05)
-    frequency_penalty: Float! @default(value: 0.0)
-    presence_penalty: Float! @default(value: 0.0)
-    repetition_penalty: Float! @default(value: 1.10)
+    temperature: Float!
+    max_tokens: Int!
+    top_p: Float!
+    top_k: Int!
+    min_p: Float!
+    frequency_penalty: Float!
+    presence_penalty: Float!
+    repetition_penalty: Float!
     created_at: DateTime!
     updated_at: DateTime!
     project: Project!
@@ -160,7 +157,7 @@ type ProjectTool implements Node {
     project_id: UUID!
     name: String!
     description: String
-    parameters: JSON! @default(value: "{}")
+    parameters: JSON!
     code: String!
     created_at: DateTime!
     updated_at: DateTime!
@@ -172,7 +169,7 @@ type Project implements Node {
     id: ID!
     name: String!
     description: String
-    default: Boolean! @default(value: false)
+    default: Boolean!
     created_at: DateTime!
     updated_at: DateTime!
     tools: [ProjectTool!]!
@@ -202,7 +199,7 @@ type User implements Node {
     image: String
     bio: String
     website: String
-    last_seen: DateTime @default(value: "now()")
+    last_seen: DateTime
     created_at: DateTime!
     updated_at: DateTime!
     sessions: [Session!]!
