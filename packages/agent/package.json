@@ -1,0 +1,43 @@
+{
+  "name": "@chikichat/agent",
+  "description": "",
+  "version": "0.0.0",
+  "license": "Apache-2.0",
+  "author": "Leliuga",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist/**/*"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "build:watch": "tsup --watch",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+  },
+  "devDependencies": {
+    "@types/node": "^18",
+    "tsup": "^8.3.5",
+    "typescript": "^5.7.2"
+  },
+  "engines": {
+    "node": "^18.0.0 || ^20.0.0 || ^22.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ChikiChat/ai.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ChikiChat/ai/issues"
+  },
+  "keywords": [
+    "ai",
+    "agent",
+    "chiki"
+  ]
+}
