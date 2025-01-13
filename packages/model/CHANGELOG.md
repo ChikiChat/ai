@@ -1,5 +1,11 @@
 # AI SDK (model) 👋
 
+## 1.0.2
+
+### Patch Changes
+
+- ce7cd4e: update google models ids
+
 ## 1.0.1
 
 ### Patch Changes
