@@ -33,11 +33,19 @@
     "typescript": "5.7.3"
   },
   "peerDependencies": {
-    "zod": "^3.0.0",
-    "react": "^18.0.0"
+    "react": "^18 || ^19 || ^19.0.0-rc",
+    "zod": "^3.0.0"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": true
+    },
+    "zod": {
+      "optional": true
+    }
   },
   "engines": {
-    "node": "^18.0.0 || ^20.0.0 || ^22.0.0"
+    "node": "^20.0.0 || ^22.0.0"
   },
   "homepage": "https://chiki.chat",
   "repository": {
