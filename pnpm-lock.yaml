@@ -40,6 +40,18 @@ importers:
         specifier: 5.7.3
         version: 5.7.3
 
+  packages/agent:
+    devDependencies:
+      '@types/node':
+        specifier: ^20
+        version: 20.17.12
+      tsup:
+        specifier: ^8.3.5
+        version: 8.3.5(typescript@5.7.3)(yaml@2.6.1)
+      typescript:
+        specifier: ^5.7.2
+        version: 5.7.3
+
   packages/model:
     dependencies:
       '@ai-sdk/anthropic':
