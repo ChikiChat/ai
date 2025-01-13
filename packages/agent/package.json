@@ -15,6 +15,9 @@
     "build:watch": "tsup --watch",
     "clean": "rm -rf dist"
   },
+  "dependencies": {
+    "@chikichat/model": "^1.0.2"
+  },
   "devDependencies": {
     "@types/node": "^20",
     "tsup": "^8.3.5",

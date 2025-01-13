@@ -41,6 +41,10 @@ importers:
         version: 5.7.3
 
   packages/agent:
+    dependencies:
+      '@chikichat/model':
+        specifier: ^1.0.2
+        version: 1.0.2(react@19.0.0)(zod@3.24.1)
     devDependencies:
       '@types/node':
         specifier: ^20
@@ -231,6 +235,10 @@ packages:
 
   '@changesets/write@0.3.2':
     resolution: {integrity: sha512-kDxDrPNpUgsjDbWBvUo27PzKX4gqeKOlhibaOXDJA6kuBisGqNHv/HwGJrAu8U/dSf8ZEFIeHIPtvSlZI1kULw==}
+
+  '@chikichat/model@1.0.2':
+    resolution: {integrity: sha512-j0vJ7fcychtbtRHSW5I5AfGXqPHP2QdmdiDRG5wPxiHaUnxjt2vdTNz9HgyqDyhUE1RBtP+OftYZ/sWy1R5hBg==}
+    engines: {node: ^20.0.0 || ^22.0.0}
 
   '@esbuild/aix-ppc64@0.24.2':
     resolution: {integrity: sha512-thpVCb/rhxE/BnMLQ7GReQLLN8q9qbHmI55F4489/ByVg2aQaQ6kbcLb6FHkocZzQhxc4gx0sCk0tJkKBFzDhA==}
@@ -1850,6 +1858,20 @@ snapshots:
       fs-extra: 7.0.1
       human-id: 1.0.2
       prettier: 2.8.8
+
+  '@chikichat/model@1.0.2(react@19.0.0)(zod@3.24.1)':
+    dependencies:
+      '@ai-sdk/anthropic': 1.0.8(zod@3.24.1)
+      '@ai-sdk/cohere': 1.0.8(zod@3.24.1)
+      '@ai-sdk/google': 1.0.15(zod@3.24.1)
+      '@ai-sdk/groq': 1.0.11(zod@3.24.1)
+      '@ai-sdk/mistral': 1.0.8(zod@3.24.1)
+      '@ai-sdk/openai': 1.0.18(zod@3.24.1)
+      '@ai-sdk/xai': 1.0.17(zod@3.24.1)
+      ai: 4.0.33(react@19.0.0)(zod@3.24.1)
+    transitivePeerDependencies:
+      - react
+      - zod
 
   '@esbuild/aix-ppc64@0.24.2':
     optional: true
