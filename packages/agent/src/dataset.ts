@@ -1,3 +1,7 @@
+import fs from 'fs';
+import {parse} from 'csv-parse/sync';
+import yaml from 'yaml';
+
 type Sample = {
     statement: string;
     expect: string;
@@ -6,13 +10,59 @@ type Sample = {
 /**
  * Represents a collection of samples for testing a model.
  * Each sample consists of a statement and its expected response.
- * This class uses a `Set` to store unique samples, ensuring no duplicates.
+ * This class ensures no duplicate samples based on content.
  */
 export class Dataset {
     private samples: Set<Sample>;
 
     constructor() {
         this.samples = new Set();
+    }
+
+    /**
+     * Loads samples from a file into the dataset.
+     * Supported file formats are CSV, JSON, YAML, and YML.
+     *
+     * @param filename - The path to the file containing the samples.
+     * @throws Will throw an error if the file format is unsupported.
+     * @throws Will throw an error if the file does not exist.
+     * @throws Will throw an error if the file content is not an array of samples.
+     */
+    public fromFile(filename: string) {
+        const ext = filename.split('.').pop() ?? '';
+        if (!['csv', 'json', 'yaml', 'yml'].includes(ext))
+            throw new Error(`Unsupported file format: ${ext}`);
+
+        if (!fs.existsSync(filename))
+            throw new Error(`File not found: ${filename}`);
+
+        const content = fs.readFileSync(filename, 'utf8');
+        let data: any[] = [];
+        switch (ext) {
+            case 'csv':
+                data = parse(content, {columns: true});
+                break
+            case 'json':
+                data = JSON.parse(content);
+                break
+            case 'yaml':
+            case 'yml':
+                data = yaml.parse(content);
+                break
+        }
+
+        if (!Array.isArray(data))
+            throw new Error(`${ext.toUpperCase()} file must contain an array of samples`);
+
+        data.forEach((row: any) => {
+            // Ensure row has 'statement' and 'expect' properties
+            const statement = row.hasOwnProperty('statement') ? row.statement : (Array.isArray(row) ? row[0] : '');
+            const expect = row.hasOwnProperty('expect') ? row.expect : (Array.isArray(row) ? row[1] : '');
+
+            this.samples.add({statement: statement, expect: expect});
+        });
+
+        return true;
     }
 
     /**

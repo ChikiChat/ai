@@ -1,12 +1,13 @@
-import { Prompt } from './prompt';
-import { DEFAULT_LANGUAGE_MODEL_NAME } from "@chikichat/model";
+import {Prompt} from './prompt';
+import {DEFAULT_LANGUAGE_MODEL_NAME} from '@chikichat/model';
+import {CoreTool} from "ai";
 
 /**
  * Represents a request for generating a completion based on a given prompt.
  * This class encapsulates all the necessary parameters required to configure
  * the behavior of the text generation model.
  */
-export class Request {
+export type Request = {
     /**
      * The input prompt that the model will use to generate a response.
      */
@@ -20,60 +21,65 @@ export class Request {
 
     /**
      * The maximum number of tokens to generate in the completion.
-     * Defaults to 2048.
+     * Defaults to 4096.
      */
-    readonly maxTokens: number;
+    readonly maxTokens?: number;
 
+    /**
+     * The maximum number of steps to generate in the completion.
+     * Defaults to 2.
+     */
+    readonly maxSteps?: number;
     /**
      * Controls the randomness of predictions by scaling the logits before applying softmax.
      * Lower values make the model more deterministic, while higher values increase randomness.
      * Defaults to 0.8.
      */
-    readonly temperature: number;
+    readonly temperature?: number;
 
     /**
      * Implements nucleus sampling, where the model considers the smallest set of tokens
      * whose cumulative probability exceeds this value. This parameter is used for controlling
      * the diversity of the generated text. Defaults to 0.90.
      */
-    readonly topP: number;
+    readonly topP?: number;
 
     /**
      * Limits the model to consider only the top K most likely next tokens.
      * This parameter is used for controlling the diversity of the generated text.
      * Defaults to 40.
      */
-    readonly topK: number;
+    readonly topK?: number;
 
     /**
      * Penalizes new tokens based on whether they appear in the text so far.
      * Increases the model's likelihood to talk about new topics. Defaults to 0.0.
      */
-    readonly presencePenalty: number;
+    readonly presencePenalty?: number;
 
     /**
      * Penalizes new tokens based on their existing frequency in the text so far.
      * Decreases the model's likelihood to repeat the same line verbatim. Defaults to 0.0.
      */
-    readonly frequencyPenalty: number;
+    readonly frequencyPenalty?: number;
 
-    constructor(
-        prompt: Prompt,
-        model: string = DEFAULT_LANGUAGE_MODEL_NAME,
-        maxTokens: number = 2048,
-        temperature: number = 0.8,
-        topP: number = 0.90,
-        topK: number = 40,
-        presencePenalty: number = 0.0,
-        frequencyPenalty: number = 0.0
-    ) {
-        this.model = model;
-        this.prompt = prompt;
-        this.maxTokens = maxTokens;
-        this.temperature = temperature;
-        this.topP = topP;
-        this.topK = topK;
-        this.presencePenalty = presencePenalty;
-        this.frequencyPenalty = frequencyPenalty;
-    }
+    /**
+     The tools that the model can call. The model needs to support calling tools.
+     */
+    readonly tools?: Record<string, CoreTool>;
+}
+
+export const createRequest = (request: Request): Request => {
+    return {
+        prompt: request.prompt,
+        model: request.model || DEFAULT_LANGUAGE_MODEL_NAME,
+        maxTokens: request.maxTokens || 4096,
+        maxSteps: request.maxSteps || 2,
+        temperature: request.temperature || 0.8,
+        topP: request.topP || 0.90,
+        topK: request.topK || 40,
+        presencePenalty: request.presencePenalty || 0.0,
+        frequencyPenalty: request.frequencyPenalty || 0.0,
+        tools: request.tools || {}
+    };
 }

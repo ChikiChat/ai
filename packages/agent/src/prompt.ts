@@ -82,6 +82,7 @@ export class Prompt<T = string> {
      * Parses the input string using the parser provided to the prompt.
      *
      * @param input - The input string to be parsed.
+     *
      * @returns The parsed result of the input string.
      */
     public parse(input: string): T {

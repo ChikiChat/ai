@@ -16,12 +16,18 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@chikichat/model": "^1.0.2"
+    "@chikichat/model": "^1.0.2",
+    "csv-parse": "^5.6.0",
+    "yaml": "^2.7.0"
   },
   "devDependencies": {
     "@types/node": "^20",
     "tsup": "^8.3.5",
     "typescript": "^5.7.2"
+  },
+  "peerDependencies": {
+    "ai": "^4.0.0",
+    "zod": "^3.0.0"
   },
   "engines": {
     "node": "^20.0.0 || ^22.0.0"

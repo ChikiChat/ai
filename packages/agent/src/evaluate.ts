@@ -1,7 +1,7 @@
-import {Dataset} from "./dataset";
-import {Request} from "./request";
-import {cosineSimilarity, embedMany, generateText} from "ai";
-import {embeddingModel, languageModel} from "@chikichat/model";
+import {Dataset} from './dataset';
+import {Request} from './request';
+import {cosineSimilarity, embedMany, generateText} from 'ai';
+import {embeddingModel, languageModel} from '@chikichat/model';
 
 export const EVALUATE_PROMPT = `
 Please answer the following question very accurately; a one- to five-word response is ideal:
@@ -52,15 +52,16 @@ export class Evaluate {
 
         for (const sample of this.dataset.values()) {
             const {text} = await generateText({
+                prompt: this.request.prompt.toString({'statement': sample.statement}),
                 model: languageModel(this.request.model),
                 maxTokens: this.request.maxTokens,
+                maxSteps: this.request.maxSteps,
                 temperature: this.request.temperature,
                 topP: this.request.topP,
                 topK: this.request.topK,
                 presencePenalty: this.request.presencePenalty,
                 frequencyPenalty: this.request.frequencyPenalty,
-                maxSteps: 1,
-                prompt: this.request.prompt.toString({"statement": sample.statement})
+                tools: this.request.tools,
             })
 
             const answer = this.request.prompt.parse(text);
