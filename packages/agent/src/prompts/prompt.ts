@@ -1,13 +1,13 @@
 import {IParser, Parser} from './parsers';
 
 /**
- * Interface for a prompt that can parse an input string into a specific type T.
+ * Interface for a prompt that can parse an input string into a specific type OUTPUT.
  *
- * @template T - The type of the parsed output.
+ * @template OUTPUT - The type of the parsed output.
  * @method variables - A method that returns an array of variable names used in the prompt.
  * @method toString - A method that returns the prompt string with variables replaced by their values.
  */
-export interface IPrompt<T = string> extends IParser<T> {
+export interface IPrompt<OUTPUT = string> extends IParser<OUTPUT> {
     variables(): string[];
 
     toString(variables?: { [key: string]: any }): string;
@@ -22,11 +22,11 @@ export interface IPrompt<T = string> extends IParser<T> {
  *                   These placeholders will be replaced with actual values when the `toString` method is called.
  * @param parser - An instance of IParser used to parse the input string.
  */
-export class Prompt<T = string> implements IPrompt<T> {
+export class Prompt<OUTPUT = string> implements IPrompt<OUTPUT> {
     private readonly template: string;
-    private readonly parser: IParser<T>;
+    private readonly parser: IParser<OUTPUT>;
 
-    constructor(template: string, parser: IParser<T> = new Parser() as IParser<T>) {
+    constructor(template: string, parser: IParser<OUTPUT> = new Parser() as IParser<OUTPUT>) {
         this.template = template;
         this.parser = parser;
     }
@@ -72,7 +72,7 @@ export class Prompt<T = string> implements IPrompt<T> {
      *
      * @returns The parsed result of the input string.
      */
-    public parse(input: string): T {
+    public parse(input: string): OUTPUT {
         return this.parser.parse(input);
     }
 }

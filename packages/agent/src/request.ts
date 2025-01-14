@@ -51,11 +51,11 @@ export const DEFAULT_FREQUENCY_PENALTY = 0.0;
  * This type encapsulates all the necessary parameters required to configure
  * the behavior of the text generation model.
  */
-export type Request<T = string> = {
+export type Request<OUTPUT = string> = {
     /**
      * The input prompt used by the model to generate a response.
      */
-    readonly prompt: IPrompt<T>;
+    readonly prompt: IPrompt<OUTPUT>;
 
     /**
      * The model identifier for text generation.

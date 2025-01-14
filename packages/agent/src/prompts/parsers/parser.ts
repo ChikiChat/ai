@@ -1,11 +1,11 @@
 /**
- * Interface for a parser that can convert a string input into a specific type T.
+ * Interface for a parser that can convert a string input into a specific type OUTPUT.
  *
- * @template T - The type of the parsed output.
- * @method parse - A method that takes a string input and returns a value of type T.
+ * @template OUTPUT - The type of the parsed output.
+ * @method parse - A method that takes a string input and returns a value of type OUTPUT.
  */
-export interface IParser<T = string> {
-    parse(...input: any): T;
+export interface IParser<OUTPUT = string> {
+    parse(...input: any): OUTPUT;
 }
 
 /**
