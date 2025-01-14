@@ -3,8 +3,8 @@
  * This class provides methods to store, retrieve, update, and delete key-value pairs.
  * It uses a `Map` to efficiently manage the data.
  */
-export class Memory {
-    private memory: Map<string, any>;
+export class Memory<K extends string | number = string, V = any> {
+    private memory: Map<K, V>;
 
     constructor() {
         this.memory = new Map();
@@ -14,43 +14,43 @@ export class Memory {
      * Stores a value in memory with the given key.
      * If the key already exists, its value will be updated.
      *
-     * @param key The key to store the value under.
-     * @param value The value to store.
+     * @param key - The key to store the value under.
+     * @param value - The value to store.
      */
-    public set(key: string, value: any): void {
+    public set(key: K, value: V): void {
         this.memory.set(key, value);
     }
 
     /**
      * Retrieves the value associated with the given key.
      *
-     * @param key The key to look up.
+     * @param key - The key to look up.
      *
-     * @returns The value associated with the key, or undefined if not found.
+     * @returns The value associated with the key, or `undefined` if the key does not exist.
      */
-    public get(key: string): any {
+    public get(key: K): V | undefined {
         return this.memory.get(key);
     }
 
     /**
      * Deletes the key-value pair associated with the given key.
      *
-     * @param key The key to delete.
+     * @param key - The key to delete.
      *
-     * @returns True if the key was found and deleted, false otherwise.
+     * @returns `true` if the key was found and deleted, `false` otherwise.
      */
-    public delete(key: string): boolean {
+    public delete(key: K): boolean {
         return this.memory.delete(key);
     }
 
     /**
      * Checks if a key exists in memory.
      *
-     * @param key The key to check for.
+     * @param key - The key to check for.
      *
-     * @returns True if the key exists, false otherwise.
+     * @returns `true` if the key exists, `false` otherwise.
      */
-    public has(key: string): boolean {
+    public has(key: K): boolean {
         return this.memory.has(key);
     }
 
@@ -59,7 +59,7 @@ export class Memory {
      *
      * @returns An iterator over the keys.
      */
-    public keys(): IterableIterator<string> {
+    public keys(): IterableIterator<K> {
         return this.memory.keys();
     }
 
@@ -68,7 +68,7 @@ export class Memory {
      *
      * @returns An iterator over the values.
      */
-    public values(): IterableIterator<any> {
+    public values(): IterableIterator<V> {
         return this.memory.values();
     }
 
@@ -77,8 +77,29 @@ export class Memory {
      *
      * @returns An iterator over the entries.
      */
-    public entries(): IterableIterator<[string, any]> {
+    public entries(): IterableIterator<[K, V]> {
         return this.memory.entries();
+    }
+
+    /**
+     * Returns an array of all key-value pairs in memory.
+     *
+     * @returns An array of key-value pairs.
+     */
+    public asArray(): [K, V][] {
+        return Array.from(this.memory.entries());
+    }
+
+    /**
+     * Returns an object representation of the key-value pairs in memory.
+     * Note: If the keys are not strings, they will be converted to strings using `toString()`.
+     *
+     * @returns An object with keys as strings and values as their corresponding values.
+     */
+    public asObject(): { [key: string]: V } {
+        return Object.fromEntries(
+            this.asArray().map(([key, value]) => [String(key), value])
+        );
     }
 
     /**
@@ -91,11 +112,9 @@ export class Memory {
     /**
      * Returns the number of key-value pairs in memory.
      *
-     * @returns The size of the memory.
+     * @returns The number of key-value pairs.
      */
     public size(): number {
         return this.memory.size;
     }
 }
-
-

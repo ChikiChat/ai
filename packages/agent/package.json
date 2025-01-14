@@ -18,6 +18,7 @@
   "dependencies": {
     "@chikichat/model": "^1.0.2",
     "csv-parse": "^5.6.0",
+    "mathjs": "^14.0.1",
     "yaml": "^2.7.0"
   },
   "devDependencies": {
