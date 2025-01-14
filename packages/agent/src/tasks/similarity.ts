@@ -1,5 +1,5 @@
 import {Task} from "./task";
-import {DEFAULT_EMBEDDING_MODEL_NAME, embeddingModel} from "@chikichat/model";
+import {DEFAULT_EMBEDDING_MODEL_NAME, embeddingModel, EmbeddingModelInit, embeddingModelInit} from "@chikichat/model";
 import {cosineSimilarity, embedMany} from "ai";
 
 /**
@@ -10,12 +10,12 @@ export class TaskSimilarity extends Task<number> {
     /**
      * The identifier of the embedding model to be used.
      */
-    private readonly model: string;
+    private readonly init: EmbeddingModelInit
 
     constructor(model: string = DEFAULT_EMBEDDING_MODEL_NAME) {
         super('Similarity', 'Computes the cosine similarity between two strings.');
 
-        this.model = model;
+        this.init = embeddingModelInit(model);
     }
 
     /**
@@ -27,7 +27,7 @@ export class TaskSimilarity extends Task<number> {
      */
     async run(a: string, b: string): Promise<number> {
         const {embeddings} = await embedMany({
-            model: embeddingModel(this.model),
+            model: embeddingModel(this.init.model),
             values: [a, b],
         });
         const [embeddingA, embeddingB] = embeddings;

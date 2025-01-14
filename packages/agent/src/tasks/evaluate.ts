@@ -1,12 +1,5 @@
 import {generateText} from "ai";
-import {DEFAULT_EMBEDDING_MODEL_NAME, DEFAULT_LANGUAGE_MODEL_NAME, languageModel} from "@chikichat/model";
-import {
-    DEFAULT_FREQUENCY_PENALTY,
-    DEFAULT_PRESENCE_PENALTY,
-    DEFAULT_TEMPERATURE,
-    DEFAULT_TOP_K,
-    DEFAULT_TOP_P
-} from "../request";
+import {DEFAULT_EMBEDDING_MODEL_NAME, languageModel, LanguageModelInit} from "@chikichat/model";
 import {Dataset} from "../dataset";
 import {PromptEvaluate} from "../prompts";
 import {Task} from "./task";
@@ -42,57 +35,42 @@ type Result = {
  */
 export class TaskEvaluate extends Task<Result[]> {
     private readonly dataset: Dataset;
-    private readonly languageModel: string;
     private readonly similarity: TaskSimilarity;
 
     /**
      * Constructs a new TaskEvaluate instance.
      *
      * @param {string} datasetPath - The path to the dataset file.
-     * @param {string} [languageModel=DEFAULT_LANGUAGE_MODEL_NAME] - The name of the language model to use.
      * @param {string} [embeddingModel=DEFAULT_EMBEDDING_MODEL_NAME] - The name of the embedding model to use.
      */
-    constructor(datasetPath: string, languageModel: string = DEFAULT_LANGUAGE_MODEL_NAME, embeddingModel: string = DEFAULT_EMBEDDING_MODEL_NAME) {
+    constructor(datasetPath: string, embeddingModel: string = DEFAULT_EMBEDDING_MODEL_NAME) {
         super('Evaluate', 'Evaluates the language model using the dataset.');
 
         this.dataset = new Dataset(datasetPath);
-        this.languageModel = languageModel;
         this.similarity = new TaskSimilarity(embeddingModel);
     }
 
     /**
      * Runs the evaluation task.
      *
-     * @param {number} [temperature=DEFAULT_TEMPERATURE] - Controls the randomness of predictions.
-     * @param {number} [maxToken=1024] - The maximum number of tokens to generate.
-     * @param {number} [topP=DEFAULT_TOP_P] - The cumulative probability threshold for nucleus sampling.
-     * @param {number} [topK=DEFAULT_TOP_K] - The number of highest probability vocabulary tokens to keep for top-k filtering.
-     * @param {number} [presencePenalty=DEFAULT_PRESENCE_PENALTY] - Penalizes new tokens based on whether they appear in the text so far.
-     * @param {number} [frequencyPenalty=DEFAULT_FREQUENCY_PENALTY] - Penalizes new tokens based on their existing frequency in the text so far.
+     * @param {LanguageModelInit} init - The initialization configuration for the language model.
      * @returns {Promise<Result[]>} - A promise that resolves to an array of evaluation results.
      */
-    async run(
-        temperature: number = DEFAULT_TEMPERATURE,
-        maxToken: number = 1024,
-        topP: number = DEFAULT_TOP_P,
-        topK: number = DEFAULT_TOP_K,
-        presencePenalty: number = DEFAULT_PRESENCE_PENALTY,
-        frequencyPenalty: number = DEFAULT_FREQUENCY_PENALTY
-    ): Promise<Result[]> {
+    async run(init: LanguageModelInit): Promise<Result[]> {
         const results: Result[] = [];
         const prompt = PromptEvaluate;
 
         for (const sample of this.dataset.values()) {
             const {text} = await generateText({
                 prompt: prompt.toString({statement: sample.statement}),
-                model: languageModel(this.languageModel),
-                maxTokens: maxToken,
-                maxSteps: 1,
-                temperature: temperature,
-                topP: topP,
-                topK: topK,
-                presencePenalty: presencePenalty,
-                frequencyPenalty: frequencyPenalty,
+                model: languageModel(init.model),
+                maxTokens: init.maxTokens,
+                maxSteps: init.maxSteps,
+                temperature: init.temperature,
+                topP: init.topP,
+                topK: init.topK,
+                presencePenalty: init.presencePenalty,
+                frequencyPenalty: init.frequencyPenalty,
             });
 
             const answer = prompt.parse(text);

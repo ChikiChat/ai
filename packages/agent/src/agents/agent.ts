@@ -1,7 +1,10 @@
-import {Request} from '../request';
 import {generateText} from "ai";
-import {languageModel} from "@chikichat/model";
+import {languageModel, LanguageModelInit} from "@chikichat/model";
+import {IPrompt} from "../prompts";
 
+/**
+ * Interface for an agent that performs a specific task and returns an output.
+ */
 export interface IAgent<OUTPUT> {
     /**
      * The name of the agent.
@@ -14,19 +17,30 @@ export interface IAgent<OUTPUT> {
     readonly description: string;
 
     /**
+     * The prompt used by the agent.
+     */
+    readonly prompt: IPrompt<OUTPUT>;
+
+    /**
+     * The initialization configuration for the language model.
+     */
+    readonly init: LanguageModelInit;
+
+    /**
      * Executes the agent with the provided arguments.
      *
-     * @param args - Any arguments required for the agent execution.
-     * @returns The output of the agent.
+     * @param args - An object containing any arguments required for the agent execution.
+     * @returns A promise that resolves to the output of the agent.
      */
-    run(args: { [key: string]: any }): Promise<OUTPUT>;
+    run(...args: any): Promise<OUTPUT>;
 }
 
 /**
- * A base class for implementing agents.
+ * An agent is a component that performs a specific task and returns an output.
+ *
  * @template OUTPUT - The type of the output produced by the agent.
  */
-export class Agent<OUTPUT> implements IAgent<OUTPUT> {
+export class Agent<OUTPUT = string> implements IAgent<OUTPUT> {
     /**
      * The name of the agent.
      */
@@ -38,45 +52,52 @@ export class Agent<OUTPUT> implements IAgent<OUTPUT> {
     readonly description: string;
 
     /**
-     * The request object for the agent.
+     * The prompt used by the agent.
      */
-    readonly request: Request<OUTPUT>;
+    readonly prompt: IPrompt<OUTPUT>;
 
     /**
-     * Constructs a new agent with a name and description.
+     * The initialization configuration for the language model.
+     */
+    readonly init: LanguageModelInit;
+
+    /**
+     * Constructs a new agent with a name, description, prompt, and initialization configuration.
      *
      * @param name - The name of the agent.
      * @param description - A description of what the agent does.
-     * @param request - The request object for the agent.
+     * @param prompt - The prompt used by the agent.
+     * @param init - The initialization configuration for the language model.
      */
-    constructor(name: string, description: string, request: Request<OUTPUT>) {
+    constructor(name: string, description: string, prompt: IPrompt<OUTPUT>, init: LanguageModelInit) {
         this.name = name;
         this.description = description;
-        this.request = request;
+        this.prompt = prompt;
+        this.init = init;
     }
 
     /**
      * Executes the agent with the provided arguments.
      * This method should be overridden by subclasses to provide specific agent logic.
      *
-     * @returns The output of the agent.
-     * @param args
+     * @param args - An object containing any arguments required for the agent execution.
+     * @returns A promise that resolves to the output of the agent.
      */
     async run(args: { [key: string]: any }): Promise<OUTPUT> {
         const {text} = await generateText({
-            prompt: this.request.prompt.toString(args),
-            model: languageModel(this.request.model),
-            maxTokens: this.request.maxTokens,
-            maxSteps: this.request.maxSteps,
-            temperature: this.request.temperature,
-            topP: this.request.topP,
-            topK: this.request.topK,
-            presencePenalty: this.request.presencePenalty,
-            frequencyPenalty: this.request.frequencyPenalty,
-            tools: this.request.tools,
+            prompt: this.prompt.toString(args),
+            model: languageModel(this.init.model),
+            maxTokens: this.init.maxTokens,
+            maxSteps: this.init.maxSteps,
+            temperature: this.init.temperature,
+            topP: this.init.topP,
+            topK: this.init.topK,
+            presencePenalty: this.init.presencePenalty,
+            frequencyPenalty: this.init.frequencyPenalty,
+            tools: this.init.tools,
         });
 
-        return this.request.prompt.parse(text);
+        return this.prompt.parse(text);
     }
 }
 
