@@ -4,15 +4,27 @@
  * @template T - The type of the parsed output.
  * @method parse - A method that takes a string input and returns a value of type T.
  */
-export interface IParser<T = any> {
-    parse(input: string): T;
+export interface IParser<T = string> {
+    parse(...input: any): T;
+}
+
+/**
+ * Interface for a prompt that can parse an input string into a specific type T.
+ *
+ * @template T - The type of the parsed output.
+ * @method parse - A method that takes a string input and returns a value of type T.
+ */
+export interface IPrompt<T = string> extends IParser<T> {
+    variables(): string[];
+
+    toString(variables?: { [key: string]: any }): string;
 }
 
 /**
  * Default implementation of the IParser interface.
  * This parser simply trims the input string and returns it as a string.
  */
-class DefaultParser implements IParser<string> {
+class DefaultParser implements IParser {
     /**
      * Parses the input string by trimming it.
      *
@@ -32,7 +44,7 @@ class DefaultParser implements IParser<string> {
  * @param template - A string template that may contain placeholders in the format `${variableName}`.
  *                   These placeholders will be replaced with actual values when the `toString` method is called.
  */
-export class Prompt<T = string> {
+export class Prompt<T = string> implements IPrompt<T> {
     private readonly template: string;
     private readonly parser: IParser<T>;
 
@@ -89,3 +101,9 @@ export class Prompt<T = string> {
         return this.parser.parse(input);
     }
 }
+
+// Define a prompt template for evaluating
+export const EvaluatePrompt = new Prompt(`
+Please answer the following question very accurately; a one- to five-word response is ideal:
+\${statement}
+`);

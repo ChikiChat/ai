@@ -3,10 +3,6 @@ import {Request} from './request';
 import {cosineSimilarity, embedMany, generateText} from 'ai';
 import {embeddingModel, languageModel} from '@chikichat/model';
 
-export const EVALUATE_PROMPT = `
-Please answer the following question very accurately; a one- to five-word response is ideal:
-\${statement}`;
-
 type Result = {
     statement: string;
     expect: string;
@@ -36,10 +32,13 @@ export class Evaluate {
      */
     readonly dataset: Dataset;
 
-    constructor(request: Request, embeddingModel: string, dataset: Dataset) {
+    constructor(request: Request, embeddingModel: string, dataset: string) {
         this.request = request
         this.embeddingModel = embeddingModel
-        this.dataset = dataset
+        this.dataset = new Dataset()
+
+        // Load samples from the dataset file
+        this.dataset.fromFile(dataset)
     }
 
     /**

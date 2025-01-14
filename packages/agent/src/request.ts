@@ -1,4 +1,4 @@
-import {Prompt} from './prompt';
+import {IPrompt} from './prompt';
 import {DEFAULT_LANGUAGE_MODEL_NAME} from '@chikichat/model';
 import {CoreTool} from "ai";
 
@@ -7,11 +7,11 @@ import {CoreTool} from "ai";
  * This class encapsulates all the necessary parameters required to configure
  * the behavior of the text generation model.
  */
-export type Request = {
+export type Request<T = string> = {
     /**
      * The input prompt that the model will use to generate a response.
      */
-    readonly prompt: Prompt;
+    readonly prompt: IPrompt<T>;
 
     /**
      * The identifier of the model to be used for generating the completion.
@@ -69,6 +69,13 @@ export type Request = {
     readonly tools?: Record<string, CoreTool>;
 }
 
+/**
+ * Creates a request object with default values for any missing properties.
+ *
+ * @param request - The request object to be processed.
+ *
+ * @returns A new request object with default values applied where necessary.
+ */
 export const createRequest = (request: Request): Request => {
     return {
         prompt: request.prompt,
