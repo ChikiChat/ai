@@ -1,5 +1,11 @@
 # AI SDK (model) 👋
 
+## 1.0.3
+
+### Patch Changes
+
+- 6358621: Add types LanguageModelInit and EmbeddingModelInit. Comments
+
 ## 1.0.2
 
 ### Patch Changes
