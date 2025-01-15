@@ -1,4 +1,4 @@
-import { Task } from "./task";
+import {Task} from "./task";
 
 /**
  * A task class that fetches data from a specified URL with retry logic.
@@ -8,12 +8,12 @@ export class TaskFetch extends Task<Response> {
     /**
      * The maximum number of retries for the fetch request.
      */
-    private readonly maxRetries: number;
+    readonly maxRetries: number;
 
     /**
      * The timeout duration (in milliseconds) for the fetch request.
      */
-    private readonly timeout: number;
+    readonly timeout: number;
 
     /**
      * Constructs a new TaskFetch instance.

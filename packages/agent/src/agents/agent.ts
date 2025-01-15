@@ -1,6 +1,6 @@
-import {generateText} from "ai";
-import {languageModel, LanguageModelInit} from "@chikichat/model";
+import {LanguageModelInit} from "@chikichat/model";
 import {IPrompt} from "../prompts";
+import {TaskGenerateText} from "../tasks/generate/text";
 
 /**
  * Interface for an agent that performs a specific task and returns an output.
@@ -17,14 +17,9 @@ export interface IAgent<OUTPUT> {
     readonly description: string;
 
     /**
-     * The prompt used by the agent.
+     * The task used to generate text.
      */
-    readonly prompt: IPrompt<OUTPUT>;
-
-    /**
-     * The initialization configuration for the language model.
-     */
-    readonly init: LanguageModelInit;
+    readonly generate: TaskGenerateText<OUTPUT>;
 
     /**
      * Executes the agent with the provided arguments.
@@ -52,28 +47,22 @@ export class Agent<OUTPUT = string> implements IAgent<OUTPUT> {
     readonly description: string;
 
     /**
-     * The prompt used by the agent.
+     * The task used to generate text.
      */
-    readonly prompt: IPrompt<OUTPUT>;
-
-    /**
-     * The initialization configuration for the language model.
-     */
-    readonly init: LanguageModelInit;
+    readonly generate: TaskGenerateText<OUTPUT>;
 
     /**
      * Constructs a new agent with a name, description, prompt, and initialization configuration.
      *
      * @param name - The name of the agent.
      * @param description - A description of what the agent does.
-     * @param prompt - The prompt used by the agent.
      * @param init - The initialization configuration for the language model.
+     * @param prompt - The prompt used by the agent.
      */
-    constructor(name: string, description: string, prompt: IPrompt<OUTPUT>, init: LanguageModelInit) {
+    constructor(name: string, description: string, init: LanguageModelInit, prompt: IPrompt<OUTPUT>) {
         this.name = name;
         this.description = description;
-        this.prompt = prompt;
-        this.init = init;
+        this.generate = new TaskGenerateText<OUTPUT>(init, prompt);
     }
 
     /**
@@ -84,23 +73,8 @@ export class Agent<OUTPUT = string> implements IAgent<OUTPUT> {
      * @returns A promise that resolves to the output of the agent.
      */
     async run(args: { [key: string]: any }): Promise<OUTPUT> {
-        const {text} = await generateText({
-            prompt: this.prompt.toString(args),
-            model: languageModel(this.init.model),
-            maxTokens: this.init.maxTokens,
-            maxSteps: this.init.maxSteps,
-            temperature: this.init.temperature,
-            topP: this.init.topP,
-            topK: this.init.topK,
-            presencePenalty: this.init.presencePenalty,
-            frequencyPenalty: this.init.frequencyPenalty,
-            tools: this.init.tools,
-        });
+        const {text} = await this.generate.run(args);
 
-        return this.prompt.parse(text);
+        return this.generate.prompt.parse(text);
     }
 }
-
-
-
-

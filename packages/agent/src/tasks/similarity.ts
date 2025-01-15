@@ -1,6 +1,7 @@
+import {cosineSimilarity} from "ai";
+import {DEFAULT_EMBEDDING_MODEL_NAME} from "@chikichat/model";
 import {Task} from "./task";
-import {DEFAULT_EMBEDDING_MODEL_NAME, embeddingModel, EmbeddingModelInit, embeddingModelInit} from "@chikichat/model";
-import {cosineSimilarity, embedMany} from "ai";
+import {TaskEmbedding} from "./embedding";
 
 /**
  * TaskSimilarity class extends Task to compute the cosine similarity between two strings.
@@ -10,12 +11,12 @@ export class TaskSimilarity extends Task<number> {
     /**
      * The identifier of the embedding model to be used.
      */
-    private readonly init: EmbeddingModelInit
+    readonly embedding: TaskEmbedding
 
     constructor(model: string = DEFAULT_EMBEDDING_MODEL_NAME) {
         super('Similarity', 'Computes the cosine similarity between two strings.');
 
-        this.init = embeddingModelInit(model);
+        this.embedding = new TaskEmbedding(model);
     }
 
     /**
@@ -26,11 +27,7 @@ export class TaskSimilarity extends Task<number> {
      *          The score is a number between 0 and 1, where 1 means the strings are identical in terms of embedding.
      */
     async run(a: string, b: string): Promise<number> {
-        const {embeddings} = await embedMany({
-            model: embeddingModel(this.init.model),
-            values: [a, b],
-        });
-        const [embeddingA, embeddingB] = embeddings;
+        const [embeddingA, embeddingB] = (await this.embedding.run([a, b])).embeddings
 
         return embeddingA !== undefined && embeddingB !== undefined
             ? cosineSimilarity(embeddingA, embeddingB)

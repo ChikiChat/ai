@@ -1,9 +1,9 @@
-import {generateText} from "ai";
-import {DEFAULT_EMBEDDING_MODEL_NAME, languageModel, LanguageModelInit} from "@chikichat/model";
+import {DEFAULT_EMBEDDING_MODEL_NAME, LanguageModelInit} from "@chikichat/model";
 import {Dataset} from "../dataset";
-import {PromptEvaluate} from "../prompts";
 import {Task} from "./task";
 import {TaskSimilarity} from "./similarity";
+import {Prompt} from "../prompts";
+import {TaskGenerateText} from "./generate/text";
 
 /**
  * Type definition for the result of an evaluation task.
@@ -34,51 +34,45 @@ type Result = {
  * Task to evaluate a language model using a dataset.
  */
 export class TaskEvaluate extends Task<Result[]> {
-    private readonly dataset: Dataset;
-    private readonly similarity: TaskSimilarity;
+    readonly dataset: Dataset;
 
     /**
      * Constructs a new TaskEvaluate instance.
      *
      * @param {string} datasetPath - The path to the dataset file.
-     * @param {string} [embeddingModel=DEFAULT_EMBEDDING_MODEL_NAME] - The name of the embedding model to use.
      */
-    constructor(datasetPath: string, embeddingModel: string = DEFAULT_EMBEDDING_MODEL_NAME) {
+    constructor(datasetPath: string) {
         super('Evaluate', 'Evaluates the language model using the dataset.');
 
         this.dataset = new Dataset(datasetPath);
-        this.similarity = new TaskSimilarity(embeddingModel);
     }
 
     /**
      * Runs the evaluation task.
      *
      * @param {LanguageModelInit} init - The initialization configuration for the language model.
+     * @param {string} [embeddingModel=DEFAULT_EMBEDDING_MODEL_NAME] - The name of the embedding model to use.
+     * @param {string} [prompt] - The prompt to use for generating answers.
      * @returns {Promise<Result[]>} - A promise that resolves to an array of evaluation results.
      */
-    async run(init: LanguageModelInit): Promise<Result[]> {
+    async run(init: LanguageModelInit, embeddingModel: string = DEFAULT_EMBEDDING_MODEL_NAME, prompt: string = ''): Promise<Result[]> {
         const results: Result[] = [];
-        const prompt = PromptEvaluate;
+        const p = new Prompt(prompt ?? `
+Please answer the following question very accurately; a one- to five-word response is ideal:
+\${statement}
+`);
+        const generate = new TaskGenerateText(init, p);
+        const similarity = new TaskSimilarity(embeddingModel);
 
         for (const sample of this.dataset.values()) {
-            const {text} = await generateText({
-                prompt: prompt.toString({statement: sample.statement}),
-                model: languageModel(init.model),
-                maxTokens: init.maxTokens,
-                maxSteps: init.maxSteps,
-                temperature: init.temperature,
-                topP: init.topP,
-                topK: init.topK,
-                presencePenalty: init.presencePenalty,
-                frequencyPenalty: init.frequencyPenalty,
-            });
+            const {text} = await generate.run({statement: sample.statement});
+            const answer = p.parse(text);
 
-            const answer = prompt.parse(text);
             results.push({
                 statement: sample.statement,
                 expect: sample.expect,
                 answer: answer,
-                similarity: await this.similarity.run(sample.expect, answer)
+                similarity: await similarity.run(sample.expect, answer)
             } as Result);
         }
 
