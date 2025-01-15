@@ -1,62 +1,80 @@
 /**
- * Interface representing a task that can be executed.
- *
- * @template OUTPUT - The type of the output produced by the task.
+ * Represents the output of a task.
+ * The output can be of any type, allowing flexibility in the data returned by the task.
  */
-export interface ITask<OUTPUT> {
+interface IOutput {
     /**
-     * The name of the task.
+     * The output data produced by the task.
+     * This can be of any type, providing flexibility in the data returned.
      */
-    readonly name: string;
-
-    /**
-     * A description of what the task does.
-     */
-    readonly description: string;
-
-    /**
-     * Executes the task with the provided arguments.
-     *
-     * @param args - Any arguments required for the task execution.
-     * @returns The output of the task.
-     */
-    run(...args: any): Promise<OUTPUT>;
+    output: any;
 }
 
 /**
- * A base class for implementing tasks.
- * @template OUTPUT - The type of the output produced by the task.
+ * Represents a task that can be executed with a specific input and produces an output.
+ * Tasks are designed to be reusable and can have dependencies and versioning.
  */
-export class Task<OUTPUT> implements ITask<OUTPUT> {
+export interface ITask<INPUT, OUTPUT extends IOutput> {
     /**
-     * The name of the task.
+     * The name of the task, which should be unique and descriptive.
      */
     readonly name: string;
 
     /**
-     * A description of what the task does.
+     * A detailed description of what the task does, including any assumptions or prerequisites.
      */
     readonly description: string;
 
     /**
-     * Constructs a new task with a name and description.
+     * Executes the task with the given input and returns a promise that resolves to the output.
      *
-     * @param name - The name of the task.
-     * @param description - A description of what the task does.
+     * @param input - The input data required for the task.
+     * @returns A promise that resolves to the output of the task.
      */
-    constructor(name: string, description: string) {
+    execute(input: INPUT): Promise<OUTPUT>;
+}
+
+/**
+ * Represents a base class for tasks that can be executed with a specific input and produce an output.
+ * This abstract class implements the ITask interface and provides a template for task execution.
+ */
+export abstract class Task<INPUT, OUTPUT extends IOutput> implements ITask<INPUT, OUTPUT> {
+    /**
+     * The name of the task, which should be unique and descriptive.
+     */
+    readonly name: string;
+
+    /**
+     * A detailed description of what the task does, including any assumptions or prerequisites.
+     */
+    readonly description: string;
+
+    /**
+     * Constructs a new task with a given name and description.
+     *
+     * @param name - The name of the task, which should be unique and descriptive.
+     * @param description - A detailed description of what the task does, including any assumptions or prerequisites.
+     */
+    protected constructor(name: string, description: string) {
         this.name = name;
         this.description = description;
     }
 
     /**
-     * Executes the task with the provided arguments.
-     * This method should be overridden by subclasses to provide specific task logic.
+     * Executes the task with the given input and returns a promise that resolves to the output.
      *
-     * @param _args - Any arguments required for the task execution.
-     * @returns The output of the task.
+     * @param input - The input data required for the task.
+     * @returns A promise that resolves to the output of the task.
      */
-    async run(..._args: any): Promise<OUTPUT> {
-        throw new Error('Method not implemented.');
+    execute(input: INPUT): Promise<OUTPUT> {
+        return this.perform(input);
     }
+
+    /**
+     * Abstract method that must be implemented by subclasses to define the specific task logic.
+     *
+     * @param input - The input data required for the task.
+     * @returns A promise that resolves to the output of the task.
+     */
+    protected abstract perform(input: INPUT): Promise<OUTPUT>;
 }
