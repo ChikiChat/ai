@@ -1,22 +1,13 @@
-/**
- * Represents the output of a task.
- * The output can be of any type, allowing flexibility in the data returned by the task.
- */
-interface IOutput {
-    /**
-     * The output data produced by the task.
-     * This can be of any type, providing flexibility in the data returned.
-     */
-    output: any;
-}
+import { z, ZodSchema } from "zod";
+import { Logger } from "../logger";
 
 /**
  * Represents a task that can be executed with a specific input and produces an output.
  * Tasks are designed to be reusable and can have dependencies and versioning.
  */
-export interface ITask<INPUT, OUTPUT extends IOutput> {
+export interface ITask<INPUT extends ZodSchema, OUTPUT extends ZodSchema> {
     /**
-     * The name of the task, which should be unique and descriptive.
+     * The unique and descriptive name of the task.
      */
     readonly name: string;
 
@@ -26,21 +17,33 @@ export interface ITask<INPUT, OUTPUT extends IOutput> {
     readonly description: string;
 
     /**
+     * The logger instance used for logging task-related information.
+     */
+    readonly logger: Logger;
+
+    /**
+     * Returns the input and output schema for the task.
+     *
+     * @returns An object containing the input and output schema.
+     */
+    schema(): { input: INPUT; output: OUTPUT };
+
+    /**
      * Executes the task with the given input and returns a promise that resolves to the output.
      *
-     * @param input - The input data required for the task.
-     * @returns A promise that resolves to the output of the task.
+     * @param input - The input data required for the task, conforming to the input schema.
+     * @returns A promise that resolves to the output of the task, conforming to the output schema.
      */
-    execute(input: INPUT): Promise<OUTPUT>;
+    execute(input: z.infer<INPUT>): Promise<z.infer<OUTPUT>>;
 }
 
 /**
  * Represents a base class for tasks that can be executed with a specific input and produce an output.
  * This abstract class implements the ITask interface and provides a template for task execution.
  */
-export abstract class Task<INPUT, OUTPUT extends IOutput> implements ITask<INPUT, OUTPUT> {
+export abstract class Task<INPUT extends ZodSchema, OUTPUT extends ZodSchema> implements ITask<INPUT, OUTPUT> {
     /**
-     * The name of the task, which should be unique and descriptive.
+     * The unique and descriptive name of the task.
      */
     readonly name: string;
 
@@ -50,31 +53,45 @@ export abstract class Task<INPUT, OUTPUT extends IOutput> implements ITask<INPUT
     readonly description: string;
 
     /**
-     * Constructs a new task with a given name and description.
-     *
-     * @param name - The name of the task, which should be unique and descriptive.
-     * @param description - A detailed description of what the task does, including any assumptions or prerequisites.
+     * The logger instance used for logging task-related information.
      */
-    protected constructor(name: string, description: string) {
+    readonly logger: Logger;
+
+    /**
+     * Constructs a new task with a given name, description, and logger.
+     *
+     * @param name - The unique and descriptive name of the task.
+     * @param description - A detailed description of what the task does, including any assumptions or prerequisites.
+     * @param logger - The logger instance used for logging task-related information.
+     */
+    protected constructor(name: string, description: string, logger: Logger) {
         this.name = name;
         this.description = description;
+        this.logger = logger;
     }
 
     /**
-     * Executes the task with the given input and returns a promise that resolves to the output.
+     * Returns the input and output schema for the task.
      *
-     * @param input - The input data required for the task.
-     * @returns A promise that resolves to the output of the task.
+     * @returns An object containing the input and output schema.
      */
-    execute(input: INPUT): Promise<OUTPUT> {
-        return this.perform(input);
-    }
+    abstract schema(): { input: INPUT; output: OUTPUT };
 
     /**
      * Abstract method that must be implemented by subclasses to define the specific task logic.
      *
-     * @param input - The input data required for the task.
-     * @returns A promise that resolves to the output of the task.
+     * @param input - The input data required for the task, conforming to the input schema.
+     * @returns A promise that resolves to the output of the task, conforming to the output schema.
      */
-    protected abstract perform(input: INPUT): Promise<OUTPUT>;
+    protected abstract perform(input: z.infer<INPUT>): Promise<z.infer<OUTPUT>>;
+
+    /**
+     * Executes the task with the given input and returns a promise that resolves to the output.
+     *
+     * @param input - The input data required for the task, conforming to the input schema.
+     * @returns A promise that resolves to the output of the task, conforming to the output schema.
+     */
+    execute(input: z.infer<INPUT>): Promise<z.infer<OUTPUT>> {
+        return this.perform(input);
+    }
 }

@@ -9,5 +9,5 @@ import {TaskFetch} from "../tasks";
 export const toolFetch = tool({
     description: 'Fetch the content from a given URL',
     parameters: z.object({url: z.string().describe('The URL of the website to fetch')}),
-    execute: async ({url}) => (new TaskFetch()).run(url).then(response => response.text())
+    execute: async ({url}) => (await (new TaskFetch()).execute({url})).output
 })

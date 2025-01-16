@@ -1,50 +1,69 @@
 import {embedMany} from "ai";
 import {z} from "zod";
-import {embeddingModel} from "@chikichat/model";
+import {DEFAULT_EMBEDDING_MODEL_NAME, embeddingModel, usageModel} from "@chikichat/model";
 import {Task} from "./task";
 
 // Define the input schema for the TaskEmbedding task
-const Input = z.object({
-    model: z.string(),
-    values: z.array(z.string())
+const InputSchema = z.object({
+    model: z.string().default(DEFAULT_EMBEDDING_MODEL_NAME),
+    values: z.array(z.string().trim())
 });
 
 // Define the output schema for the TaskEmbedding task
-const Output = z.object({
+const OutputSchema = z.object({
     output: z.array(z.array(z.number())),
     usage: z.object({
-        tokens: z.number(),
+        tokens: z.object({
+            input: z.number(),
+            output: z.number(),
+        }),
+        cost: z.object({
+            input: z.number(),
+            output: z.number(),
+        })
     })
 });
 
-// Infer the input and output types from their respective schemas
-type Input = z.infer<typeof Input>;
-type Output = z.infer<typeof Output>;
+type Input = z.infer<typeof InputSchema>;
+type Output = z.infer<typeof OutputSchema>;
 
 /**
  * TaskEmbedding class extends Task to compute the embedding of strings.
  * It uses an embedding model to convert the strings into vectors.
  */
-export class TaskEmbedding extends Task<Input, Output> {
-    constructor() {
-        super('Embedding', 'Computes the embedding of strings.');
+export class TaskEmbedding extends Task<typeof InputSchema, typeof OutputSchema> {
+    constructor(logger: Logger) {
+        super('Embedding', 'Computes the embedding of strings using an embedding model.', logger);
+    }
+
+    /**
+     * Returns the input and output schemas for the TaskEmbedding task.
+     *
+     * @returns An object containing the input and output schemas.
+     */
+    schema(): { input: typeof InputSchema, output: typeof OutputSchema } {
+        return {input: InputSchema, output: OutputSchema};
     }
 
     /**
      * Perform the embedding computation.
+     *
      * @param input - The input object containing the model name and an array of strings to embed.
      * @returns An object containing the embeddings and usage details.
      */
     protected async perform(input: Input): Promise<Output> {
-        const {model, values} = Input.parse(input);
-        const result = await embedMany({
+        const {model, values} = this.schema().input.parse(input);
+        const {embeddings, usage} = await embedMany({
             model: embeddingModel(model),
             values: values,
         });
+        const u = usageModel(model, usage);
+
+        this.logger.debug('task(embedding)', {model, values, usage: u});
 
         return {
-            output: result.embeddings,
-            usage: result.usage
+            output: embeddings,
+            usage: u,
         };
     }
 }
