@@ -1,6 +1,6 @@
-import { LanguageModelInit } from '@chikichat/model';
-import { Agent } from './agent';
-import { Prompt } from '../prompts';
+import {LanguageModelInit} from '@chikichat/model';
+import {Agent} from './agent';
+import {Prompt} from '../prompts';
 
 /**
  * An agent specialized in summarizing text.
@@ -19,25 +19,25 @@ export class AgentSummarization<OUTPUT = string> extends Agent<OUTPUT> {
             'Summarization',
             'Summarizes the provided text.',
             init,
-            new Prompt(prompt || `
+            new Prompt(prompt ? prompt : `
 You are a summarization expert. Please summarize the text according to the following instructions:
 - Summarize the text up to 100 words.
 - Summarize the text up to 5 bullet points.
 - Create a summary of the text up to 3 sentences.
 - Create a quote.
 
-Text: \${text}
+Input: \${input}
 `)
         );
     }
 
     /**
-     * Executes the summarization task with the provided text.
+     * Executes the summarization task with the provided input.
      *
-     * @param text - The text to be summarized.
+     * @param input - The input to be summarized.
      * @returns A promise that resolves to the summarized output.
      */
-    async execute(text: string): Promise<OUTPUT> {
-        return super.execute({ text });
+    async execute(input: string): Promise<OUTPUT> {
+        return super.execute({input});
     }
 }

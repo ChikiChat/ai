@@ -21,13 +21,13 @@ import {ILogger} from '../../logger';
 const InputSchema = z.object({
     prompt: z.string(),
     model: z.string().default(DEFAULT_LANGUAGE_MODEL_NAME),
-    maxTokens: z.optional(z.number().default(DEFAULT_MAX_TOKENS)),
-    maxSteps: z.optional(z.number().default(DEFAULT_MAX_STEPS)),
-    temperature: z.optional(z.number().min(0).max(2).default(DEFAULT_TEMPERATURE)),
-    topP: z.optional(z.number().min(0).max(1).default(DEFAULT_TOP_P)),
-    topK: z.optional(z.number().min(0).max(100).default(DEFAULT_TOP_K)),
-    presencePenalty: z.optional(z.number().min(0).max(2).default(DEFAULT_PRESENCE_PENALTY)),
-    frequencyPenalty: z.optional(z.number().min(0).max(2).default(DEFAULT_FREQUENCY_PENALTY)),
+    maxTokens: z.number().default(DEFAULT_MAX_TOKENS),
+    maxSteps: z.number().default(DEFAULT_MAX_STEPS),
+    temperature: z.number().min(0).max(2).default(DEFAULT_TEMPERATURE),
+    topP: z.number().min(0).max(1).default(DEFAULT_TOP_P),
+    topK: z.number().min(0).max(100).default(DEFAULT_TOP_K),
+    presencePenalty: z.number().min(0).max(2).default(DEFAULT_PRESENCE_PENALTY),
+    frequencyPenalty: z.number().min(0).max(2).default(DEFAULT_FREQUENCY_PENALTY),
 });
 
 /**

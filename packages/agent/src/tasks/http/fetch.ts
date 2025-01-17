@@ -7,15 +7,15 @@ import {ILogger} from '../../logger';
  */
 const InputSchema = z.object({
     url: z.string().url(),
-    method: z.optional(z.enum([
+    method: z.enum([
         'ACL', 'BIND', 'CHECKIN', 'CHECKOUT', 'COPY', 'DELETE', 'GET', 'HEAD', 'LABEL', 'LINK', 'LOCK', 'MERGE',
         'MKACTIVITY', 'MKCALENDAR', 'MKCOL', 'MKREDIRECTREF', 'MKWORKSPACE', 'MOVE', 'OPTIONS', 'ORDERPATCH',
         'PATCH', 'POST', 'PRI', 'PROPFIND', 'PROPPATCH', 'PUT', 'REBIND', 'REPORT', 'SEARCH', 'TRACE', 'UNBIND',
         'UNCHECKOUT', 'UNLINK', 'UNLOCK', 'UPDATE', 'UPDATEREDIRECTREF', 'VERSION-CONTROL'
-    ]).default('GET')),
-    headers: z.optional(z.record(z.string(), z.string()).default({
+    ]).default('GET'),
+    headers: z.record(z.string(), z.string()).default({
         'User-Agent': 'ChikiChat-Fetch/0.0.x (+https://chiki.chat)'
-    })),
+    }),
     body: z.optional(z.union([z.string(), z.instanceof(Blob), z.instanceof(FormData), z.instanceof(URLSearchParams), z.instanceof(ReadableStream), z.instanceof(ArrayBuffer)])),
     maxRetries: z.number().default(3),
     timeout: z.number().default(5000)
