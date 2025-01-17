@@ -8,17 +8,17 @@ import {
     DEFAULT_TEMPERATURE,
     DEFAULT_TOP_K,
     DEFAULT_TOP_P
-} from "@chikichat/model";
-import {z} from "zod";
-import {Dataset} from "../dataset";
-import {Task} from "./task";
-import {TaskSimilarity} from "./similarity";
-import {Prompt} from "../prompts";
-import {TaskGenerateText} from "./generate/text";
-import {Logger} from "../logger";
+} from '@chikichat/model';
+import {z} from 'zod';
+import {Dataset} from '../../dataset';
+import {Task} from '../task';
+import {Prompt} from '../../prompts';
+import {TaskLlmSimilarity} from './similarity';
+import {TaskLlmGenerate} from './generate';
+import {ILogger} from '../../logger';
 
 /**
- * Input schema for the TaskEvaluate task.
+ * Input schema for the TaskLlmEvaluate task.
  * Defines the structure and default values for the input parameters.
  */
 const InputSchema = z.object({
@@ -36,7 +36,7 @@ const InputSchema = z.object({
 });
 
 /**
- * Output schema for the TaskEvaluate task.
+ * Output schema for the TaskLlmEvaluate task.
  * Defines the structure of the output data.
  */
 const OutputSchema = z.object({
@@ -56,13 +56,13 @@ type Output = z.infer<typeof OutputSchema>;
  * This task generates text responses for each statement in the dataset
  * and calculates the similarity between the generated response and the expected response.
  */
-export class TaskEvaluate extends Task<typeof InputSchema, typeof OutputSchema> {
-    constructor(logger: Logger) {
+export class TaskLlmEvaluate extends Task<typeof InputSchema, typeof OutputSchema> {
+    constructor(logger: ILogger) {
         super('Evaluate', 'Evaluates the language model using the dataset.', logger);
     }
 
     /**
-     * Returns the input and output schemas for the TaskEvaluate task.
+     * Returns the input and output schemas for the TaskLlmEvaluate task.
      *
      * @returns An object containing the input and output schemas.
      */
@@ -71,7 +71,7 @@ export class TaskEvaluate extends Task<typeof InputSchema, typeof OutputSchema> 
     }
 
     /**
-     * Executes the TaskEvaluate task.
+     * Executes the TaskLlmEvaluate task.
      * Generates text responses for each statement in the dataset and calculates similarity.
      *
      * @param input - The input parameters for the task.
@@ -97,7 +97,7 @@ export class TaskEvaluate extends Task<typeof InputSchema, typeof OutputSchema> 
         const results: Output['output'] = [];
 
         for (const sample of dataset.values()) {
-            const {output} = await new TaskGenerateText(this.logger).execute({
+            const {output} = await new TaskLlmGenerate(this.logger).execute({
                 prompt: p.toString({statement: sample.statement}),
                 model,
                 maxTokens,
@@ -110,7 +110,7 @@ export class TaskEvaluate extends Task<typeof InputSchema, typeof OutputSchema> 
             });
 
             const answer = p.parse(output);
-            const {output: similarity} = await new TaskSimilarity(this.logger).execute({
+            const {output: similarity} = await new TaskLlmSimilarity(this.logger).execute({
                 model: embeddingModel,
                 a: sample.expect,
                 b: answer
@@ -123,7 +123,12 @@ export class TaskEvaluate extends Task<typeof InputSchema, typeof OutputSchema> 
                 similarity: similarity
             });
 
-            this.logger.debug('task(evaluate)', {statement: sample.statement, expect: sample.expect, answer, similarity});
+            this.logger.debug('task(llm/evaluate)', {
+                statement: sample.statement,
+                expect: sample.expect,
+                answer,
+                similarity
+            });
         }
 
         return {output: results};

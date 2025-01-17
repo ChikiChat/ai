@@ -1,5 +1,5 @@
-import { z, ZodSchema } from "zod";
-import { Logger } from "../logger";
+import { z, ZodSchema } from 'zod';
+import { ILogger } from '../logger';
 
 /**
  * Represents a task that can be executed with a specific input and produces an output.
@@ -19,7 +19,7 @@ export interface ITask<INPUT extends ZodSchema, OUTPUT extends ZodSchema> {
     /**
      * The logger instance used for logging task-related information.
      */
-    readonly logger: Logger;
+    readonly logger: ILogger;
 
     /**
      * Returns the input and output schema for the task.
@@ -55,7 +55,7 @@ export abstract class Task<INPUT extends ZodSchema, OUTPUT extends ZodSchema> im
     /**
      * The logger instance used for logging task-related information.
      */
-    readonly logger: Logger;
+    readonly logger: ILogger;
 
     /**
      * Constructs a new task with a given name, description, and logger.
@@ -64,7 +64,7 @@ export abstract class Task<INPUT extends ZodSchema, OUTPUT extends ZodSchema> im
      * @param description - A detailed description of what the task does, including any assumptions or prerequisites.
      * @param logger - The logger instance used for logging task-related information.
      */
-    protected constructor(name: string, description: string, logger: Logger) {
+    protected constructor(name: string, description: string, logger: ILogger) {
         this.name = name;
         this.description = description;
         this.logger = logger;

@@ -1,6 +1,6 @@
-import {LanguageModelInit} from "@chikichat/model";
-import {IPrompt} from "../prompts";
-import {TaskGenerateText} from "../tasks/generate/text";
+import {LanguageModelInit} from '@chikichat/model';
+import {IPrompt} from '../prompts';
+import {TaskLlmGenerate} from '../tasks';
 
 /**
  * Interface for an agent that performs a specific task and returns an output.
@@ -19,7 +19,7 @@ export interface IAgent<OUTPUT> {
     /**
      * The task used to generate text.
      */
-    readonly generate: TaskGenerateText<OUTPUT>;
+    readonly generate: TaskLlmGenerate;
 
     /**
      * Executes the agent with the provided arguments.
@@ -49,7 +49,7 @@ export class Agent<OUTPUT = string> implements IAgent<OUTPUT> {
     /**
      * The task used to generate text.
      */
-    readonly generate: TaskGenerateText<OUTPUT>;
+    readonly generate: TaskLlmGenerate;
 
     /**
      * Constructs a new agent with a name, description, prompt, and initialization configuration.
@@ -62,7 +62,7 @@ export class Agent<OUTPUT = string> implements IAgent<OUTPUT> {
     constructor(name: string, description: string, init: LanguageModelInit, prompt: IPrompt<OUTPUT>) {
         this.name = name;
         this.description = description;
-        this.generate = new TaskGenerateText<OUTPUT>(init, prompt);
+        this.generate = new TaskLlmGenerate<OUTPUT>(init, prompt);
     }
 
     /**

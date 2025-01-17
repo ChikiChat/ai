@@ -3,6 +3,7 @@ import {parse} from 'csv-parse/sync';
 import yaml from 'yaml';
 
 type Sample = {
+    context: string;
     statement: string;
     expect: string;
 }
@@ -68,21 +69,23 @@ export class Dataset {
         }
 
         data.forEach((row: any) => {
-            const statement = row.statement ?? (Array.isArray(row) ? row[0] : '');
-            const expect = row.expect ?? (Array.isArray(row) ? row[1] : '');
+            const context = row.context ?? (Array.isArray(row) ? row[0] : '');
+            const statement = row.statement ?? (Array.isArray(row) ? row[1] : '');
+            const expect = row.expect ?? (Array.isArray(row) ? row[2] : '');
 
-            this.set(statement, expect)
+            this.set(context, statement, expect)
         });
     }
 
     /**
      * Adds a statement and its expected response to the dataset.
      *
+     * @param context - The context for the statement.
      * @param statement - The statement to be stored.
      * @param expect - The expected response for the statement.
      */
-    public set(statement: string, expect: string): void {
-        this.samples.add({statement, expect});
+    public set(context: string, statement: string, expect: string): void {
+        this.samples.add({context, statement, expect});
     }
 
     /**

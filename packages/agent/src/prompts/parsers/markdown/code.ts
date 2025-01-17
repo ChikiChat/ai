@@ -1,4 +1,4 @@
-import {IParser} from "../parser";
+import {IParser} from '../parser';
 
 export type CodeBlock = {
     language: string;

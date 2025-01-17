@@ -1,16 +1,17 @@
-import {cosineSimilarity} from "ai";
-import {z} from "zod";
-import {Task} from "./task";
-import {TaskEmbedding} from "./embedding";
+import {cosineSimilarity} from 'ai';
+import {z} from 'zod';
+import {Task} from '../task';
+import {TaskLlmEmbedding} from './embedding';
+import {ILogger} from '../../logger';
 
-// Define the input schema for the TaskSimilarity task
+// Define the input schema for the TaskLlmSimilarity task
 const InputSchema = z.object({
     model: z.string(),
     a: z.string(),
     b: z.string(),
 });
 
-// Define the output schema for the TaskSimilarity task
+// Define the output schema for the TaskLlmSimilarity task
 const OutputSchema = z.object({
     output: z.number(),
     usage: z.object({
@@ -29,16 +30,16 @@ type Input = z.infer<typeof InputSchema>;
 type Output = z.infer<typeof OutputSchema>;
 
 /**
- * TaskSimilarity class extends Task to compute the cosine similarity between two strings.
+ * TaskLlmSimilarity class extends Task to compute the cosine similarity between two strings.
  * It uses an embedding model to convert strings into vectors and then calculates the similarity.
  */
-export class TaskSimilarity extends Task<typeof InputSchema, typeof OutputSchema> {
-    constructor(logger: Logger) {
+export class TaskLlmSimilarity extends Task<typeof InputSchema, typeof OutputSchema> {
+    constructor(logger: ILogger) {
         super('Similarity', 'Computes the cosine similarity between two strings using an embedding model.', logger);
     }
 
     /**
-     * Returns the input and output schemas for the TaskSimilarity task.
+     * Returns the input and output schemas for the TaskLlmSimilarity task.
      *
      * @returns An object containing the input and output schemas.
      */
@@ -54,11 +55,19 @@ export class TaskSimilarity extends Task<typeof InputSchema, typeof OutputSchema
      */
     protected async perform(input: Input): Promise<Output> {
         const {model, a, b} = this.schema().input.parse(input);
-        const {output, usage} = await (new TaskEmbedding(this.logger).execute({model, values: [a, b]}));
+        const {output, usage} = await (new TaskLlmEmbedding(this.logger).execute({model, values: [a, b]}));
         const [embeddingA, embeddingB] = output;
-        const similarity = cosineSimilarity(embeddingA, embeddingB);
 
-        this.logger.debug('task(similarity)', {model, a, b, similarity, usage});
+        if (!embeddingA) {
+            throw new Error('Failed to compute embedding for string A');
+        }
+
+        if (!embeddingB) {
+            throw new Error('Failed to compute embedding for string B');
+        }
+
+        const similarity = cosineSimilarity(embeddingA, embeddingB);
+        this.logger.debug('task(llm/similarity)', {model, a, b, similarity, usage});
 
         return {
             output: similarity,

@@ -1,6 +1,6 @@
 import {tool} from 'ai';
 import {z} from 'zod';
-import {TaskCalculate} from "../tasks";
+import {TaskCalculate} from '../tasks';
 
 /**
  * Defines a tool for evaluating mathematical expressions using the TaskCalculate class.

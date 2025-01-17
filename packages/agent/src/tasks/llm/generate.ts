@@ -9,15 +9,14 @@ import {
     DEFAULT_TOP_P,
     languageModel,
     usageModel
-} from "@chikichat/model";
-import {generateText} from "ai";
-import {z} from "zod";
-import {Task} from "../task";
-import {Logger} from "../../logger";
-
+} from '@chikichat/model';
+import {generateText} from 'ai';
+import {z} from 'zod';
+import {Task} from '../task';
+import {ILogger} from '../../logger';
 
 /**
- * Input schema for the TaskGenerateText task.
+ * Input schema for the TaskLlmGenerate task.
  */
 const InputSchema = z.object({
     prompt: z.string(),
@@ -32,7 +31,7 @@ const InputSchema = z.object({
 });
 
 /**
- * Output schema for the TaskGenerateText task.
+ * Output schema for the TaskLlmGenerate task.
  */
 const OutputSchema = z.object({
     output: z.string().trim(),
@@ -55,14 +54,14 @@ type Output = z.infer<typeof OutputSchema>;
  * A task class that generates text based on a provided prompt.
  * Extends the base Task class.
  */
-export class TaskGenerateText extends Task<typeof InputSchema, typeof OutputSchema> {
+export class TaskLlmGenerate extends Task<typeof InputSchema, typeof OutputSchema> {
 
-    constructor(logger: Logger) {
-        super('Generate Text', 'Generates text based on the provided prompt.', logger);
+    constructor(logger: ILogger) {
+        super('Generate', 'Generates text based on a prompt using a language model.', logger);
     }
 
     /**
-     * Returns the input and output schemas for the TaskGenerateText task.
+     * Returns the input and output schemas for the TaskLlmGenerate task.
      *
      * @returns An object containing the input and output schemas.
      */
@@ -103,7 +102,7 @@ export class TaskGenerateText extends Task<typeof InputSchema, typeof OutputSche
         });
         const u = usageModel(model, usage)
 
-        this.logger.debug('task(generateText)', {
+        this.logger.debug('task(llm/generate)', {
             model,
             prompt,
             maxTokens,

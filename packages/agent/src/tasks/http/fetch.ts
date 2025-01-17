@@ -1,9 +1,9 @@
-import {z} from "zod";
-import {Task} from "./task";
-import {Logger} from "../logger";
+import {z} from 'zod';
+import {Task} from '../task';
+import {ILogger} from '../../logger';
 
 /**
- * Input schema for the TaskFetch task.
+ * Input schema for the TaskHttpFetch task.
  */
 const InputSchema = z.object({
     url: z.string().url(),
@@ -22,7 +22,7 @@ const InputSchema = z.object({
 });
 
 /**
- * Output schema for the TaskFetch task.
+ * Output schema for the TaskHttpFetch task.
  */
 const OutputSchema = z.object({
     output: z.string().trim(),
@@ -37,16 +37,16 @@ type Output = z.infer<typeof OutputSchema>;
  * A task class that fetches data from a specified URL with retry logic.
  * Extends the base Task class and returns a Response object.
  */
-export class TaskFetch extends Task<typeof InputSchema, typeof OutputSchema> {
+export class TaskHttpFetch extends Task<typeof InputSchema, typeof OutputSchema> {
     /**
-     * Constructs a new TaskFetch instance.
+     * Constructs a new TaskHttpFetch instance.
      */
-    constructor(logger: Logger) {
+    constructor(logger: ILogger) {
         super('Fetch', 'Fetches data from a specified URL.', logger);
     }
 
     /**
-     * Returns the input and output schemas for the TaskFetch task.
+     * Returns the input and output schemas for the TaskHttpFetch task.
      *
      * @returns An object containing the input and output schemas.
      */
@@ -84,7 +84,7 @@ export class TaskFetch extends Task<typeof InputSchema, typeof OutputSchema> {
                     h[key] = value;
                 });
 
-                this.logger.debug('task(fetch)', {
+                this.logger.debug('task(http/fetch)', {
                     url,
                     method,
                     inputHeaders: headers,
