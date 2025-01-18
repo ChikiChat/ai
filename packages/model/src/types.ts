@@ -1,4 +1,5 @@
 import z from "zod";
+import {CoreTool} from "ai";
 
 /**
  * Default language model name.
@@ -139,92 +140,80 @@ export const ToolSchema = z.object({
 });
 
 /**
- * Schema for initializing a language model.
+ * Type representing the initialization configuration for a LanguageModel.
  */
-export const LanguageModelInitSchema = z.object({
+export type LanguageModelInit = {
+    /**
+     * The prompt for text generation.
+     */
+    readonly prompt: string;
+
     /**
      * The model identifier for text generation.
-     * Defaults to {@link DEFAULT_LANGUAGE_MODEL_NAME}.
      */
-    model: z.string().optional(),
+    readonly model: string;
 
     /**
      * The maximum number of tokens to generate.
      * Defaults to {@link DEFAULT_MAX_TOKENS}.
      */
-    maxTokens: z.number().optional(),
+    readonly maxTokens?: number;
 
     /**
      * The maximum number of steps to generate.
      * Defaults to {@link DEFAULT_MAX_STEPS}.
      */
-    maxSteps: z.number().optional(),
+    readonly maxSteps?: number;
 
     /**
      * Controls the randomness of the generated text.
      * Lower values make the output more deterministic.
      * Defaults to {@link DEFAULT_TEMPERATURE}.
      */
-    temperature: z.number().optional(),
+    readonly temperature?: number;
 
     /**
      * Implements nucleus sampling to control text diversity.
      * The model considers tokens whose cumulative probability exceeds this value.
      * Defaults to {@link DEFAULT_TOP_P}.
      */
-    topP: z.number().optional(),
+    readonly topP?: number;
 
     /**
      * Limits the model to the top K most likely next tokens.
      * Helps control text diversity.
      * Defaults to {@link DEFAULT_TOP_K}.
      */
-    topK: z.number().optional(),
+    readonly topK?: number;
 
     /**
      * Penalizes tokens that have already appeared in the text.
      * Encourages the model to introduce new topics.
      * Defaults to {@link DEFAULT_PRESENCE_PENALTY}.
      */
-    presencePenalty: z.number().optional(),
+    readonly presencePenalty?: number;
 
     /**
      * Penalizes tokens based on their frequency in the text.
      * Reduces the likelihood of repeating the same line.
      * Defaults to {@link DEFAULT_FREQUENCY_PENALTY}.
      */
-    frequencyPenalty: z.number().optional(),
+    readonly frequencyPenalty?: number;
 
     /**
      * The tools available for the model to use.
      * The model must support tool invocation.
      * Defaults to an empty object.
      */
-    tools: z.record(z.string(), ToolSchema).optional(),
-});
+    readonly tools?: Record<string, CoreTool>;
+}
 
 /**
- * Schema for initializing an embedding model.
+ * Type representing the initialization configuration for a EmbeddingModel.
  */
-export const EmbeddingModelInitSchema = z.object({
+export type EmbeddingModelInit = {
     /**
      * The model identifier for embeddings.
-     * Defaults to {@link DEFAULT_EMBEDDING_MODEL_NAME}.
      */
-    model: z.string().optional(),
-});
-
-/**
- * Type representing a tool that can be used by a language model.
- */
-export type Tool = z.infer<typeof ToolSchema>;
-
-/**
- * Type representing the initialization parameters for a language model.
- */
-export type LanguageModelInit = z.infer<typeof LanguageModelInitSchema>;
-
-/**
- * Type representing the initialization parameters for an embedding model.
- */
-export type EmbeddingModelInit = z.infer<typeof EmbeddingModelInitSchema>;
+    readonly model: string;
+}

@@ -1,8 +1,6 @@
 import {EmbeddingModel, EmbeddingModelUsage, LanguageModel, LanguageModelUsage} from "ai";
 import {
-    DEFAULT_EMBEDDING_MODEL_NAME,
     DEFAULT_FREQUENCY_PENALTY,
-    DEFAULT_LANGUAGE_MODEL_NAME,
     DEFAULT_MAX_STEPS,
     DEFAULT_MAX_TOKENS,
     DEFAULT_PRESENCE_PENALTY,
@@ -10,9 +8,7 @@ import {
     DEFAULT_TOP_K,
     DEFAULT_TOP_P,
     EmbeddingModelInit,
-    EmbeddingModelInitSchema,
     LanguageModelInit,
-    LanguageModelInitSchema,
     Model,
     UsageModel
 } from "./types";
@@ -113,38 +109,37 @@ export const providerAndModel = (model: string): {
 };
 
 /**
- * Initializes a language model configuration by parsing the input and applying default values where necessary.
+ * Initializes a LanguageModelInit object with default settings.
  *
- * @param init - An object containing the initial configuration for the language model.
- * @returns A new object with the parsed and defaulted configuration for the language model.
+ * @param prompt - The initial prompt to be used by the language model.
+ * @param model - The name or identifier of the language model to be used.
+ * @returns An object of type LanguageModelInit with the provided prompt and model,
+ *          and default values for other properties such as maxTokens, maxSteps, temperature, etc.
  */
-export const languageModelInit = (init: LanguageModelInit): LanguageModelInit => {
-    const parsed = LanguageModelInitSchema.parse(init);
-
+export const languageModelInit = (prompt: string, model: string): LanguageModelInit => {
     return {
-        model: parsed.model ?? DEFAULT_LANGUAGE_MODEL_NAME,
-        maxTokens: parsed.maxTokens ?? DEFAULT_MAX_TOKENS,
-        maxSteps: parsed.maxSteps ?? DEFAULT_MAX_STEPS,
-        temperature: parsed.temperature ?? DEFAULT_TEMPERATURE,
-        topP: parsed.topP ?? DEFAULT_TOP_P,
-        topK: parsed.topK ?? DEFAULT_TOP_K,
-        presencePenalty: parsed.presencePenalty ?? DEFAULT_PRESENCE_PENALTY,
-        frequencyPenalty: parsed.frequencyPenalty ?? DEFAULT_FREQUENCY_PENALTY,
-        tools: parsed.tools ?? {}
+        prompt,
+        model,
+        maxTokens: DEFAULT_MAX_TOKENS,
+        maxSteps: DEFAULT_MAX_STEPS,
+        temperature: DEFAULT_TEMPERATURE,
+        topP: DEFAULT_TOP_P,
+        topK: DEFAULT_TOP_K,
+        presencePenalty: DEFAULT_PRESENCE_PENALTY,
+        frequencyPenalty: DEFAULT_FREQUENCY_PENALTY,
+        tools: {}
     }
 };
 
 /**
- * Initializes an embedding model configuration by parsing the input and applying default values where necessary.
+ * Initializes an EmbeddingModelInit object with default settings.
  *
- * @param init - An object containing the initial configuration for the embedding model. Defaults to an empty object if not provided.
- * @returns A new object with the parsed and defaulted configuration for the embedding model.
+ * @param model - The name or identifier of the embedding model to be used.
+ * @returns An object of type EmbeddingModelInit with the provided model and default settings.
  */
-export const embeddingModelInit = (init: EmbeddingModelInit = {}): EmbeddingModelInit => {
-    const parsed = EmbeddingModelInitSchema.parse(init);
-
+export const embeddingModelInit = (model: string): EmbeddingModelInit => {
     return {
-        model: parsed.model ?? DEFAULT_EMBEDDING_MODEL_NAME,
+        model,
     }
 };
 
