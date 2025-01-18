@@ -1,5 +1,11 @@
 # AI SDK (model) 👋
 
+## 1.0.4
+
+### Patch Changes
+
+- a844c9d: refactor
+
 ## 1.0.3
 
 ### Patch Changes
