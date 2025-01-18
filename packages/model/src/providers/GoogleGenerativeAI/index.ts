@@ -1,6 +1,6 @@
-import {Provider} from '../../types';
 import {EmbeddingModel, LanguageModel} from "ai";
 import {createGoogleGenerativeAI, GoogleGenerativeAIProvider} from "@ai-sdk/google";
+import {Provider} from '../provider';
 
 export class GoogleGenerativeAI extends Provider {
     id = 'google-generative-ai';

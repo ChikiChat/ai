@@ -1,6 +1,6 @@
-import {Provider} from '../../types';
 import {EmbeddingModel, LanguageModel} from 'ai';
 import {CohereProvider, createCohere} from '@ai-sdk/cohere';
+import {Provider} from '../provider';
 
 export class Cohere extends Provider {
     id = 'cohere';
