@@ -1,6 +1,6 @@
-import {Provider} from '../../types';
 import {EmbeddingModel, LanguageModel} from 'ai';
 import {AnthropicProvider, createAnthropic} from '@ai-sdk/anthropic';
+import {Provider} from '../provider';
 
 export class Anthropic extends Provider {
     id = 'anthropic';
