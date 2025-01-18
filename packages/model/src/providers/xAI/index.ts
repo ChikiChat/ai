@@ -1,6 +1,6 @@
-import {Provider} from '../../types';
 import {EmbeddingModel, LanguageModel} from "ai";
 import {createXai, XaiProvider} from "@ai-sdk/xai";
+import {Provider} from '../provider';
 
 export class xAI extends Provider {
     id = 'xai';

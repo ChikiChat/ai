@@ -1,99 +1,26 @@
-import {EmbeddingModelInit, LanguageModelInit, Model, Provider, UsageModel} from "./types";
-import {
-    AI21,
-    Anthropic,
-    Cohere,
-    DeepSeek,
-    GoogleGenerativeAI,
-    Groq,
-    Mistral,
-    Nvidia,
-    OpenAI,
-    OpenRouter,
-    SambaNova,
-    xAI
-} from "./providers";
 import {EmbeddingModel, EmbeddingModelUsage, LanguageModel, LanguageModelUsage} from "ai";
+import {
+    DEFAULT_EMBEDDING_MODEL_NAME,
+    DEFAULT_FREQUENCY_PENALTY,
+    DEFAULT_LANGUAGE_MODEL_NAME,
+    DEFAULT_MAX_STEPS,
+    DEFAULT_MAX_TOKENS,
+    DEFAULT_PRESENCE_PENALTY,
+    DEFAULT_TEMPERATURE,
+    DEFAULT_TOP_K,
+    DEFAULT_TOP_P,
+    EmbeddingModelInit,
+    EmbeddingModelInitSchema,
+    LanguageModelInit,
+    LanguageModelInitSchema,
+    Model,
+    UsageModel
+} from "./types";
+import {Provider} from "./providers/provider";
+import {providers} from "./providers";
 
 export * from "./types";
 export * from "./providers";
-
-/**
- * Default language model name.
- */
-export const DEFAULT_LANGUAGE_MODEL_NAME: string = process.env['LANGUAGE_MODEL_NAME'] ?? 'anthropic/claude-3-5-sonnet-20241022';
-
-/**
- * Default embedding model name.
- */
-export const DEFAULT_EMBEDDING_MODEL_NAME: string = process.env['EMBEDDING_MODEL_NAME'] ?? 'mistral/mistral-embed';
-
-/**
- * The default maximum number of tokens to generate in the completion.
- * This value ensures that the generated text does not exceed a reasonable length.
- */
-export const DEFAULT_MAX_TOKENS: number = parseInt(process.env['EMBEDDING_MODEL_NAME'] ?? '4096');
-
-/**
- * The default maximum number of steps to generate in the completion.
- * This value controls the number of iterations or segments in the text generation process.
- */
-export const DEFAULT_MAX_STEPS: number = parseInt(process.env['MAX_STEPS'] ?? '2');
-
-/**
- * The default temperature value for controlling the randomness of predictions.
- * Lower values make the model more deterministic, while higher values increase randomness.
- */
-export const DEFAULT_TEMPERATURE: number = parseFloat(process.env['TEMPERATURE'] ?? '0.8');
-
-/**
- * The default value for nucleus sampling (top-p sampling).
- * The model considers the smallest set of tokens whose cumulative probability exceeds this value.
- */
-export const DEFAULT_TOP_P: number = parseFloat(process.env['TOP_P'] ?? '0.90');
-
-/**
- * The default value for limiting the model to the top K most likely next tokens.
- * This helps control the diversity of the generated text.
- */
-export const DEFAULT_TOP_K: number = parseInt(process.env['TOP_K'] ?? '40');
-
-/**
- * The default presence penalty value.
- * Penalizes new tokens based on whether they appear in the text so far.
- * Increases the model's likelihood to talk about new topics.
- */
-export const DEFAULT_PRESENCE_PENALTY: number = parseFloat(process.env['PRESENCE_PENALTY'] ?? '0.0');
-
-/**
- * The default frequency penalty value.
- * Penalizes new tokens based on their existing frequency in the text so far.
- * Decreases the model's likelihood to repeat the same line verbatim.
- */
-export const DEFAULT_FREQUENCY_PENALTY: number = parseFloat(process.env['FREQUENCY_PENALTY'] ?? '0.0');
-
-/**
- * List of all providers.
- */
-export const providers: Array<Provider> = [
-    new AI21(),
-    new Anthropic(),
-    new Cohere(),
-    new DeepSeek(),
-    new GoogleGenerativeAI(),
-    new Groq(),
-    new Mistral(),
-    new Nvidia(),
-    new OpenAI(),
-    new OpenRouter(),
-    new SambaNova(),
-    new xAI(),
-];
-
-/**
- * Flatten the list of models from all providers.
- */
-export const models = providers.flatMap(provider => provider.models);
 
 /**
  * Get a language model instance for a given model name and API key.
@@ -128,26 +55,31 @@ export const usageModel = (model: string, usage: LanguageModelUsage | EmbeddingM
     const {model: m} = providerAndModel(model);
 
     if (isEmbeddingModelUsage(usage)) {
+        const tokens = usage.tokens || 0;
+
         return {
             tokens: {
-                input: usage.tokens,
+                input: tokens,
                 output: 0
             },
             cost: {
-                input: m.price.input * usage.tokens,
+                input: m.price.input * tokens,
                 output: 0
             }
         };
     }
 
+    const promptTokens = usage.promptTokens || 0;
+    const completionTokens = usage.completionTokens || 0;
+
     return {
         tokens: {
-            input: usage.promptTokens,
-            output: usage.completionTokens
+            input: promptTokens,
+            output: completionTokens
         },
         cost: {
-            input: m.price.input * usage.promptTokens,
-            output: m.price.output * usage.completionTokens
+            input: m.price.input * promptTokens,
+            output: m.price.output * completionTokens
         }
     };
 };
@@ -181,32 +113,40 @@ export const providerAndModel = (model: string): {
 };
 
 /**
- * Initializes a language model configuration with default values where necessary.
+ * Initializes a language model configuration by parsing the input and applying default values where necessary.
  *
- * @param {string} [model=DEFAULT_LANGUAGE_MODEL_NAME] - The name of the language model to use. Defaults to DEFAULT_LANGUAGE_MODEL_NAME if not provided.
- * @returns {LanguageModelInit} - A configuration object for the language model with default values applied where necessary.
+ * @param init - An object containing the initial configuration for the language model.
+ * @returns A new object with the parsed and defaulted configuration for the language model.
  */
-export const languageModelInit = (model: string = DEFAULT_LANGUAGE_MODEL_NAME): LanguageModelInit => ({
-    model: model,
-    maxTokens: DEFAULT_MAX_TOKENS,
-    maxSteps: DEFAULT_MAX_STEPS,
-    temperature: DEFAULT_TEMPERATURE,
-    topP: DEFAULT_TOP_P,
-    topK: DEFAULT_TOP_K,
-    presencePenalty: DEFAULT_PRESENCE_PENALTY,
-    frequencyPenalty: DEFAULT_FREQUENCY_PENALTY,
-    tools: {}
-});
+export const languageModelInit = (init: LanguageModelInit): LanguageModelInit => {
+    const parsed = LanguageModelInitSchema.parse(init);
+
+    return {
+        model: parsed.model ?? DEFAULT_LANGUAGE_MODEL_NAME,
+        maxTokens: parsed.maxTokens ?? DEFAULT_MAX_TOKENS,
+        maxSteps: parsed.maxSteps ?? DEFAULT_MAX_STEPS,
+        temperature: parsed.temperature ?? DEFAULT_TEMPERATURE,
+        topP: parsed.topP ?? DEFAULT_TOP_P,
+        topK: parsed.topK ?? DEFAULT_TOP_K,
+        presencePenalty: parsed.presencePenalty ?? DEFAULT_PRESENCE_PENALTY,
+        frequencyPenalty: parsed.frequencyPenalty ?? DEFAULT_FREQUENCY_PENALTY,
+        tools: parsed.tools ?? {}
+    }
+};
 
 /**
- * Initializes an embedding model configuration with default values where necessary.
+ * Initializes an embedding model configuration by parsing the input and applying default values where necessary.
  *
- * @param {string} [model=DEFAULT_EMBEDDING_MODEL_NAME] - The name of the embedding model to use. Defaults to DEFAULT_EMBEDDING_MODEL_NAME if not provided.
- * @returns {EmbeddingModelInit} - A configuration object for the embedding model with default values applied where necessary.
+ * @param init - An object containing the initial configuration for the embedding model. Defaults to an empty object if not provided.
+ * @returns A new object with the parsed and defaulted configuration for the embedding model.
  */
-export const embeddingModelInit = (model: string = DEFAULT_EMBEDDING_MODEL_NAME): EmbeddingModelInit => ({
-    model: model
-});
+export const embeddingModelInit = (init: EmbeddingModelInit = {}): EmbeddingModelInit => {
+    const parsed = EmbeddingModelInitSchema.parse(init);
+
+    return {
+        model: parsed.model ?? DEFAULT_EMBEDDING_MODEL_NAME,
+    }
+};
 
 /**
  * Helper function to get a model instance using a provider and model ID.

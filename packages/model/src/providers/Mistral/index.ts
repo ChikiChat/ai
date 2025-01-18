@@ -1,6 +1,6 @@
-import {Provider} from '../../types';
 import {EmbeddingModel, LanguageModel} from "ai";
 import {createMistral, MistralProvider} from "@ai-sdk/mistral";
+import {Provider} from '../provider';
 
 export class Mistral extends Provider {
     id = 'mistral';

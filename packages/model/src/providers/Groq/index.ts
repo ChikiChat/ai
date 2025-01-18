@@ -1,6 +1,6 @@
-import {Provider} from '../../types';
 import {EmbeddingModel, LanguageModel} from "ai";
 import {createGroq, GroqProvider} from "@ai-sdk/groq";
+import {Provider} from '../provider';
 
 export class Groq extends Provider {
     id = 'groq';

@@ -1,6 +1,6 @@
-import {Provider} from '../../types';
 import {EmbeddingModel, LanguageModel} from "ai";
 import {createOpenAI, OpenAIProvider} from "@ai-sdk/openai";
+import {Provider} from '../provider';
 
 export class DeepSeek extends Provider {
     id = 'deepseek';
