@@ -7,11 +7,20 @@ import {
     DEFAULT_TOP_K,
     DEFAULT_TOP_P,
     languageModel,
-    LanguageModelInit
+    LanguageModelInit,
+    usageModel,
+    UsageModel
 } from '@chikichat/model';
-import {IPrompt} from '../prompts';
-import {CoreMessage, generateText} from "ai";
+import {CoreMessage, FinishReason, generateText} from "ai";
 import {EventEmitter} from 'events';
+import {IParser, Prompt} from "../prompts";
+
+type Step = {
+    input: string;
+    output: string;
+    finishReason: FinishReason;
+    usage: UsageModel;
+}
 
 /**
  * Interface for an agent that performs a specific task.
@@ -19,30 +28,34 @@ import {EventEmitter} from 'events';
 export interface IAgent<OUTPUT> {
     /**
      * The name of the agent.
+     * This should be a unique identifier for the agent.
      */
     readonly name: string;
 
     /**
      * A description of what the agent does.
+     * This should provide a clear and concise explanation of the agent's purpose and functionality.
      */
     readonly description: string;
 
     /**
-     * Initialization configuration for the language model.
+     * The parser used by the agent to process and interpret the output.
+     * This parser is responsible for converting the raw output into a structured format of type OUTPUT.
      */
-    readonly init: LanguageModelInit;
+    readonly parser?: IParser<OUTPUT>;
 
     /**
-     * The prompt configuration for the agent.
+     * Performs the task with the given arguments and optional initialization configuration.
+     *
+     * @param args - An object containing the arguments needed for the task.
+     *               The structure of this object should be consistent with the requirements of the specific task.
+     * @param init - Optional initialization configuration for the language model.
+     *               This parameter allows for customization of the language model's behavior during the task execution.
+     * @returns A promise that resolves to the output of the task.
+     *          The output is of type OUTPUT, which is defined by the parser.
+     * @throws Will throw an error if the task cannot be performed due to invalid arguments or other issues.
      */
-    readonly prompt: IPrompt<OUTPUT>;
-
-    /**
-     * Executes the agent's task with the provided arguments.
-     * @param args - An object containing key-value pairs of arguments required for the task.
-     * @returns The output of the agent's task.
-     */
-    execute(args: { [key: string]: any }): Promise<OUTPUT>;
+    perform(args: { [key: string]: any }, init?: LanguageModelInit): Promise<OUTPUT>;
 }
 
 /**
@@ -62,98 +75,111 @@ export class Agent<OUTPUT = string> extends EventEmitter implements IAgent<OUTPU
     readonly description: string;
 
     /**
+     * The parser used by the agent to process and interpret the output.
+     * This parser is responsible for converting the raw output into a structured format of type OUTPUT.
+     */
+    readonly parser?: IParser<OUTPUT>;
+
+    /**
      * Initialization configuration for the language model.
+     * This configuration allows for customization of the language model's behavior during task execution.
      */
-    readonly init: LanguageModelInit;
+    init: LanguageModelInit;
 
     /**
-     * The prompt configuration for the agent.
+     * Array to store the conversation messages.
+     * This array holds all the messages exchanged between the user and the agent.
      */
-    readonly prompt: IPrompt<OUTPUT>;
+    readonly messages: CoreMessage[] = [];
 
     /**
-     * Stores the conversation messages.
+     * Read-only array to store the steps of the agent's process.
+     * Each step includes the input, output, finish reason, and usage statistics.
      */
-    private messages: CoreMessage[];
+    readonly steps: Record<number, Step[]> = {};
 
     /**
-     * Constructs a new agent with a name, description, prompt, and initialization configuration.
-     *
-     * @param name - The name of the agent.
-     * @param description - A description of what the agent does.
-     * @param init - The initialization configuration for the language model.
-     * @param prompt - The prompt used by the agent.
+     * Counter to track the number of steps performed by the agent.
+     * This counter is incremented each time the `perform` method is called.
      */
-    constructor(name: string, description: string, init: LanguageModelInit, prompt: IPrompt<OUTPUT>) {
+    step: number = 0;
+
+    constructor(name: string, description: string, init: LanguageModelInit, parser?: IParser<OUTPUT>) {
         super();
         this.name = name;
         this.description = description;
-        this.init = {
-            model: init.model,
-            maxTokens: init.maxTokens ?? DEFAULT_MAX_TOKENS,
-            maxSteps: init.maxSteps ?? DEFAULT_MAX_STEPS,
-            temperature: init.temperature ?? DEFAULT_TEMPERATURE,
-            topP: init.topP ?? DEFAULT_TOP_P,
-            topK: init.topK ?? DEFAULT_TOP_K,
-            presencePenalty: init.presencePenalty ?? DEFAULT_PRESENCE_PENALTY,
-            frequencyPenalty: init.frequencyPenalty ?? DEFAULT_FREQUENCY_PENALTY,
-            tools: init.tools ?? {},
-        };
-        this.prompt = prompt;
-        this.messages = [];
+        this.init = init;
+        this.parser = parser;
     }
 
     /**
-     * Executes the agent with the provided arguments.
-     * This method should be overridden by subclasses to provide specific agent logic.
+     * Performs the task with the given arguments.
      *
-     * @param args - An object containing any arguments required for the agent execution.
-     * @returns A promise that resolves to the output of the agent.
+     * @param args - An object containing the arguments needed for the task.
+     *               The structure of this object should be consistent with the requirements of the specific task.
+     * @returns A promise that resolves to the output of the task.
+     *          The output is of type OUTPUT, which is defined by the parser.
+     * @throws Will throw an error if the task cannot be performed due to invalid arguments or other issues.
      */
-    async execute(args: { [key: string]: any } = {}): Promise<OUTPUT> {
-        if (this.messages.length === 0) {
-            const content = this.prompt.toString(args);
-            this.messages.push({role: 'user', content});
+    async perform(args: { [key: string]: any }): Promise<OUTPUT> {
+        this.step++;
+        if (this.init && this.step >= (this.init.maxSteps || DEFAULT_MAX_STEPS)) {
+            throw new Error(`Maximum steps (${this.init.maxSteps || DEFAULT_MAX_STEPS}) reached.`);
+        }
 
-            this.emit('init', {
-                prompt: content,
-                ...this.init,
+        const prompt = new Prompt<OUTPUT>(this.init.prompt || '', this.parser);
+        const input = prompt.toString(args);
+
+        this.messages.push({role: 'user', content: input});
+        const {text, finishReason, usage} = await generateText({
+            messages: this.messages,
+            model: languageModel(this.init.model),
+            maxTokens: this.init.maxTokens || DEFAULT_MAX_TOKENS,
+            maxSteps: 2,
+            temperature: this.init.temperature || DEFAULT_TEMPERATURE,
+            topP: this.init.topP || DEFAULT_TOP_P,
+            topK: this.init.topK || DEFAULT_TOP_K,
+            presencePenalty: this.init.presencePenalty || DEFAULT_PRESENCE_PENALTY,
+            frequencyPenalty: this.init.frequencyPenalty || DEFAULT_FREQUENCY_PENALTY,
+            tools: this.init.tools,
+            // onStepFinish: ({ text, toolCalls, toolResults, finishReason, usage }) => {
+            //     if (toolResults.length === 0) {
+            //         this.messages.push({ role: 'assistant', content: text });
+            //     }
+            //
+            //     this.emit('step_finish', text, toolCalls, toolResults, finishReason, usage);
+            // }
+        });
+
+        this.messages.push({role: 'assistant', content: text});
+
+        if (!this.steps[this.step]) {
+            this.steps[this.step] = [];
+            (this.steps[this.step] as Step[]).push({
+                input: input,
+                output: text,
+                finishReason: finishReason,
+                usage: usageModel(this.init.model, usage)
             });
         }
 
-        const {text} = await generateText({
-            model: languageModel(this.init.model),
-            messages: this.messages,
-            maxTokens: this.init.maxTokens,
-            maxSteps: 2,
-            temperature: this.init.temperature,
-            topP: this.init.topP,
-            topK: this.init.topK,
-            presencePenalty: this.init.presencePenalty,
-            frequencyPenalty: this.init.frequencyPenalty,
-            tools: this.init.tools,
-            onStepFinish: ({text, toolCalls, toolResults, finishReason, usage}) => {
-                if (toolResults.length === 0) {
-                    this.messages.push({role: 'assistant', content: text});
-                }
-
-                this.emit('step_finish', text, toolCalls, toolResults, finishReason, usage);
-            }
-        });
-
-        return this.prompt.parse(text);
+        return prompt.parse(text);
     }
 
     /**
      * Reacts to a new prompt and continues the conversation.
      *
      * @param prompt - The new prompt to react to.
+     * @param args - An object containing the arguments needed for the task.
+     *               The structure of this object should be consistent with the requirements of the specific task.
      * @returns A promise that resolves to the output of the agent.
+     *          The output is of type OUTPUT, which is defined by the parser.
+     * @throws Will throw an error if the task cannot be performed due to invalid arguments or other issues.
      */
-    async react(prompt: string): Promise<OUTPUT> {
-        this.messages.push({role: 'user', content: prompt});
-        this.emit('react', prompt);
+    async react(prompt: string, args: { [key: string]: any }): Promise<OUTPUT> {
+        this.init.prompt = prompt;
 
-        return this.execute({});
+        return this.perform(args);
     }
 }
+
