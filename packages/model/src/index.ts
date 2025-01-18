@@ -111,15 +111,15 @@ export const providerAndModel = (model: string): {
 /**
  * Initializes a LanguageModelInit object with default settings.
  *
- * @param prompt - The initial prompt to be used by the language model.
  * @param model - The name or identifier of the language model to be used.
+ * @param prompt - The initial prompt to be used by the language model.
  * @returns An object of type LanguageModelInit with the provided prompt and model,
  *          and default values for other properties such as maxTokens, maxSteps, temperature, etc.
  */
-export const languageModelInit = (prompt: string, model: string): LanguageModelInit => {
+export const languageModelInit = (model: string, prompt: string): LanguageModelInit => {
     return {
-        prompt,
         model,
+        prompt,
         maxTokens: DEFAULT_MAX_TOKENS,
         maxSteps: DEFAULT_MAX_STEPS,
         temperature: DEFAULT_TEMPERATURE,

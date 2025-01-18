@@ -1,4 +1,3 @@
-import z from "zod";
 import {CoreTool} from "ai";
 
 /**
@@ -118,94 +117,72 @@ export type UsageModel = {
 }
 
 /**
- * Schema for defining a tool that can be used by a language model.
- */
-export const ToolSchema = z.object({
-    /**
-     * Type of the tool, defaults to "function"
-     */
-    type: z.literal("function").optional(),
-    /**
-     * Description of the tool
-     */
-    description: z.string(),
-    /**
-     * Parameters required by the tool
-     */
-    parameters: z.any(),
-    /**
-     * Function to execute the tool
-     */
-    execute: z.function().args(z.any()).returns(z.promise(z.any())),
-});
-
-/**
  * Type representing the initialization configuration for a LanguageModel.
  */
 export type LanguageModelInit = {
     /**
-     * The prompt for text generation.
-     */
-    readonly prompt: string;
-
-    /**
      * The model identifier for text generation.
      */
-    readonly model: string;
+    model: string;
+
+    /**
+     * The prompt for text generation.
+     */
+    prompt?: string;
 
     /**
      * The maximum number of tokens to generate.
      * Defaults to {@link DEFAULT_MAX_TOKENS}.
      */
-    readonly maxTokens?: number;
+    maxTokens?: number;
 
     /**
      * The maximum number of steps to generate.
      * Defaults to {@link DEFAULT_MAX_STEPS}.
      */
-    readonly maxSteps?: number;
+    maxSteps?: number;
 
     /**
      * Controls the randomness of the generated text.
      * Lower values make the output more deterministic.
      * Defaults to {@link DEFAULT_TEMPERATURE}.
      */
-    readonly temperature?: number;
+    temperature?: number;
 
     /**
      * Implements nucleus sampling to control text diversity.
      * The model considers tokens whose cumulative probability exceeds this value.
      * Defaults to {@link DEFAULT_TOP_P}.
      */
-    readonly topP?: number;
+    topP?: number;
 
     /**
      * Limits the model to the top K most likely next tokens.
      * Helps control text diversity.
      * Defaults to {@link DEFAULT_TOP_K}.
      */
-    readonly topK?: number;
+    topK?: number;
 
     /**
      * Penalizes tokens that have already appeared in the text.
      * Encourages the model to introduce new topics.
      * Defaults to {@link DEFAULT_PRESENCE_PENALTY}.
      */
-    readonly presencePenalty?: number;
+    presencePenalty?: number;
 
     /**
      * Penalizes tokens based on their frequency in the text.
      * Reduces the likelihood of repeating the same line.
      * Defaults to {@link DEFAULT_FREQUENCY_PENALTY}.
      */
-    readonly frequencyPenalty?: number;
+    frequencyPenalty?: number;
 
     /**
      * The tools available for the model to use.
      * The model must support tool invocation.
      * Defaults to an empty object.
      */
-    readonly tools?: Record<string, CoreTool>;
+    tools?: Record<string, CoreTool>;
 }
 
 /**
@@ -215,5 +192,5 @@ export type EmbeddingModelInit = {
     /**
      * The model identifier for embeddings.
      */
-    readonly model: string;
+    model: string;
 }
