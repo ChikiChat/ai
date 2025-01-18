@@ -1,5 +1,5 @@
-import {LanguageModelInit} from '@chikichat/model';
 import {Agent} from './agent';
+import {Input, Output} from "./types";
 
 /**
  * An agent specialized in summarizing text.
@@ -12,7 +12,7 @@ export class AgentSummarization<OUTPUT = string> extends Agent<OUTPUT> {
      *
      * @param init - The initialization configuration for the language model.
      */
-    constructor(init: LanguageModelInit) {
+    constructor(init: Input<OUTPUT>) {
         init.prompt = init.prompt || `
 You are a summarization expert. Please summarize the text according to the following instructions:
 - Summarize the text up to 100 words.
@@ -31,7 +31,7 @@ Input: \${input}
      * @param input - The input to be summarized.
      * @returns A promise that resolves to the summarized output.
      */
-    async perform(input: string): Promise<OUTPUT> {
+    async perform(input: string): Promise<Output<OUTPUT>> {
         return super.perform({input});
     }
 }

@@ -36,8 +36,8 @@ importers:
   packages/agent:
     dependencies:
       '@chikichat/model':
-        specifier: ^1.0.6
-        version: 1.0.6(react@19.0.0)(zod@3.24.1)
+        specifier: ^1.0.7
+        version: 1.0.7(react@19.0.0)(zod@3.24.1)
       ai:
         specifier: ^4.0.0
         version: 4.0.34(react@19.0.0)(zod@3.24.1)
@@ -244,8 +244,8 @@ packages:
   '@changesets/write@0.3.2':
     resolution: {integrity: sha512-kDxDrPNpUgsjDbWBvUo27PzKX4gqeKOlhibaOXDJA6kuBisGqNHv/HwGJrAu8U/dSf8ZEFIeHIPtvSlZI1kULw==}
 
-  '@chikichat/model@1.0.6':
-    resolution: {integrity: sha512-fLkVmgsnDPgc2Hdw5uJEUCwyhD6Po0nIm3xDJ3eLEroppsR+mnAGkU3WJ8DbYlp0mFZQZd1unYm5ZYwC+r46Xw==}
+  '@chikichat/model@1.0.7':
+    resolution: {integrity: sha512-9sn2f2hdQZ7OfId6JQ+JsF+tICq+XAt7rn44MBtVINNWZ5rJNIt3bjv2KARQo+nafnfV0AQHY1HQnIAmDzuSDA==}
     engines: {node: ^20.0.0 || ^22.0.0}
 
   '@esbuild/aix-ppc64@0.24.2':
@@ -1906,7 +1906,7 @@ snapshots:
       human-id: 1.0.2
       prettier: 2.8.8
 
-  '@chikichat/model@1.0.6(react@19.0.0)(zod@3.24.1)':
+  '@chikichat/model@1.0.7(react@19.0.0)(zod@3.24.1)':
     dependencies:
       '@ai-sdk/anthropic': 1.0.8(zod@3.24.1)
       '@ai-sdk/cohere': 1.0.8(zod@3.24.1)
