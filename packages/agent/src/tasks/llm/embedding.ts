@@ -2,7 +2,6 @@ import {embedMany} from 'ai';
 import {z} from 'zod';
 import {DEFAULT_EMBEDDING_MODEL_NAME, embeddingModel, usageModel} from '@chikichat/model';
 import {Task} from '../task';
-import {ILogger} from '../../logger';
 
 // Define the input schema for the TaskLlmEmbedding task
 const InputSchema = z.object({
@@ -33,8 +32,8 @@ type Output = z.infer<typeof OutputSchema>;
  * It uses an embedding model to convert the strings into vectors.
  */
 export class TaskLlmEmbedding extends Task<typeof InputSchema, typeof OutputSchema> {
-    constructor(logger: ILogger) {
-        super('Embedding', 'Computes the embedding of strings using an embedding model.', logger);
+    constructor() {
+        super('Embedding', 'Computes the embedding of strings using an embedding model.');
     }
 
     /**
@@ -58,13 +57,10 @@ export class TaskLlmEmbedding extends Task<typeof InputSchema, typeof OutputSche
             model: embeddingModel(model),
             values: values,
         });
-        const u = usageModel(model, usage);
-
-        this.logger.debug('task(llm/embedding)', {model, values, usage: u});
 
         return {
             output: embeddings,
-            usage: u,
+            usage: usageModel(model, usage),
         };
     }
 }

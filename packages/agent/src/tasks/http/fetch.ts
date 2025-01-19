@@ -1,6 +1,5 @@
 import {z} from 'zod';
 import {Task} from '../task';
-import {ILogger} from '../../logger';
 
 /**
  * Input schema for the TaskHttpFetch task.
@@ -12,11 +11,11 @@ const InputSchema = z.object({
         'MKACTIVITY', 'MKCALENDAR', 'MKCOL', 'MKREDIRECTREF', 'MKWORKSPACE', 'MOVE', 'OPTIONS', 'ORDERPATCH',
         'PATCH', 'POST', 'PRI', 'PROPFIND', 'PROPPATCH', 'PUT', 'REBIND', 'REPORT', 'SEARCH', 'TRACE', 'UNBIND',
         'UNCHECKOUT', 'UNLINK', 'UNLOCK', 'UPDATE', 'UPDATEREDIRECTREF', 'VERSION-CONTROL'
-    ]).default('GET'),
+    ]).default('GET').optional(),
     headers: z.record(z.string(), z.string()).default({
         'User-Agent': 'ChikiChat-Fetch/0.0.x (+https://chiki.chat)'
-    }),
-    body: z.optional(z.union([z.string(), z.instanceof(Blob), z.instanceof(FormData), z.instanceof(URLSearchParams), z.instanceof(ReadableStream), z.instanceof(ArrayBuffer)])),
+    }).optional(),
+    body: z.optional(z.union([z.string(), z.instanceof(Blob), z.instanceof(FormData), z.instanceof(URLSearchParams), z.instanceof(ReadableStream), z.instanceof(ArrayBuffer)])).optional(),
     maxRetries: z.number().default(3),
     timeout: z.number().default(5000)
 });
@@ -41,8 +40,8 @@ export class TaskHttpFetch extends Task<typeof InputSchema, typeof OutputSchema>
     /**
      * Constructs a new TaskHttpFetch instance.
      */
-    constructor(logger: ILogger) {
-        super('Fetch', 'Fetches data from a specified URL.', logger);
+    constructor() {
+        super('Fetch', 'Fetches data from a specified URL.');
     }
 
     /**
@@ -84,19 +83,6 @@ export class TaskHttpFetch extends Task<typeof InputSchema, typeof OutputSchema>
                     h[key] = value;
                 });
 
-                this.logger.debug('task(http/fetch)', {
-                    url,
-                    method,
-                    inputHeaders: headers,
-                    body,
-                    maxRetries,
-                    timeout,
-                    retries,
-                    output,
-                    status: response.status,
-                    outputHeaders: h
-                });
-
                 return {
                     output: output,
                     status: response.status,
@@ -110,9 +96,9 @@ export class TaskHttpFetch extends Task<typeof InputSchema, typeof OutputSchema>
 
                 if (error instanceof Error) {
                     if (error.name === 'AbortError') {
-                        this.logger.warn(`Fetch request to ${url} timed out. Retrying...`);
+                        console.warn(`Fetch request to ${url} timed out. Retrying...`);
                     } else {
-                        this.logger.warn(`Fetch request to ${url} failed with error: ${error.message}. Retrying...`);
+                        console.warn(`Fetch request to ${url} failed with error: ${error.message}. Retrying...`);
                     }
                 } else {
                     console.warn(`Fetch request to ${url} failed with an unknown error. Retrying...`);

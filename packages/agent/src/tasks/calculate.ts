@@ -1,7 +1,6 @@
 import * as mathjs from 'mathjs';
 import {z} from 'zod';
 import {Task} from './task';
-import {ILogger} from '../logger';
 
 // Define the input schema for the TaskCalculate task
 const InputSchema = z.object({
@@ -22,8 +21,8 @@ type Output = z.infer<typeof OutputSchema>;
  * It uses the mathjs library to evaluate expressions and can handle both string expressions and matrices.
  */
 export class TaskCalculate extends Task<typeof InputSchema, typeof OutputSchema> {
-    constructor(logger: ILogger) {
-        super('Calculate', 'Calculates the result of a mathematical expression.', logger);
+    constructor() {
+        super('Calculate', 'Calculates the result of a mathematical expression.');
     }
 
     /**
@@ -45,8 +44,6 @@ export class TaskCalculate extends Task<typeof InputSchema, typeof OutputSchema>
     protected async perform(input: Input): Promise<Output> {
         const {expression, scope} = this.schema().input.parse(input);
         const output = mathjs.evaluate(expression, scope || {});
-
-        this.logger.debug('task(calculate)', {expression, output});
 
         return {
             output: output,

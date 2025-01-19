@@ -1,41 +1,5 @@
-import { z, ZodSchema } from 'zod';
-import { ILogger } from '../logger';
-
-/**
- * Represents a task that can be executed with a specific input and produces an output.
- * Tasks are designed to be reusable and can have dependencies and versioning.
- */
-export interface ITask<INPUT extends ZodSchema, OUTPUT extends ZodSchema> {
-    /**
-     * The unique and descriptive name of the task.
-     */
-    readonly name: string;
-
-    /**
-     * A detailed description of what the task does, including any assumptions or prerequisites.
-     */
-    readonly description: string;
-
-    /**
-     * The logger instance used for logging task-related information.
-     */
-    readonly logger: ILogger;
-
-    /**
-     * Returns the input and output schema for the task.
-     *
-     * @returns An object containing the input and output schema.
-     */
-    schema(): { input: INPUT; output: OUTPUT };
-
-    /**
-     * Executes the task with the given input and returns a promise that resolves to the output.
-     *
-     * @param input - The input data required for the task, conforming to the input schema.
-     * @returns A promise that resolves to the output of the task, conforming to the output schema.
-     */
-    execute(input: z.infer<INPUT>): Promise<z.infer<OUTPUT>>;
-}
+import {z, ZodSchema} from 'zod';
+import {ITask} from "./types";
 
 /**
  * Represents a base class for tasks that can be executed with a specific input and produce an output.
@@ -53,21 +17,14 @@ export abstract class Task<INPUT extends ZodSchema, OUTPUT extends ZodSchema> im
     readonly description: string;
 
     /**
-     * The logger instance used for logging task-related information.
-     */
-    readonly logger: ILogger;
-
-    /**
      * Constructs a new task with a given name, description, and logger.
      *
      * @param name - The unique and descriptive name of the task.
      * @param description - A detailed description of what the task does, including any assumptions or prerequisites.
-     * @param logger - The logger instance used for logging task-related information.
      */
-    protected constructor(name: string, description: string, logger: ILogger) {
+    protected constructor(name: string, description: string) {
         this.name = name;
         this.description = description;
-        this.logger = logger;
     }
 
     /**

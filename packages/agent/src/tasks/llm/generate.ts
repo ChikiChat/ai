@@ -1,7 +1,6 @@
 import {
     DEFAULT_FREQUENCY_PENALTY,
     DEFAULT_LANGUAGE_MODEL_NAME,
-    DEFAULT_MAX_STEPS,
     DEFAULT_MAX_TOKENS,
     DEFAULT_PRESENCE_PENALTY,
     DEFAULT_TEMPERATURE,
@@ -13,7 +12,6 @@ import {
 import {generateText} from 'ai';
 import {z} from 'zod';
 import {Task} from '../task';
-import {ILogger} from '../../logger';
 
 /**
  * Input schema for the TaskLlmGenerate task.
@@ -22,7 +20,6 @@ const InputSchema = z.object({
     prompt: z.string(),
     model: z.string().default(DEFAULT_LANGUAGE_MODEL_NAME),
     maxTokens: z.number().default(DEFAULT_MAX_TOKENS),
-    maxSteps: z.number().default(DEFAULT_MAX_STEPS),
     temperature: z.number().min(0).max(2).default(DEFAULT_TEMPERATURE),
     topP: z.number().min(0).max(1).default(DEFAULT_TOP_P),
     topK: z.number().min(0).max(100).default(DEFAULT_TOP_K),
@@ -56,8 +53,8 @@ type Output = z.infer<typeof OutputSchema>;
  */
 export class TaskLlmGenerate extends Task<typeof InputSchema, typeof OutputSchema> {
 
-    constructor(logger: ILogger) {
-        super('Generate', 'Generates text based on a prompt using a language model.', logger);
+    constructor() {
+        super('Generate', 'Generates text based on a prompt using a language model.');
     }
 
     /**
@@ -81,7 +78,6 @@ export class TaskLlmGenerate extends Task<typeof InputSchema, typeof OutputSchem
             prompt,
             model,
             maxTokens,
-            maxSteps,
             temperature,
             topP,
             topK,
@@ -93,32 +89,16 @@ export class TaskLlmGenerate extends Task<typeof InputSchema, typeof OutputSchem
             prompt: prompt,
             model: languageModel(model),
             maxTokens: maxTokens,
-            maxSteps: maxSteps,
             temperature: temperature,
             topP: topP,
             topK: topK,
             presencePenalty: presencePenalty,
             frequencyPenalty: frequencyPenalty,
         });
-        const u = usageModel(model, usage)
-
-        this.logger.debug('task(llm/generate)', {
-            model,
-            prompt,
-            maxTokens,
-            maxSteps,
-            temperature,
-            topP,
-            topK,
-            presencePenalty,
-            frequencyPenalty,
-            output: text,
-            usage: u
-        });
 
         return {
             output: text,
-            usage: u,
+            usage: usageModel(model, usage),
         };
     }
 }

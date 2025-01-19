@@ -2,7 +2,6 @@ import {
     DEFAULT_EMBEDDING_MODEL_NAME,
     DEFAULT_FREQUENCY_PENALTY,
     DEFAULT_LANGUAGE_MODEL_NAME,
-    DEFAULT_MAX_STEPS,
     DEFAULT_MAX_TOKENS,
     DEFAULT_PRESENCE_PENALTY,
     DEFAULT_TEMPERATURE,
@@ -15,7 +14,6 @@ import {Task} from '../task';
 import {Prompt} from '../../prompts';
 import {TaskLlmSimilarity} from './similarity';
 import {TaskLlmGenerate} from './generate';
-import {ILogger} from '../../logger';
 
 /**
  * Input schema for the TaskLlmEvaluate task.
@@ -27,7 +25,6 @@ const InputSchema = z.object({
     datasetPath: z.string(),
     prompt: z.optional(z.string()),
     maxTokens: z.number().default(DEFAULT_MAX_TOKENS),
-    maxSteps: z.number().default(DEFAULT_MAX_STEPS),
     temperature: z.number().min(0).max(2).default(DEFAULT_TEMPERATURE),
     topP: z.number().min(0).max(1).default(DEFAULT_TOP_P),
     topK: z.number().min(0).max(100).default(DEFAULT_TOP_K),
@@ -57,8 +54,8 @@ type Output = z.infer<typeof OutputSchema>;
  * and calculates the similarity between the generated response and the expected response.
  */
 export class TaskLlmEvaluate extends Task<typeof InputSchema, typeof OutputSchema> {
-    constructor(logger: ILogger) {
-        super('Evaluate', 'Evaluates the language model using the dataset.', logger);
+    constructor() {
+        super('Evaluate', 'Evaluates the language model using the dataset.');
     }
 
     /**
@@ -84,7 +81,6 @@ export class TaskLlmEvaluate extends Task<typeof InputSchema, typeof OutputSchem
             datasetPath,
             prompt,
             maxTokens,
-            maxSteps,
             temperature,
             topK,
             topP,
@@ -97,11 +93,10 @@ export class TaskLlmEvaluate extends Task<typeof InputSchema, typeof OutputSchem
         const results: Output['output'] = [];
 
         for (const sample of dataset.values()) {
-            const {output} = await new TaskLlmGenerate(this.logger).execute({
+            const {output} = await new TaskLlmGenerate().execute({
                 prompt: p.toString({statement: sample.statement}),
                 model,
                 maxTokens,
-                maxSteps,
                 temperature,
                 topK,
                 topP,
@@ -110,7 +105,7 @@ export class TaskLlmEvaluate extends Task<typeof InputSchema, typeof OutputSchem
             });
 
             const answer = p.parse(output);
-            const {output: similarity} = await new TaskLlmSimilarity(this.logger).execute({
+            const {output: similarity} = await new TaskLlmSimilarity().execute({
                 model: embeddingModel,
                 a: sample.expect,
                 b: answer
@@ -121,13 +116,6 @@ export class TaskLlmEvaluate extends Task<typeof InputSchema, typeof OutputSchem
                 expect: sample.expect,
                 answer: answer,
                 similarity: similarity
-            });
-
-            this.logger.debug('task(llm/evaluate)', {
-                statement: sample.statement,
-                expect: sample.expect,
-                answer,
-                similarity
             });
         }
 

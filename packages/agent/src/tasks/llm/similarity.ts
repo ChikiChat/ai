@@ -2,7 +2,6 @@ import {cosineSimilarity} from 'ai';
 import {z} from 'zod';
 import {Task} from '../task';
 import {TaskLlmEmbedding} from './embedding';
-import {ILogger} from '../../logger';
 
 // Define the input schema for the TaskLlmSimilarity task
 const InputSchema = z.object({
@@ -34,8 +33,8 @@ type Output = z.infer<typeof OutputSchema>;
  * It uses an embedding model to convert strings into vectors and then calculates the similarity.
  */
 export class TaskLlmSimilarity extends Task<typeof InputSchema, typeof OutputSchema> {
-    constructor(logger: ILogger) {
-        super('Similarity', 'Computes the cosine similarity between two strings using an embedding model.', logger);
+    constructor() {
+        super('Similarity', 'Computes the cosine similarity between two strings using an embedding model.');
     }
 
     /**
@@ -55,7 +54,7 @@ export class TaskLlmSimilarity extends Task<typeof InputSchema, typeof OutputSch
      */
     protected async perform(input: Input): Promise<Output> {
         const {model, a, b} = this.schema().input.parse(input);
-        const {output, usage} = await (new TaskLlmEmbedding(this.logger).execute({model, values: [a, b]}));
+        const {output, usage} = await (new TaskLlmEmbedding().execute({model, values: [a, b]}));
         const [embeddingA, embeddingB] = output;
 
         if (!embeddingA) {
@@ -66,11 +65,8 @@ export class TaskLlmSimilarity extends Task<typeof InputSchema, typeof OutputSch
             throw new Error('Failed to compute embedding for string B');
         }
 
-        const similarity = cosineSimilarity(embeddingA, embeddingB);
-        this.logger.debug('task(llm/similarity)', {model, a, b, similarity, usage});
-
         return {
-            output: similarity,
+            output: cosineSimilarity(embeddingA, embeddingB),
             usage: usage
         };
     }
