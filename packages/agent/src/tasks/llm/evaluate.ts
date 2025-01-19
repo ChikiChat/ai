@@ -11,7 +11,7 @@ import {
 import {z} from 'zod';
 import {Dataset} from '../../dataset';
 import {Task} from '../task';
-import {Prompt} from '../../prompts';
+import {Prompt} from '../../prompt';
 import {TaskLlmSimilarity} from './similarity';
 import {TaskLlmGenerate} from './generate';
 

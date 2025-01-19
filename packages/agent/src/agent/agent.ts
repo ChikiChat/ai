@@ -1,8 +1,7 @@
 import {CoreMessage, generateText} from "ai";
 import {EventEmitter} from 'events';
-import {IAgent, Input, Output} from "./types";
-import {ILogger, Logger} from "../logger";
-import {Prompt} from "../prompts";
+import {Config, IAgent, Input, Output} from "./types";
+import {Prompt} from "../prompt";
 import {
     DEFAULT_FREQUENCY_PENALTY,
     DEFAULT_MAX_TOKENS,
@@ -20,20 +19,7 @@ import {
  * @template OUTPUT - The type of the output produced by the agent.
  */
 export class Agent<OUTPUT = string> extends EventEmitter implements IAgent<OUTPUT> {
-    /**
-     * The name of the agent.
-     */
-    readonly name: string;
-
-    /**
-     * A description of what the agent does.
-     */
-    readonly description: string;
-
-    /**
-     * The logger for the agent.
-     */
-    readonly logger: ILogger;
+    readonly config: Config<OUTPUT>;
 
     /**
      * Array to store the messages exchanged during the agent's operation.
@@ -43,32 +29,18 @@ export class Agent<OUTPUT = string> extends EventEmitter implements IAgent<OUTPU
     /**
      * Map to store the steps performed by the agent, including input and output.
      */
-    steps: Map<number, { input: Input<OUTPUT>; output: Output<OUTPUT> }> = new Map<number, {
-        input: Input<OUTPUT>;
-        output: Output<OUTPUT>
-    }>();
-
-    /**
-     * The maximum number of steps the agent can perform.
-     */
-    readonly maxSteps: number;
+    steps: Map<number, { input: Input<OUTPUT>; output: Output<OUTPUT> }> = new Map();
 
     /**
      * Counter to track the number of steps performed by the agent.
-     * This counter is incremented each time the `perform` method is called.
+     * This counter is incremented each time the `addStep` method is called.
      */
-    step: number = 0;
+    private step: number = 0;
 
-    constructor(name: string, description: string, input: Input<OUTPUT>, maxSteps?: number, logger?: ILogger) {
+    constructor(config: Config<OUTPUT>) {
         super();
-        this.name = name;
-        this.description = description;
-        this.addStep(input);
-
-        this.maxSteps = maxSteps || 5;
-        this.logger = logger || new Logger(name);
-
-
+        this.config = config;
+        this.addStep(config.init);
     }
 
     /**
@@ -77,12 +49,8 @@ export class Agent<OUTPUT = string> extends EventEmitter implements IAgent<OUTPU
      * @param input - The configuration for the step, including language model initialization and an optional parser.
      * @throws Will throw an error if the maximum number of steps is reached.
      */
-    addStep(input: Input<OUTPUT>): void {
+    private addStep(input: Input<OUTPUT>): void {
         this.step++;
-        if (this.step > this.maxSteps) {
-            throw new Error(`Maximum steps (${this.maxSteps}) reached.`);
-        }
-
         this.steps.set(this.step, {
             input: input,
             output: {} as Output<OUTPUT>
@@ -90,16 +58,17 @@ export class Agent<OUTPUT = string> extends EventEmitter implements IAgent<OUTPU
     }
 
     /**
-     * Performs the task with the given arguments.
+     * Executes the current step of the agent's workflow.
      *
      * @param args - An object containing the arguments needed for the task.
-     *               The structure of this object should be consistent with the requirements of the specific task.
      * @returns A promise that resolves to the output of the task.
-     *          The output is of type Output<OUTPUT>, which includes the raw output, parsed output, finish reason, and usage details.
-     * @throws Will throw an error if the task cannot be performed due to invalid arguments or other issues.
      */
-    async perform(args: { [key: string]: any }): Promise<Output<OUTPUT>> {
-        const {input, output} = this.steps.get(this.step)!;
+    async execute(args: { [key: string]: any } = {}): Promise<Output<OUTPUT>> {
+        if (this.step > this.config.maxSteps) {
+            return this.steps.get(this.step - 1)!.output;
+        }
+
+        const {input} = this.steps.get(this.step)!;
         const template = new Prompt<OUTPUT>(input.prompt, input.parser);
         const prompt = template.toString(args);
 
@@ -116,18 +85,44 @@ export class Agent<OUTPUT = string> extends EventEmitter implements IAgent<OUTPU
             frequencyPenalty: input.frequencyPenalty || DEFAULT_FREQUENCY_PENALTY,
             tools: input.tools || {},
         });
-        this.messages.push({role: 'assistant', content: text});
 
-        output.input = prompt;
-        output.output = {
-            raw: text,
-            output: template.parse(text)
+        if (finishReason === "tool-calls") {
+            /**
+             * TODO: Handle tool calls and results by adding them to the messages array.
+             */
+        } else {
+            this.messages.push({role: 'assistant', content: text});
+        }
+
+        const output: Output<OUTPUT> = {
+            input: prompt,
+            output: {
+                raw: text,
+                output: template.parse(text)
+            },
+            finishReason: finishReason,
+            usage: usageModel(input.model, usage)
         };
-        output.finishReason = finishReason;
-        output.usage = usageModel(input.model, usage);
 
         this.steps.set(this.step, {input: input, output: output});
 
+        if (this.config.onStepFinish) {
+            return this.config.onStepFinish(this.step, input, output);
+        }
+
         return output;
+    }
+
+    /**
+     * Reacts to a new input by adding a step and performing the task.
+     *
+     * @param input - The configuration for the new step.
+     * @param args - An object containing the arguments needed for the task.
+     * @returns A promise that resolves to the output of the task.
+     */
+    async react(input: Input<OUTPUT>, args: { [key: string]: any } = {}): Promise<Output<OUTPUT>> {
+        this.addStep(input);
+
+        return this.execute(args);
     }
 }
