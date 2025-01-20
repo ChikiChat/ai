@@ -50,7 +50,7 @@ export class Prompt<OUTPUT extends string = string> implements IPrompt<OUTPUT> {
             return this.template;
         }
 
-        return this.template.replace(/\$\{([^}]+)\}/g, (match, key) => variables[key] !== undefined ? variables[key] : match);
+        return this.template.replace(/\$\{([^}]+)\}/g, (match, key) => variables[key] !== undefined ? variables[key] : match).trim();
     }
 
     /**

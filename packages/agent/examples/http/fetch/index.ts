@@ -1,5 +1,5 @@
 import {DEFAULT_LANGUAGE_MODEL_NAME} from "@chikichat/model";
-import {Agent, registry as tools} from "../../../src";
+import {Agent, registry as tools} from "@chikichat/agent";
 
 /**
  * The Agent class is designed to perform specific tasks based on the provided configuration.
@@ -34,6 +34,6 @@ Please ensure that you handle any potential errors and provide the extracted inf
 });
 
 fetch.execute({
-    'input': `Use this url https://chiki.chat`
+    'input': `Use this URL: https://15min.lt`
 }).then(console.log)
 

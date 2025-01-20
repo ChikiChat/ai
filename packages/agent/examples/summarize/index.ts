@@ -1,5 +1,5 @@
 import {DEFAULT_LANGUAGE_MODEL_NAME} from "@chikichat/model";
-import {Agent} from "../../src";
+import {Agent} from "@chikichat/agent";
 
 /**
  * The Agent class is designed to perform specific tasks based on the provided configuration.
