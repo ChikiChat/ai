@@ -34,6 +34,6 @@ Please ensure that you handle any potential errors and provide the extracted inf
 });
 
 fetch.execute({
-    'input': `Use this URL: https://15min.lt`
+    'input': `Use this URL: https://chiki.chat`
 }).then(console.log)
 
