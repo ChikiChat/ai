@@ -2,4 +2,4 @@
 '@chikichat/agent': major
 ---
 
-Update README.md & examples 
+Update README.md & examples
