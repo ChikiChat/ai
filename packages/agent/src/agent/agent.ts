@@ -18,7 +18,7 @@ import {
  *
  * @template OUTPUT - The type of the output produced by the agent.
  */
-export class Agent<OUTPUT extends string> extends EventEmitter implements IAgent<OUTPUT> {
+export class Agent<OUTPUT = string> extends EventEmitter implements IAgent<OUTPUT> {
     readonly config: Config<OUTPUT>;
 
     constructor(config: Config<OUTPUT>) {

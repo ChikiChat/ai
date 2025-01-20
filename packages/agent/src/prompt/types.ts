@@ -7,7 +7,7 @@ import {IParser} from './parsers';
  * @method variables - A method that returns an array of variable names used in the prompt.
  * @method toString - A method that returns the prompt string with variables replaced by their values.
  */
-export interface IPrompt<OUTPUT extends string> extends IParser<OUTPUT> {
+export interface IPrompt<OUTPUT> extends IParser<OUTPUT> {
     variables(): string[];
 
     toString(variables?: { [key: string]: any }): string;
