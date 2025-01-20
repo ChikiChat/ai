@@ -1,5 +1,11 @@
 # AI SDK (agent) 👋
 
+## 1.0.1
+
+### Patch Changes
+
+- 49aa381: removed extends string
+
 ## 0.1.0
 
 ### Minor Changes
