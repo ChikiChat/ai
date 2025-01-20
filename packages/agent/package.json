@@ -27,6 +27,7 @@
     "typescript": "^5.7.2"
   },
   "peerDependencies": {
+    "@chikichat/agent": "^0.1.0",
     "ai": "^4.0.0",
     "zod": "^3.0.0"
   },

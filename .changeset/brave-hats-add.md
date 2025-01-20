@@ -2,4 +2,4 @@
 '@chikichat/agent': patch
 ---
 
-Update README.md & examples 
+Update README.md & examples
