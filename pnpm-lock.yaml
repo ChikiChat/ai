@@ -67,6 +67,22 @@ importers:
         specifier: ^5.7.2
         version: 5.7.3
 
+  packages/knowledge:
+    dependencies:
+      zod:
+        specifier: ^3.0.0
+        version: 3.24.1
+    devDependencies:
+      '@types/node':
+        specifier: ^20
+        version: 20.17.12
+      tsup:
+        specifier: ^8.3.5
+        version: 8.3.5(typescript@5.7.3)(yaml@2.7.0)
+      typescript:
+        specifier: ^5.7.2
+        version: 5.7.3
+
   packages/model:
     dependencies:
       '@ai-sdk/anthropic':
