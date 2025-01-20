@@ -1,7 +1,7 @@
 {
   "name": "@chikichat/model",
   "description": "",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "license": "Apache-2.0",
   "author": "Leliuga",
   "main": "./dist/index.js",
@@ -16,14 +16,14 @@
     "clean": "rm -rf dist"
   },
   "dependencies": {
-    "@ai-sdk/anthropic": "^1.0.8",
-    "@ai-sdk/cohere": "^1.0.8",
-    "@ai-sdk/google": "^1.0.15",
-    "@ai-sdk/groq": "^1.0.11",
-    "@ai-sdk/mistral": "^1.0.8",
-    "@ai-sdk/openai": "^1.0.18",
-    "@ai-sdk/xai": "^1.0.14",
-    "ai": "^4.0.33"
+    "@ai-sdk/anthropic": "^1.1.0",
+    "@ai-sdk/cohere": "^1.1.0",
+    "@ai-sdk/google": "^1.1.0",
+    "@ai-sdk/groq": "^1.1.0",
+    "@ai-sdk/mistral": "^1.1.0",
+    "@ai-sdk/openai": "^1.1.0",
+    "@ai-sdk/xai": "^1.1.0",
+    "ai": "^4.1.0"
   },
   "devDependencies": {
     "@types/node": "^20",

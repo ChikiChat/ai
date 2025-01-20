@@ -128,7 +128,7 @@ export type LanguageModelInit = {
     /**
      * The prompt for text generation.
      */
-    prompt?: string;
+    prompt: string;
 
     /**
      * The maximum number of tokens to generate.
