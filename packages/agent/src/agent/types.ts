@@ -22,7 +22,9 @@ export type Config<OUTPUT> = {
      * The initial input for the agent.
      */
     init: Input<OUTPUT>;
+};
 
+export type ConfigStep<OUTPUT> = Config<OUTPUT> & {
     /**
      * The maximum number of steps the agent can execute.
      */
@@ -37,8 +39,7 @@ export type Config<OUTPUT> = {
      * @returns A promise that resolves to the output for the current step.
      */
     onStepFinish?: (step: number, input: Input<OUTPUT>, output: Output<OUTPUT>) => Promise<Output<OUTPUT>>;
-};
-
+}
 
 /**
  * Type for the initialization options of a step.
@@ -71,7 +72,7 @@ export interface IAgent<OUTPUT> {
     /**
      * Configuration object for the agent.*
      */
-    config: Config<OUTPUT>;
+    config: Config<OUTPUT> | ConfigStep<OUTPUT>;
 
     /**
      * Executes the agent's task with the provided arguments.

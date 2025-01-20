@@ -5,7 +5,7 @@ import {Task} from './task';
 // Define the input schema for the TaskCalculate task
 const InputSchema = z.object({
     expression: z.string().trim(),
-    scope: z.optional(z.record(z.any()))
+    scope: z.optional(z.record(z.any()).default({})),
 });
 
 // Define the output schema for the TaskCalculate task
@@ -43,10 +43,9 @@ export class TaskCalculate extends Task<typeof InputSchema, typeof OutputSchema>
      */
     protected async perform(input: Input): Promise<Output> {
         const {expression, scope} = this.schema().input.parse(input);
-        const output = mathjs.evaluate(expression, scope || {});
 
         return {
-            output: output,
+            output: mathjs.evaluate(expression, scope || {}) as string | number,
         };
     }
 }

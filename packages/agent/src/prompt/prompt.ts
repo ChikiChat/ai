@@ -1,17 +1,5 @@
 import {IParser, Parser} from './parsers';
-
-/**
- * Interface for a prompt that can parse an input string into a specific type OUTPUT.
- *
- * @template OUTPUT - The type of the parsed output.
- * @method variables - A method that returns an array of variable names used in the prompt.
- * @method toString - A method that returns the prompt string with variables replaced by their values.
- */
-export interface IPrompt<OUTPUT = string> extends IParser<OUTPUT> {
-    variables(): string[];
-
-    toString(variables?: { [key: string]: any }): string;
-}
+import {IPrompt} from './types';
 
 /**
  * Represents a template-based prompt for generating text.
@@ -22,7 +10,7 @@ export interface IPrompt<OUTPUT = string> extends IParser<OUTPUT> {
  *                   These placeholders will be replaced with actual values when the `toString` method is called.
  * @param parser - An instance of IParser used to parse the input string.
  */
-export class Prompt<OUTPUT = string> implements IPrompt<OUTPUT> {
+export class Prompt<OUTPUT extends string = string> implements IPrompt<OUTPUT> {
     private readonly template: string;
     private readonly parser: IParser<OUTPUT>;
 

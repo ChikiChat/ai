@@ -27,7 +27,6 @@ Please ensure that the summary is concise, accurate, and captures the key points
          */
         model: DEFAULT_LANGUAGE_MODEL_NAME,
     },
-    maxSteps: 1,
 });
 
 summarize.execute({

@@ -3,8 +3,6 @@
 The AI SDK is a TypeScript toolkit designed to help you build AI-powered applications
 using popular frameworks like Next.js, React, Svelte, Vue and runtimes like Bun or Node.js.
 
-We are based on the [AI SDK](https://sdk.vercel.ai).
-
 ## Installation
 
 You will need Bun or Node.js 18+ and pnpm installed on your local development machine.

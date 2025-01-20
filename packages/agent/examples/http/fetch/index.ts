@@ -1,5 +1,5 @@
 import {DEFAULT_LANGUAGE_MODEL_NAME} from "@chikichat/model";
-import {Agent, toolHttpFetch} from "../../../src";
+import {Agent, registry as tools} from "../../../src";
 
 /**
  * The Agent class is designed to perform specific tasks based on the provided configuration.
@@ -19,7 +19,7 @@ You are an HTTP fetch expert. Please use the appropriate tools to fetch the cont
 
 **Input:** $\{input}
 
-Please ensure that you handle any potential errors and provide the extracted information in a structured format (JSON).
+Please ensure that you handle any potential errors and provide the extracted information in a structured format.
         `,
         /**
          * The language model to be used for summarization.
@@ -28,10 +28,9 @@ Please ensure that you handle any potential errors and provide the extracted inf
         model: DEFAULT_LANGUAGE_MODEL_NAME,
 
         tools: {
-            fetch: toolHttpFetch
+            fetch: tools['http/fetch'],
         },
     },
-    maxSteps: 1,
 });
 
 fetch.execute({
