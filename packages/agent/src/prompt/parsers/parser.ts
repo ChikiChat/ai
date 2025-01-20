@@ -4,7 +4,7 @@ import {IParser} from './types';
  * Default implementation of the IParser interface.
  * This parser simply trims the input string and returns it as a string.
  */
-export class Parser<OUTPUT extends string> implements IParser<OUTPUT> {
+export class Parser<OUTPUT = string> implements IParser<OUTPUT> {
     /**
      * Parses the input string by trimming it.
      *
