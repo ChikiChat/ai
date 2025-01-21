@@ -10,11 +10,11 @@ import {IPrompt} from './types';
  *                   These placeholders will be replaced with actual values when the `toString` method is called.
  * @param parser - An instance of IParser used to parse the input string.
  */
-export class Prompt<OUTPUT extends string = string> implements IPrompt<OUTPUT> {
+export class Prompt<OUTPUT = string> implements IPrompt<OUTPUT> {
     private readonly template: string;
     private readonly parser: IParser<OUTPUT>;
 
-    constructor(template: string, parser: IParser<OUTPUT> = new Parser() as IParser<OUTPUT>) {
+    constructor(template: string, parser: IParser<OUTPUT> = new Parser<OUTPUT>() as IParser<OUTPUT>) {
         this.template = template;
         this.parser = parser;
     }

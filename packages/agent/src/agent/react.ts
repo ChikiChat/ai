@@ -20,7 +20,7 @@ import {Memory} from "../memory";
  * The agent maintains a history of messages and steps, and it can execute tasks by generating text using a language model.
  * The agent can also react to new inputs by adding steps and performing tasks accordingly.
  */
-export class AgentReAct<OUTPUT extends string> extends EventEmitter implements IAgent<OUTPUT> {
+export class AgentReAct<OUTPUT = string> extends EventEmitter implements IAgent<OUTPUT> {
     readonly config: ConfigStep<OUTPUT>;
 
     /**
