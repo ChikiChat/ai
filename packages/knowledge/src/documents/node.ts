@@ -1,4 +1,4 @@
-import {Properties} from "./types";
+import {Meta} from "./types";
 
 /**
  * Enum representing the possible relationships between nodes.
@@ -11,11 +11,16 @@ export enum NodeRelationship {
 /**
  * Represents a node in a graph or tree structure.
  *
- * @template KIND - The type of the kind or type of the node, which defaults to `string`.
- * @template CONTENT - The type of content, which defaults to `string`.
- * @template PROPERTIES - The type of properties associated with the node, which defaults to `Properties`.
+ * @template META - The type of metadata, which extends the `Meta` type.
+ * @template KIND - The type of the kind or type of the node.
+ * @template CONTENT - The type of the content of the node.
  */
-export class Node<KIND = string, CONTENT = string, PROPERTIES extends Properties = Properties> {
+export class Node<META extends Meta = Meta, KIND = string, CONTENT = string> {
+    /**
+     * The metadata associated with the node.
+     */
+    readonly meta: META;
+
     /**
      * The kind or type of the node.
      */
@@ -27,29 +32,24 @@ export class Node<KIND = string, CONTENT = string, PROPERTIES extends Properties
     readonly content: CONTENT;
 
     /**
-     * A record of properties associated with the node.
-     */
-    readonly properties: PROPERTIES;
-
-    /**
      * A record of relationships between this node and other nodes.
      */
-    relationships: Record<NodeRelationship, Node<KIND, CONTENT, PROPERTIES>[]> = {
+    relationships: Record<NodeRelationship, Node<META, KIND, CONTENT>[]> = {
         [NodeRelationship.LEFT]: [],
         [NodeRelationship.RIGHT]: [],
     };
 
     /**
-     * Creates a new node.
+     * Constructs a new Node instance.
      *
      * @param kind - The kind or type of the node.
      * @param content - The content of the node.
-     * @param properties - Optional properties associated with the node.
+     * @param meta - The metadata for the node.
      */
-    constructor(kind: KIND, content: CONTENT, properties?: PROPERTIES) {
+    constructor(kind: KIND, content: CONTENT, meta?: META) {
+        this.meta = meta || {} as META;
         this.kind = kind;
         this.content = content;
-        this.properties = properties || {} as PROPERTIES;
     }
 
     /**
@@ -57,7 +57,7 @@ export class Node<KIND = string, CONTENT = string, PROPERTIES extends Properties
      *
      * @param node - The node to add to the left relationship.
      */
-    setLeft(node: Node<KIND, CONTENT, PROPERTIES>) {
+    setLeft(node: Node<META, KIND, CONTENT>) {
         this.relationships[NodeRelationship.LEFT].push(node);
     }
 
@@ -66,7 +66,7 @@ export class Node<KIND = string, CONTENT = string, PROPERTIES extends Properties
      *
      * @param node - The node to add to the right relationship.
      */
-    setRight(node: Node<KIND, CONTENT, PROPERTIES>) {
+    setRight(node: Node<META, KIND, CONTENT>) {
         this.relationships[NodeRelationship.RIGHT].push(node);
     }
 
@@ -75,7 +75,7 @@ export class Node<KIND = string, CONTENT = string, PROPERTIES extends Properties
      *
      * @returns An array of nodes in the left relationship.
      */
-    lefts(): Node<KIND, CONTENT, PROPERTIES>[] {
+    lefts(): Node<META, KIND, CONTENT>[] {
         return this.relationships[NodeRelationship.LEFT];
     }
 
@@ -84,7 +84,7 @@ export class Node<KIND = string, CONTENT = string, PROPERTIES extends Properties
      *
      * @returns An array of nodes in the right relationship.
      */
-    rights(): Node<KIND, CONTENT, PROPERTIES>[] {
+    rights(): Node<META, KIND, CONTENT>[] {
         return this.relationships[NodeRelationship.RIGHT];
     }
 }
