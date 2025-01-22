@@ -4,11 +4,40 @@
  */
 export type Meta = Record<string, boolean | string | number>;
 
-export type LocalMeta = Meta & {
+/**
+ * Represents metadata for a local file or directory, extending the base Meta type.
+ */
+export type MetaLocal = Meta & {
+    /**
+     * The name of the file or directory.
+     */
     name: string;
-    created?: string;
-    modified?: string;
-}
+
+    /**
+     * The user ID associated with the file or directory.
+     */
+    uid: number;
+
+    /**
+     * The group ID associated with the file or directory.
+     */
+    gid: number;
+
+    /**
+     * The timestamp of when the file or directory was created.
+     */
+    created: Date;
+
+    /**
+     * The timestamp of when the file or directory was last modified.
+     */
+    modified: Date;
+
+    /**
+     * The file permissions, represented as a number.
+     */
+    permissions: number;
+};
 
 
 /**
