@@ -1,5 +1,5 @@
 import {v4 as uuidv4} from 'uuid';
-import {Meta, Part, Parts} from './types';
+import {Meta, Options, Part, Parts} from './types';
 
 /**
  * Represents a document with metadata and content.
@@ -23,24 +23,35 @@ export abstract class Document<META = Meta, PART extends Part = Part> {
      */
     parts: Parts<PART>;
 
-    /**
-     * Constructs a new Document instance.
-     *
-     * @param meta - The metadata for the document.
-     * @param parts - An optional collection of parts for the document.
-     */
-    protected constructor(meta?: META, parts?: Parts<PART>) {
+    constructor() {
         this.id = uuidv4();
-        this.meta = meta || {} as META;
-        this.parts = parts || {};
+        this.meta = {} as META;
+        this.parts = {} as Parts<PART>;
     }
 
     /**
-     * Abstract method to load the content of a document from a file.
+     * Gets or sets options for the document.
+     *
+     * @param options - An object containing options for the document.
+     * @returns The options object.
+     */
+    abstract options(options?: Options): Options;
+
+    /**
+     * Loads the content of a document from a file.
      *
      * @param name - The name of the document to load.
      * @param options - An object containing options for loading the document.
-     * @returns A promise that resolves to the content of the file as a string.
+     * @returns A promise that resolves to a boolean indicating whether the document was successfully loaded.
      */
-    abstract load(name: string, options: Record<string, boolean | string | number>): Promise<boolean>;
+    abstract load(name: string, options?: Options): Promise<boolean>;
+
+    /**
+     * Saves the content of a document to a file.
+     *
+     * @param name - The name of the document to save.
+     * @param options - An object containing options for saving the document.
+     * @returns A promise that resolves to a boolean indicating whether the document was successfully saved.
+     */
+    abstract save(name: string, options?: Options): Promise<boolean>;
 }

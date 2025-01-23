@@ -1,7 +1,7 @@
 import * as fs from 'fs/promises';
 import * as path from 'path';
 import {Document} from "./document";
-import {Meta, MetaLocal, Part} from "./types";
+import {Meta, MetaLocal, OptionsBase, Part} from "./types";
 
 /**
  * Represents a document stored locally on the filesystem.
@@ -22,9 +22,9 @@ export abstract class DocumentLocal<META extends Meta = MetaLocal, PART extends 
      * @throws Will throw an error if the file cannot be read, providing a detailed
      *         error message including the file path and the underlying error.
      */
-    async contents(name: string, options: Record<string, boolean | string | number>): Promise<string> {
+    async contents(name: string, options?: OptionsBase): Promise<string> {
         try {
-            const encoding: BufferEncoding = options?.encoding as BufferEncoding || 'utf-8';
+            const encoding: BufferEncoding = options?.encoding || 'utf-8';
             const resolvedPath = path.resolve(name);
             const contents = await fs.readFile(resolvedPath, encoding);
             const stats = await fs.stat(resolvedPath);
@@ -34,12 +34,12 @@ export abstract class DocumentLocal<META extends Meta = MetaLocal, PART extends 
                 name: resolvedPath,
                 uid: stats.uid,
                 gid: stats.gid,
-                created: stats.ctime,
-                modified: stats.mtime,
+                created: stats.birthtime.getTime(),
+                modified: stats.mtime.getTime(),
                 permissions: stats.mode,
             };
 
-            return contents;
+            return contents.trim();
         } catch (error) {
             throw new Error(`Failed to load file from path: ${name}. Error: ${(error as Error).message}`);
         }
