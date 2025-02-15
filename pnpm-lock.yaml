@@ -73,8 +73,8 @@ importers:
         specifier: ^1.1.0
         version: 1.1.0(zod@3.24.1)
       '@ai-sdk/google':
-        specifier: ^1.1.0
-        version: 1.1.0(zod@3.24.1)
+        specifier: ^1.1.14
+        version: 1.1.14(zod@3.24.1)
       '@ai-sdk/groq':
         specifier: ^1.1.0
         version: 1.1.0(zod@3.24.1)
@@ -123,6 +123,12 @@ packages:
 
   '@ai-sdk/google@1.1.0':
     resolution: {integrity: sha512-fOsh87rasHVOxiaMiodMLPGi162fD4dAoNq/k42hUHec7d9/zSvgY7L7xJrFmuRlFNEz1mbsB5VFZBVHsOU3oA==}
+    engines: {node: '>=18'}
+    peerDependencies:
+      zod: ^3.0.0
+
+  '@ai-sdk/google@1.1.14':
+    resolution: {integrity: sha512-ZFkSvfjBQP5sBKp9BolHYRxlbSweW0LbjJRE1QiIYRkkM9gifKnI/Atr6W7VGNcs4+GQ1yHsNi1bBDoubviqyw==}
     engines: {node: '>=18'}
     peerDependencies:
       zod: ^3.0.0
@@ -177,6 +183,15 @@ packages:
 
   '@ai-sdk/provider-utils@2.1.6':
     resolution: {integrity: sha512-Pfyaj0QZS22qyVn5Iz7IXcJ8nKIKlu2MeSAdKJzTwkAks7zdLaKVB+396Rqcp1bfQnxl7vaduQVMQiXUrgK8Gw==}
+    engines: {node: '>=18'}
+    peerDependencies:
+      zod: ^3.0.0
+    peerDependenciesMeta:
+      zod:
+        optional: true
+
+  '@ai-sdk/provider-utils@2.1.8':
+    resolution: {integrity: sha512-1j9niMUAFlCBdYRYJr1yoB5kwZcRFBVuBiL1hhrf0ONFNrDiJYA6F+gROOuP16NHhezMfTo60+GeeV1xprHFjg==}
     engines: {node: '>=18'}
     peerDependencies:
       zod: ^3.0.0
@@ -1766,6 +1781,12 @@ snapshots:
       '@ai-sdk/provider-utils': 2.1.0(zod@3.24.1)
       zod: 3.24.1
 
+  '@ai-sdk/google@1.1.14(zod@3.24.1)':
+    dependencies:
+      '@ai-sdk/provider': 1.0.7
+      '@ai-sdk/provider-utils': 2.1.8(zod@3.24.1)
+      zod: 3.24.1
+
   '@ai-sdk/groq@1.1.0(zod@3.24.1)':
     dependencies:
       '@ai-sdk/provider': 1.0.4
@@ -1815,6 +1836,15 @@ snapshots:
       zod: 3.24.1
 
   '@ai-sdk/provider-utils@2.1.6(zod@3.24.1)':
+    dependencies:
+      '@ai-sdk/provider': 1.0.7
+      eventsource-parser: 3.0.0
+      nanoid: 3.3.8
+      secure-json-parse: 2.7.0
+    optionalDependencies:
+      zod: 3.24.1
+
+  '@ai-sdk/provider-utils@2.1.8(zod@3.24.1)':
     dependencies:
       '@ai-sdk/provider': 1.0.7
       eventsource-parser: 3.0.0
