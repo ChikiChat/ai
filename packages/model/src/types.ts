@@ -3,7 +3,7 @@ import {CoreTool} from "ai";
 /**
  * Default language model name.
  */
-const DEFAULT_LANGUAGE_MODEL_NAME: string = typeof process !== 'undefined' && process.env['LANGUAGE_MODEL_NAME']
+export const DEFAULT_LANGUAGE_MODEL_NAME: string = typeof process !== 'undefined' && process.env['LANGUAGE_MODEL_NAME']
     ? process.env['LANGUAGE_MODEL_NAME']
     : 'anthropic/claude-3-5-sonnet-20241022';
 
