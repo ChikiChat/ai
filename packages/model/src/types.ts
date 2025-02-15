@@ -3,56 +3,83 @@ import {CoreTool} from "ai";
 /**
  * Default language model name.
  */
-export const DEFAULT_LANGUAGE_MODEL_NAME: string = process.env['LANGUAGE_MODEL_NAME'] ?? 'anthropic/claude-3-5-sonnet-20241022';
+const DEFAULT_LANGUAGE_MODEL_NAME: string = typeof process !== 'undefined' && process.env['LANGUAGE_MODEL_NAME']
+    ? process.env['LANGUAGE_MODEL_NAME']
+    : 'anthropic/claude-3-5-sonnet-20241022';
 
 /**
  * Default embedding model name.
  */
-export const DEFAULT_EMBEDDING_MODEL_NAME: string = process.env['EMBEDDING_MODEL_NAME'] ?? 'mistral/mistral-embed';
+export const DEFAULT_EMBEDDING_MODEL_NAME: string = typeof process !== 'undefined' && process.env['EMBEDDING_MODEL_NAME']
+    ? process.env['EMBEDDING_MODEL_NAME']
+    : 'mistral/mistral-embed';
 
 /**
  * The default maximum number of tokens to generate in the completion.
  * This value ensures that the generated text does not exceed a reasonable length.
  */
-export const DEFAULT_MAX_TOKENS: number = parseInt(process.env['EMBEDDING_MODEL_NAME'] ?? '4096');
+export const DEFAULT_MAX_TOKENS: number = typeof process !== 'undefined' && process.env['MAX_TOKENS']
+    ? parseInt(process.env['MAX_TOKENS'])
+    : 4096;
 
 /**
  * The default maximum number of steps to generate in the completion.
  * This value controls the number of iterations or segments in the text generation process.
  */
-export const DEFAULT_MAX_STEPS: number = parseInt(process.env['MAX_STEPS'] ?? '2');
+export const DEFAULT_MAX_STEPS: number = typeof process !== 'undefined' && process.env['MAX_STEPS']
+    ? parseInt(process.env['MAX_STEPS'])
+    : 2;
 
 /**
  * The default temperature value for controlling the randomness of predictions.
  * Lower values make the model more deterministic, while higher values increase randomness.
  */
-export const DEFAULT_TEMPERATURE: number = parseFloat(process.env['TEMPERATURE'] ?? '0.8');
+export const DEFAULT_TEMPERATURE: number = typeof process !== 'undefined' && process.env['TEMPERATURE']
+    ? parseFloat(process.env['TEMPERATURE'])
+    : 0.8;
 
 /**
  * The default value for nucleus sampling (top-p sampling).
  * The model considers the smallest set of tokens whose cumulative probability exceeds this value.
  */
-export const DEFAULT_TOP_P: number = parseFloat(process.env['TOP_P'] ?? '0.90');
+export const DEFAULT_TOP_P: number = typeof process !== 'undefined' && process.env['TOP_P']
+    ? parseFloat(process.env['TOP_P'])
+    : 0.9;
 
 /**
  * The default value for limiting the model to the top K most likely next tokens.
  * This helps control the diversity of the generated text.
  */
-export const DEFAULT_TOP_K: number = parseInt(process.env['TOP_K'] ?? '40');
+export const DEFAULT_TOP_K: number = typeof process !== 'undefined' && process.env['TOP_K']
+    ? parseInt(process.env['TOP_K'])
+    : 40;
 
 /**
  * The default presence penalty value.
  * Penalizes new tokens based on whether they appear in the text so far.
  * Increases the model's likelihood to talk about new topics.
  */
-export const DEFAULT_PRESENCE_PENALTY: number = parseFloat(process.env['PRESENCE_PENALTY'] ?? '0.0');
+export const DEFAULT_PRESENCE_PENALTY: number = typeof process !== 'undefined' && process.env['PRESENCE_PENALTY']
+    ? parseFloat(process.env['PRESENCE_PENALTY'])
+    : 0.0;
 
 /**
  * The default frequency penalty value.
  * Penalizes new tokens based on their existing frequency in the text so far.
  * Decreases the model's likelihood to repeat the same line verbatim.
  */
-export const DEFAULT_FREQUENCY_PENALTY: number = parseFloat(process.env['FREQUENCY_PENALTY'] ?? '0.0');
+export const DEFAULT_FREQUENCY_PENALTY: number = typeof process !== 'undefined' && process.env['FREQUENCY_PENALTY']
+    ? parseFloat(process.env['FREQUENCY_PENALTY'])
+    : 0.0
+
+
+/**
+ * The default repetition penalty value.
+ * This value penalizes the model for repeating the same tokens in the generated text.
+ */
+export const DEFAULT_REPETITION_PENALTY: number = typeof process !== 'undefined' && process.env['REPETITION_PENALTY']
+    ? parseFloat(process.env['REPETITION_PENALTY'])
+    : 1.1
 
 /**
  * Type representing a model provided by a provider.

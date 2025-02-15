@@ -66,7 +66,9 @@ export abstract class Provider {
         }
 
         // Fallback to environment variable if apiKey is not provided
-        return process.env[`${this.id.toUpperCase().replace(/-/g, '_')}_API_KEY`] ?? '';
+        return typeof process !== 'undefined' && process.env[`${this.id.toUpperCase().replace(/-/g, '_')}_API_KEY`]
+            ? process.env[`${this.id.toUpperCase().replace(/-/g, '_')}_API_KEY`] ?? ''
+            : '';
     }
 
     /**
