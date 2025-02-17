@@ -1,5 +1,17 @@
 # AI SDK (model) 👋
 
+## 1.1.1
+
+### Patch Changes
+
+- 8631556: fixed a bug in the model
+
+## 1.1.0
+
+### Minor Changes
+
+- eed9080: fixed "process.env"
+
 ## 1.0.7
 
 ### Patch Changes
