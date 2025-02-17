@@ -1,5 +1,11 @@
 # AI SDK (model) 👋
 
+## 1.1.2
+
+### Patch Changes
+
+- 5cf6f25: exported Provider class
+
 ## 1.1.1
 
 ### Patch Changes
