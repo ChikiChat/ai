@@ -1,3 +1,4 @@
+export * from './provider'
 export * from './AI21'
 export * from './Anthropic'
 export * from './Cohere'
