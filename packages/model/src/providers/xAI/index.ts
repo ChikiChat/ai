@@ -1,6 +1,7 @@
 import {EmbeddingModel, LanguageModel} from "ai";
 import {createXai, XaiProvider} from "@ai-sdk/xai";
 import {Provider} from '../provider';
+import {RequestInit} from "../../types";
 
 export class xAI extends Provider {
     id = 'xai';
@@ -81,21 +82,21 @@ export class xAI extends Provider {
         },
     ];
     default = {
-        apiURL: 'https://api.x.ai/v1',
+        baseURL: 'https://api.x.ai/v1',
         pricingURL: 'https://docs.x.ai/docs/models',
         manageAPIKeysURL: 'https://console.x.ai/team',
         model: `grok-2-1212`,
     };
 
-    create(apiKey: string): XaiProvider {
-        return createXai({baseURL: this.default.apiURL, apiKey: this.apiKey(apiKey)});
+    create(init: RequestInit = {}): XaiProvider {
+        return createXai({baseURL: this.baseUrl(init.baseURL), apiKey: this.apiKey(init.apiKey), headers: init.headers});
     }
 
-    languageModel(model: string, apiKey: string = ''): LanguageModel {
-        return this.create(apiKey)(model);
+    languageModel(model: string, init: RequestInit = {}): LanguageModel {
+        return this.create(init)(model);
     }
 
-    embeddingModel(_model: string, _apiKey: string): EmbeddingModel<string> {
+    embeddingModel(_model: string, _init: RequestInit = {}): EmbeddingModel<string> {
         throw new Error(`Provider ${this.name} does not support embeddings`);
     }
 }

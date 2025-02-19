@@ -1,6 +1,7 @@
 import {EmbeddingModel, LanguageModel} from "ai";
 import {createOpenAI, OpenAIProvider} from "@ai-sdk/openai";
 import {Provider} from '../provider';
+import {RequestInit} from "../../types";
 
 export class DeepSeek extends Provider {
     id = 'deepseek';
@@ -27,21 +28,21 @@ export class DeepSeek extends Provider {
         },
     ];
     default = {
-        apiURL: 'https://api.deepseek.com/v1',
+        baseURL: 'https://api.deepseek.com/v1',
         pricingURL: 'https://api-docs.deepseek.com/quick_start/pricing',
         manageAPIKeysURL: 'https://platform.deepseek.com/apiKeys',
         model: 'deepseek-chat',
     };
 
-    create(apiKey: string): OpenAIProvider {
-        return createOpenAI({name: this.name, baseURL: this.default.apiURL, apiKey: this.apiKey(apiKey)});
+    create(init: RequestInit = {}): OpenAIProvider {
+        return createOpenAI({name: this.name, baseURL: this.baseUrl(init.baseURL), apiKey: this.apiKey(init.apiKey), headers: init.headers});
     }
 
-    languageModel(model: string, apiKey: string = ''): LanguageModel {
-        return this.create(apiKey)(model);
+    languageModel(model: string, init: RequestInit = {}): LanguageModel {
+        return this.create(init)(model);
     }
 
-    embeddingModel(_model: string, _apiKey: string): EmbeddingModel<string> {
+    embeddingModel(_model: string, _init: RequestInit = {}): EmbeddingModel<string> {
         throw new Error(`Provider ${this.name} does not support embeddings`);
     }
 }

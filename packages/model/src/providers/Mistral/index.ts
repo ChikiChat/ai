@@ -1,6 +1,7 @@
 import {EmbeddingModel, LanguageModel} from "ai";
 import {createMistral, MistralProvider} from "@ai-sdk/mistral";
 import {Provider} from '../provider';
+import {RequestInit} from "../../types";
 
 export class Mistral extends Provider {
     id = 'mistral';
@@ -261,21 +262,21 @@ export class Mistral extends Provider {
         },
     ];
     default = {
-        apiURL: 'https://api.mistral.ai/v1',
+        baseURL: 'https://api.mistral.ai/v1',
         pricingURL: 'https://mistral.ai/technology',
         manageAPIKeysURL: 'https://console.mistral.ai/api-keys/',
         model: 'open-mistral-7b',
     };
 
-    create(apiKey: string): MistralProvider {
-        return createMistral({baseURL: this.default.apiURL, apiKey: this.apiKey(apiKey)});
+    create(init: RequestInit = {}): MistralProvider {
+        return createMistral({baseURL: this.baseUrl(init.baseURL), apiKey: this.apiKey(init.apiKey), headers: init.headers});
     }
 
-    languageModel(model: string, apiKey: string = ''): LanguageModel {
-        return this.create(apiKey)(model);
+    languageModel(model: string, init: RequestInit = {}): LanguageModel {
+        return this.create(init)(model);
     }
 
-    embeddingModel(model: string, apiKey: string = ''): EmbeddingModel<string> {
-        return this.create(apiKey).textEmbeddingModel(model);
+    embeddingModel(model: string, init: RequestInit = {}): EmbeddingModel<string> {
+        return this.create(init).textEmbeddingModel(model);
     }
 }

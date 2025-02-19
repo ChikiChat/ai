@@ -1,6 +1,6 @@
 import {EmbeddingModel, generateText, LanguageModel} from "ai";
 import {languageModel} from "../index";
-import {Model} from "../types";
+import {Model, RequestInit} from "../types";
 
 /**
  * Abstract class representing a provider of AI models.
@@ -30,7 +30,7 @@ export abstract class Provider {
      * Default configuration for the provider.
      */
     abstract default: {
-        apiURL: string; // URL for the API
+        baseURL: string; // URL for the API
         pricingURL: string; // URL for pricing information
         manageAPIKeysURL: string; // URL to manage API keys
         model: string; // Default model to use
@@ -40,19 +40,29 @@ export abstract class Provider {
      * Method to create a language model instance.
      *
      * @param model - The model identifier.
-     * @param apiKey - The API key for authentication.
+     * @param init - Configuration options for the fetch API.
      * @returns A LanguageModel instance.
      */
-    abstract languageModel(model: string, apiKey: string): LanguageModel;
+    abstract languageModel(model: string, init: RequestInit): LanguageModel;
 
     /**
      * Method to create an embedding model instance.
      *
      * @param model - The model identifier.
-     * @param apiKey - The API key for authentication.
+     * @param init - Configuration options for the fetch API.
      * @returns An EmbeddingModel instance.
      */
-    abstract embeddingModel(model: string, apiKey: string): EmbeddingModel<string>;
+    abstract embeddingModel(model: string, init: RequestInit): EmbeddingModel<string>;
+
+    /**
+     * Method to create a provider instance.
+     *
+     * @param url - The API URL for the provider.
+     * @returns The API base URL to be used.
+     */
+    baseUrl(url: string = ''): string {
+        return url !== '' ? url : this.default.baseURL;
+    }
 
     /**
      * Method to retrieve the API key, either from the provided argument or environment variable.
@@ -82,7 +92,7 @@ export abstract class Provider {
             // Attempt to generate text using the default model and provided API key
             await generateText({
                 prompt: `hi`,
-                model: languageModel(this.default.model, this.apiKey(apiKey)),
+                model: languageModel(this.default.model, {apiKey: this.apiKey(apiKey)}),
                 maxTokens: 1,
                 maxSteps: 1
             });

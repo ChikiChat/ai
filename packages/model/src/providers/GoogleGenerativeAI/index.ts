@@ -1,6 +1,7 @@
 import {EmbeddingModel, LanguageModel} from "ai";
 import {createGoogleGenerativeAI, GoogleGenerativeAIProvider} from "@ai-sdk/google";
 import {Provider} from '../provider';
+import {RequestInit} from "../../types";
 
 export class GoogleGenerativeAI extends Provider {
     id = 'google-generative-ai';
@@ -135,21 +136,21 @@ export class GoogleGenerativeAI extends Provider {
         },
     ];
     default = {
-        apiURL: 'https://generativelanguage.googleapis.com/v1beta',
+        baseURL: 'https://generativelanguage.googleapis.com/v1beta',
         pricingURL: 'https://ai.google.dev/pricing',
         manageAPIKeysURL: 'https://aistudio.google.com/app/apikey',
         model: 'gemini-1.5-flash-8b-latest',
     };
 
-    create(apiKey: string): GoogleGenerativeAIProvider {
-        return createGoogleGenerativeAI({baseURL: this.default.apiURL, apiKey: this.apiKey(apiKey)});
+    create(init: RequestInit = {}): GoogleGenerativeAIProvider {
+        return createGoogleGenerativeAI({baseURL: this.baseUrl(init.baseURL), apiKey: this.apiKey(init.apiKey), headers: init.headers});
     }
 
-    languageModel(model: string, apiKey: string = ''): LanguageModel {
-        return this.create(apiKey)(model);
+    languageModel(model: string, init: RequestInit = {}): LanguageModel {
+        return this.create(init)(model);
     }
 
-    embeddingModel(model: string, apiKey: string = ''): EmbeddingModel<string> {
-        return this.create(apiKey).textEmbeddingModel(model);
+    embeddingModel(model: string, init: RequestInit = {}): EmbeddingModel<string> {
+        return this.create(init).textEmbeddingModel(model);
     }
 }

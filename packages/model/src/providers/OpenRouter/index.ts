@@ -1,6 +1,7 @@
 import {EmbeddingModel, LanguageModel} from "ai";
 import {createOpenAI, OpenAIProvider} from "@ai-sdk/openai";
 import {Provider} from '../provider';
+import {RequestInit} from "../../types";
 
 export class OpenRouter extends Provider {
     id = 'openrouter';
@@ -1305,21 +1306,21 @@ export class OpenRouter extends Provider {
         },
     ];
     default = {
-        apiURL: 'https://openrouter.ai/api/v1',
+        baseURL: 'https://openrouter.ai/api/v1',
         pricingURL: 'https://openrouter.ai/docs/models',
         manageAPIKeysURL: 'https://openrouter.ai/settings/keys',
         model: 'meta-llama/llama-3.2-3b-instruct:free',
     };
 
-    create(apiKey: string): OpenAIProvider {
-        return createOpenAI({name: this.name, baseURL: this.default.apiURL, apiKey: this.apiKey(apiKey)});
+    create(init: RequestInit = {}): OpenAIProvider {
+        return createOpenAI({name: this.name, baseURL: this.baseUrl(init.baseURL), apiKey: this.apiKey(init.apiKey), headers: init.headers});
     }
 
-    languageModel(model: string, apiKey: string = ''): LanguageModel {
-        return this.create(apiKey)(model);
+    languageModel(model: string, init: RequestInit = {}): LanguageModel {
+        return this.create(init)(model);
     }
 
-    embeddingModel(_model: string, _apiKey: string): EmbeddingModel<string> {
+    embeddingModel(_model: string, _init: RequestInit = {}): EmbeddingModel<string> {
         throw new Error(`Provider ${this.name} does not support embeddings`);
     }
 }

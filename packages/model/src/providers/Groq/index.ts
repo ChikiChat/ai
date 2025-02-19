@@ -1,6 +1,7 @@
 import {EmbeddingModel, LanguageModel} from "ai";
 import {createGroq, GroqProvider} from "@ai-sdk/groq";
 import {Provider} from '../provider';
+import {RequestInit} from "../../types";
 
 export class Groq extends Provider {
     id = 'groq';
@@ -279,21 +280,21 @@ export class Groq extends Provider {
         },
     ];
     default = {
-        apiURL: 'https://api.groq.com/openai/v1',
+        baseURL: 'https://api.groq.com/openai/v1',
         pricingURL: 'https://groq.com/pricing',
         manageAPIKeysURL: 'https://console.groq.com/keys',
         model: 'llama-3.1-8b-instant',
     };
 
-    create(apiKey: string): GroqProvider {
-        return createGroq({baseURL: this.default.apiURL, apiKey: this.apiKey(apiKey)});
+    create(init: RequestInit = {}): GroqProvider {
+        return createGroq({baseURL: this.baseUrl(init.baseURL), apiKey: this.apiKey(init.apiKey), headers: init.headers});
     }
 
-    languageModel(model: string, apiKey: string = ''): LanguageModel {
-        return this.create(apiKey)(model);
+    languageModel(model: string, init: RequestInit = {}): LanguageModel {
+        return this.create(init)(model);
     }
 
-    embeddingModel(_model: string, _apiKey: string): EmbeddingModel<string> {
+    embeddingModel(_model: string, _init: RequestInit = {}): EmbeddingModel<string> {
         throw new Error(`Provider ${this.name} does not support embeddings`);
     }
 }

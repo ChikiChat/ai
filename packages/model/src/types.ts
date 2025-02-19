@@ -1,4 +1,4 @@
-import {CoreTool} from "ai";
+import {Tool} from "ai";
 
 /**
  * Default language model name.
@@ -209,7 +209,7 @@ export type LanguageModelInit = {
      * The model must support tool invocation.
      * Defaults to an empty object.
      */
-    tools?: Record<string, CoreTool>;
+    tools?: Record<string, Tool>;
 }
 
 /**
@@ -220,4 +220,34 @@ export type EmbeddingModelInit = {
      * The model identifier for embeddings.
      */
     model: string;
+}
+
+/**
+ * Configuration options for the request.
+ */
+export type RequestInit = {
+    /**
+     * Base URL for the API requests.
+     */
+    baseURL?: string;
+
+    /**
+     * Authentication token for API access
+     */
+    apiKey?: string;
+
+    /**
+     * Organization identifier for scoped API requests
+     */
+    organization?: string;
+
+    /**
+     * Project identifier for scoped API requests
+     */
+    project?: string;
+
+    /**
+     * Custom headers to include in the requests.
+     */
+    headers?: Record<string, string>;
 }
