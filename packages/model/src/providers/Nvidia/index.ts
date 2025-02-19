@@ -1,6 +1,7 @@
 import {EmbeddingModel, LanguageModel} from "ai";
 import {createOpenAI, OpenAIProvider} from "@ai-sdk/openai";
 import {Provider} from '../provider';
+import {RequestInit} from "../../types";
 
 export class Nvidia extends Provider {
     id = 'nvidia';
@@ -1431,21 +1432,21 @@ export class Nvidia extends Provider {
         },
     ];
     default = {
-        apiURL: 'https://integrate.api.nvidia.com/v1',
+        baseURL: 'https://integrate.api.nvidia.com/v1',
         pricingURL: '',
         manageAPIKeysURL: 'https://build.nvidia.com',
         model: 'zyphra/zamba2-7b-instruct',
     };
 
-    create(apiKey: string): OpenAIProvider {
-        return createOpenAI({name: this.name, baseURL: this.default.apiURL, apiKey: this.apiKey(apiKey)});
+    create(init: RequestInit = {}): OpenAIProvider {
+        return createOpenAI({name: this.name, baseURL: this.baseUrl(init.baseURL), apiKey: this.apiKey(init.apiKey), headers: init.headers});
     }
 
-    languageModel(model: string, apiKey: string = ''): LanguageModel {
-        return this.create(apiKey)(model);
+    languageModel(model: string, init: RequestInit = {}): LanguageModel {
+        return this.create(init)(model);
     }
 
-    embeddingModel(model: string, apiKey: string): EmbeddingModel<string> {
-        return this.create(apiKey).embedding(model);
+    embeddingModel(model: string, init: RequestInit = {}): EmbeddingModel<string> {
+        return this.create(init).embedding(model);
     }
 }

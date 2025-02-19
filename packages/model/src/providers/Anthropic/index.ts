@@ -1,6 +1,7 @@
 import {EmbeddingModel, LanguageModel} from 'ai';
 import {AnthropicProvider, createAnthropic} from '@ai-sdk/anthropic';
 import {Provider} from '../provider';
+import {RequestInit} from "../../types";
 
 export class Anthropic extends Provider {
     id = 'anthropic';
@@ -99,21 +100,21 @@ export class Anthropic extends Provider {
         },
     ];
     default = {
-        apiURL: 'https://api.anthropic.com/v1',
+        baseURL: 'https://api.anthropic.com/v1',
         pricingURL: 'https://www.anthropic.com/pricing',
         manageAPIKeysURL: 'https://console.anthropic.com/settings/keys',
         model: 'claude-3-haiku-20240307',
     };
 
-    create(apiKey: string): AnthropicProvider {
-        return createAnthropic({baseURL: this.default.apiURL, apiKey: this.apiKey(apiKey)})
+    create(init: RequestInit = {}): AnthropicProvider {
+        return createAnthropic({baseURL: this.baseUrl(init.baseURL), apiKey: this.apiKey(init.apiKey), headers: init.headers})
     }
 
-    languageModel(model: string, apiKey: string = ''): LanguageModel {
-        return this.create(apiKey)(model);
+    languageModel(model: string, init: RequestInit = {}): LanguageModel {
+        return this.create(init)(model);
     }
 
-    embeddingModel(_model: string, _apiKey: string): EmbeddingModel<string> {
+    embeddingModel(_model: string, _init: RequestInit = {}): EmbeddingModel<string> {
         throw new Error(`Provider ${this.name} does not support embeddings`);
     }
 }

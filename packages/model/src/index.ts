@@ -9,11 +9,10 @@ import {
     DEFAULT_TOP_P,
     EmbeddingModelInit,
     LanguageModelInit,
-    Model,
+    Model, RequestInit,
     UsageModel
 } from "./types";
-import {Provider} from "./providers/provider";
-import {providers} from "./providers";
+import {providers, Provider} from "./providers";
 
 export * from "./types";
 export * from "./providers";
@@ -22,22 +21,22 @@ export * from "./providers";
  * Get a language model instance for a given model name and API key.
  *
  * @param model - The model name in the format "provider/model".
- * @param apiKey - The API key for authentication (optional).
+ * @param init - Configuration options for the fetch API.
  * @returns A LanguageModel instance.
  */
-export const languageModel = (model: string, apiKey: string = ''): LanguageModel => {
-    return <LanguageModel>getModel(model, apiKey, (provider: Provider, modelID: string, apiKey: string) => provider.languageModel(modelID, apiKey));
+export const languageModel = (model: string, init: RequestInit = {}): LanguageModel => {
+    return <LanguageModel>getModel(model, init, (provider: Provider, modelID: string, init: RequestInit = {}) => provider.languageModel(modelID, init));
 };
 
 /**
  * Get an embedding model instance for a given model name and API key.
  *
  * @param model - The model name in the format "provider/model".
- * @param apiKey - The API key for authentication (optional).
+ * @param init - Configuration options for the fetch API.
  * @returns An EmbeddingModel instance.
  */
-export const embeddingModel = (model: string, apiKey: string = ''): EmbeddingModel<string> => {
-    return <EmbeddingModel<string>>getModel(model, apiKey, (provider: Provider, modelID: string, apiKey: string) => provider.embeddingModel(modelID, apiKey));
+export const embeddingModel = (model: string, init: RequestInit = {}): EmbeddingModel<string> => {
+    return <EmbeddingModel<string>>getModel(model, init, (provider: Provider, modelID: string, init: RequestInit) => provider.embeddingModel(modelID, init));
 };
 
 /**
@@ -147,14 +146,14 @@ export const embeddingModelInit = (model: string): EmbeddingModelInit => {
  * Helper function to get a model instance using a provider and model ID.
  *
  * @param model - The model name in the format "provider/model".
- * @param apiKey - The API key for authentication.
+ * @param init - Configuration options for the fetch API.
  * @param fn - Function to create a model instance.
  * @returns A LanguageModel or EmbeddingModel instance.
  */
-const getModel = (model: string, apiKey: string, fn: (provider: Provider, modelID: string, apiKey: string) => LanguageModel | EmbeddingModel<string>): LanguageModel | EmbeddingModel<string> => {
+const getModel = (model: string, init: RequestInit = {}, fn: (provider: Provider, modelID: string, init: RequestInit) => LanguageModel | EmbeddingModel<string>): LanguageModel | EmbeddingModel<string> => {
     const {provider, modelID} = providerAndModel(model);
 
-    return fn(provider, modelID, apiKey);
+    return fn(provider, modelID, init);
 };
 
 /**

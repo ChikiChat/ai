@@ -1,6 +1,7 @@
 import {EmbeddingModel, LanguageModel} from "ai";
 import {createOpenAI, OpenAIProvider} from "@ai-sdk/openai";
 import {Provider} from '../provider';
+import {RequestInit} from "../../types";
 
 export class OpenAI extends Provider {
     id = 'openai';
@@ -243,21 +244,28 @@ export class OpenAI extends Provider {
         },
     ];
     default = {
-        apiURL: 'https://api.openai.com/v1',
+        baseURL: 'https://api.openai.com/v1',
         pricingURL: 'https://openai.com/api/pricing',
         manageAPIKeysURL: 'https://platform.openai.com/api-keys',
         model: `gpt-3.5-turbo-0125`,
     };
 
-    create(apiKey: string): OpenAIProvider {
-        return createOpenAI({name: this.name, baseURL: this.default.apiURL, apiKey: this.apiKey(apiKey)});
+    create(init: RequestInit = {}): OpenAIProvider {
+        return createOpenAI({
+            name: this.name,
+            baseURL: this.baseUrl(init.baseURL),
+            apiKey: this.apiKey(init.apiKey),
+            organization: init.organization,
+            project: init.project,
+            headers: init.headers
+        });
     }
 
-    languageModel(model: string, apiKey: string = ''): LanguageModel {
-        return this.create(apiKey)(model);
+    languageModel(model: string, init: RequestInit = {}): LanguageModel {
+        return this.create(init)(model);
     }
 
-    embeddingModel(model: string, apiKey: string = ''): EmbeddingModel<string> {
-        return this.create(apiKey).embedding(model)
+    embeddingModel(model: string, init: RequestInit = {}): EmbeddingModel<string> {
+        return this.create(init).embedding(model)
     }
 }
