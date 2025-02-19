@@ -1,5 +1,11 @@
 # AI SDK (model) 👋
 
+## 1.2.0
+
+### Minor Changes
+
+- bf9c911: Add proxy support
+
 ## 1.1.2
 
 ### Patch Changes
