@@ -1,5 +1,11 @@
 # AI SDK (model) 👋
 
+## 1.2.1
+
+### Patch Changes
+
+- 216fab7: Iteration
+
 ## 1.2.0
 
 ### Minor Changes
