@@ -24,8 +24,8 @@ importers:
         specifier: 3.5.1
         version: 3.5.1
       publint:
-        specifier: 0.3.5
-        version: 0.3.5
+        specifier: 0.3.8
+        version: 0.3.8
       turbo:
         specifier: 2.4.2
         version: 2.4.2
@@ -633,8 +633,8 @@ packages:
     resolution: {integrity: sha512-+1VkjdD0QBLPodGrJUeqarH8VAIvQODIbwh9XpP5Syisf7YoQgsJKPNFoqqLQlu+VQ/tVSshMR6loPMn8U+dPg==}
     engines: {node: '>=14'}
 
-  '@publint/pack@0.1.1':
-    resolution: {integrity: sha512-TvCl79Y8v18ZhFGd5mjO1kYPovSBq3+4LVCi5Nfl1JI8fS8i8kXbgQFGwBJRXczim8GlW8c2LMBKTtExYXOy/A==}
+  '@publint/pack@0.1.2':
+    resolution: {integrity: sha512-S+9ANAvUmjutrshV4jZjaiG8XQyuJIZ8a4utWmN/vW1sgQ9IfBnPndwkmQYw53QmouOIytT874u65HEmu6H5jw==}
     engines: {node: '>=18'}
 
   '@rollup/rollup-android-arm-eabi@4.34.7':
@@ -1428,6 +1428,9 @@ packages:
   package-json-from-dist@1.0.1:
     resolution: {integrity: sha512-UEZIS3/by4OC8vL3P2dTXRETpebLI2NiI5vIrjaD/5UtrkFX/tNbwjTSRAGC/+7CAo2pIcBaRgWmcBBHcsaCIw==}
 
+  package-manager-detector@0.2.11:
+    resolution: {integrity: sha512-BEnLolu+yuz22S56CU1SUKq3XC3PkwD5wv4ikR4MfGvnRVcmzXR9DwSlW2fEamyTPyXHomBJRzgapeuBvRNzJQ==}
+
   package-manager-detector@0.2.9:
     resolution: {integrity: sha512-+vYvA/Y31l8Zk8dwxHhL3JfTuHPm6tlxM2A3GeQyl7ovYnSp1+mzAxClxaOr0qO1TtPxbQxetI7v5XqKLJZk7Q==}
 
@@ -1511,14 +1514,17 @@ packages:
     engines: {node: '>=14'}
     hasBin: true
 
-  publint@0.3.5:
-    resolution: {integrity: sha512-/84pl/T/emCA5hHmNYqsE/x0Voikg278QmFwNiORYqnZgqeII2HSZ+aAGs4frfDpOCQlU1SAgYloz8ayJGMbIg==}
+  publint@0.3.8:
+    resolution: {integrity: sha512-qJyxCpQFf0j0uvlr7GizYZiQgAFgePbAVRV2uecAbNIXniDD/NMSNNBL8+DxLMMjhjgPuLJ3l2GbrB0F9MwvfA==}
     engines: {node: '>=18'}
     hasBin: true
 
   punycode@2.3.1:
     resolution: {integrity: sha512-vYt7UD1U9Wg6138shLtLOvdAu+8DsC/ilFtEVHcH+wydcSpNE20AfSOduf6MkRFahL5FY7X1oU7nKVZFtfq8Fg==}
     engines: {node: '>=6'}
+
+  quansync@0.2.8:
+    resolution: {integrity: sha512-4+saucphJMazjt7iOM27mbFCk+D9dd/zmgMDCzRZ8MEoBfYp7lAvoN38et/phRQF6wOPMy/OROBGgoWeSKyluA==}
 
   queue-microtask@1.2.3:
     resolution: {integrity: sha512-NuaNSa6flKT5JaSYQzJok04JzTL1CA6aGhv5rfLW3PgqA+M2ChpZQnAC8h8i4ZFkBS8X5RqkDBHA7r4hej3K9A==}
@@ -2404,7 +2410,7 @@ snapshots:
   '@pkgjs/parseargs@0.11.0':
     optional: true
 
-  '@publint/pack@0.1.1': {}
+  '@publint/pack@0.1.2': {}
 
   '@rollup/rollup-android-arm-eabi@4.34.7':
     optional: true
@@ -3139,6 +3145,10 @@ snapshots:
 
   package-json-from-dist@1.0.1: {}
 
+  package-manager-detector@0.2.11:
+    dependencies:
+      quansync: 0.2.8
+
   package-manager-detector@0.2.9: {}
 
   parent-module@1.0.1:
@@ -3182,14 +3192,16 @@ snapshots:
 
   prettier@3.5.1: {}
 
-  publint@0.3.5:
+  publint@0.3.8:
     dependencies:
-      '@publint/pack': 0.1.1
-      package-manager-detector: 0.2.9
+      '@publint/pack': 0.1.2
+      package-manager-detector: 0.2.11
       picocolors: 1.1.1
       sade: 1.8.1
 
   punycode@2.3.1: {}
+
+  quansync@0.2.8: {}
 
   queue-microtask@1.2.3: {}
 
