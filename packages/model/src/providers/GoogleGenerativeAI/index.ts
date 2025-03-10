@@ -9,9 +9,9 @@ export class GoogleGenerativeAI extends Provider {
     description = `Create, discover, summarize and automate with Google Cloud's generative AI products and services.`;
     models = [
         {
-            id: `${this.id}/gemini-2.0-flash-exp`,
+            id: `${this.id}/gemini-2.0-flash`,
             name: 'Gemini 2.0 Flash',
-            description: `Gemini 2.0 Flash delivers next-gen features and improved capabilities, including superior speed, native tool use, multimodal generation, and a 1M token context window.`,
+            description: `Our most capable multi-modal model with great performance across all tasks, with a 1 million token context window, and built for the era of Agents`,
             architecture: '',
             capabilities: {
                 embedding: false,
@@ -27,8 +27,26 @@ export class GoogleGenerativeAI extends Provider {
             price: {input: 0.0000000000, output: 0.0000000000},
         },
         {
-            id: `${this.id}/gemini-2.0-flash-thinking-exp-1219`,
-            name: 'Gemini 2.0 Flash Thinking Mode',
+            id: `${this.id}/gemini-2.0-flash-lite`,
+            name: 'Gemini 2.0 Flash-Lite',
+            description: `Our smallest and most cost effective model, built for at scale usage`,
+            architecture: '',
+            capabilities: {
+                embedding: false,
+                tool_call: true,
+                rerank: false,
+                features: [],
+                size: {vocab: 0, embedding: 0, input: 1048576, output: 8192},
+                text: {input: true, output: true},
+                image: {input: true, output: false},
+                audio: {input: true, output: false},
+                video: {input: true, output: false},
+            },
+            price: {input: 0.0000000000, output: 0.0000000000},
+        },
+        {
+            id: `${this.id}/gemini-2.0-flash-thinking-exp-01-21`,
+            name: 'Gemini 2.0 Flash Thinking Experimental 01-21',
             description: `Gemini 2.0 Flash Thinking Mode is an experimental model that's trained to generate the "thinking process" the model goes through as part of its response.`,
             architecture: '',
             capabilities: {
@@ -47,7 +65,7 @@ export class GoogleGenerativeAI extends Provider {
         {
             id: `${this.id}/gemini-1.5-flash`,
             name: 'Gemini 1.5 Flash',
-            description: `Gemini 1.5 Flash is a fast and versatile multimodal model for scaling across diverse tasks.`,
+            description: `Gemini 1.5 Flash is a fast and versatile multimodal model for scaling across diverse tasks`,
             architecture: '',
             capabilities: {
                 embedding: false,
@@ -65,7 +83,7 @@ export class GoogleGenerativeAI extends Provider {
         {
             id: `${this.id}/gemini-1.5-flash-8b`,
             name: 'Gemini 1.5 Flash-8B',
-            description: `Gemini 1.5 Flash-8B is a small model designed for lower intelligence tasks.`,
+            description: `Gemini 1.5 Flash-8B is a small model designed for lower intelligence tasks`,
             architecture: '',
             capabilities: {
                 embedding: false,
@@ -83,7 +101,7 @@ export class GoogleGenerativeAI extends Provider {
         {
             id: `${this.id}/gemini-1.5-pro`,
             name: 'Gemini 1.5 Pro',
-            description: `Gemini 1.5 Pro is a mid-size multimodal model that is optimized for a wide-range of reasoning tasks.`,
+            description: `Gemini 1.5 Pro is a mid-size multimodal model that is optimized for a wide-range of reasoning tasks`,
             architecture: '',
             capabilities: {
                 embedding: false,
@@ -101,7 +119,7 @@ export class GoogleGenerativeAI extends Provider {
         {
             id: `${this.id}/text-embedding-004`,
             name: 'Text Embedding 004',
-            description: `Obtain a distributed representation of a text.`,
+            description: `Obtain a distributed representation of a text`,
             architecture: '',
             capabilities: {
                 embedding: true,
@@ -119,7 +137,7 @@ export class GoogleGenerativeAI extends Provider {
         {
             id: `${this.id}/embedding-001`,
             name: 'Embedding 001',
-            description: `Obtain a distributed representation of a text.`,
+            description: `Obtain a distributed representation of a text`,
             architecture: '',
             capabilities: {
                 embedding: true,

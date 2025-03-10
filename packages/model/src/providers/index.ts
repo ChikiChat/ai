@@ -10,6 +10,7 @@ export * from './Nvidia'
 export * from './OpenAI'
 export * from './OpenRouter'
 export * from './SambaNova'
+export * from  './Together'
 export * from './xAI'
 
 import {Provider} from "./provider";
@@ -24,6 +25,7 @@ import {Nvidia} from "./Nvidia";
 import {OpenAI} from "./OpenAI";
 import {OpenRouter} from "./OpenRouter";
 import {SambaNova} from "./SambaNova";
+import {Together} from "./Together";
 import {xAI} from "./xAI";
 
 /**
@@ -41,6 +43,7 @@ export const providers: Array<Provider> = [
     new OpenAI(),
     new OpenRouter(),
     new SambaNova(),
+    new Together(),
     new xAI(),
 ];
 

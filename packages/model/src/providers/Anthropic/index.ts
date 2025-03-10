@@ -9,9 +9,26 @@ export class Anthropic extends Provider {
     description = `Anthropic is an AI safety and research company that's working to build reliable, interpretable, and steerable AI systems.`;
     models = [
         {
+            id: `${this.id}/claude-3-7-sonnet-20250219`,
+            name: 'Claude 3.7 Sonnet',
+            description: `Our most intelligent model`,
+            architecture: '',
+            capabilities: {
+                embedding: false,
+                tool_call: true,
+                rerank: false,
+                features: [],
+                size: {vocab: 0, embedding: 0, input: 200000, output: 8192},
+                text: {input: true, output: true},
+                image: {input: true, output: false},
+                audio: {input: false, output: false},
+                video: {input: false, output: false},
+            },
+            price: {input: 0.0000030000, output: 0.0000150000},
+        },{
             id: `${this.id}/claude-3-5-sonnet-20241022`,
             name: 'Claude 3.5 Sonnet',
-            description: `Our most intelligent model. Highest level of intelligence and capability.`,
+            description: `Our previous most intelligent model`,
             architecture: '',
             capabilities: {
                 embedding: false,
@@ -29,7 +46,7 @@ export class Anthropic extends Provider {
         {
             id: `${this.id}/claude-3-5-haiku-20241022`,
             name: 'Claude 3.5 Haiku',
-            description: `Our fastest model. Intelligence at blazing speeds.`,
+            description: `Our fastest model`,
             architecture: '',
             capabilities: {
                 embedding: false,
@@ -47,7 +64,7 @@ export class Anthropic extends Provider {
         {
             id: `${this.id}/claude-3-opus-20240229`,
             name: 'Claude 3 Opus',
-            description: `Powerful model for highly complex tasks. Top-level intelligence, fluency, and understanding.`,
+            description: `Powerful model for complex tasks`,
             architecture: '',
             capabilities: {
                 embedding: false,
@@ -83,7 +100,7 @@ export class Anthropic extends Provider {
         {
             id: `${this.id}/claude-3-haiku-20240307`,
             name: 'Claude 3 Haiku',
-            description: `Fastest and most compact model for near-instant responsiveness. Quick and accurate targeted performance.`,
+            description: `Fastest and most compact model for near-instant responsiveness`,
             architecture: '',
             capabilities: {
                 embedding: false,
