@@ -9,6 +9,24 @@ export class DeepSeek extends Provider {
     description = `DeepSeek, unravel the mystery of AGI with curiosity. Answer the essential question with long-termism.`;
     models = [
         {
+            id: `${this.id}/deepseek-reasoner`,
+            name: 'DeepSeek R1',
+            description: ``,
+            architecture: 'DeepseekV3ForCausalLM',
+            capabilities: {
+                embedding: false,
+                tool_call: true,
+                rerank: false,
+                features: [],
+                size: {vocab: 129280, embedding: 7168, input: 65536, output: 8192},
+                text: {input: true, output: true},
+                image: {input: false, output: false},
+                audio: {input: false, output: false},
+                video: {input: false, output: false},
+            },
+            price: {input: 0.0000005500, output: 0.0000021900},
+        },
+        {
             id: `${this.id}/deepseek-chat`,
             name: 'DeepSeek V3',
             description: ``,
@@ -24,7 +42,7 @@ export class DeepSeek extends Provider {
                 audio: {input: false, output: false},
                 video: {input: false, output: false},
             },
-            price: {input: 0.0000001400, output: 0.0000002800},
+            price: {input: 0.0000002700, output: 0.0000011000},
         },
     ];
     default = {

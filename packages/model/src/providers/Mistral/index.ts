@@ -9,9 +9,27 @@ export class Mistral extends Provider {
     description = `Mistrals models provide cutting-edge generative capabilities for a variety of use cases.`;
     models = [
         {
-            id: `${this.id}/mistral-large-2411`,
-            name: 'Mistral Large',
-            description: `Official mistral-large-2411 Mistral AI model`,
+            id: `${this.id}/mistral-saba-latest`,
+            name: 'Saba',
+            description: `Custom-trained model to serve specific geographies, markets, and customers.`,
+            architecture: 'MistralForCausalLM',
+            capabilities: {
+                embedding: false,
+                tool_call: true,
+                rerank: false,
+                features: [],
+                size: {vocab: 0, embedding: 0, input: 32768, output: 0},
+                text: {input: true, output: true},
+                image: {input: false, output: false},
+                audio: {input: false, output: false},
+                video: {input: false, output: false},
+            },
+            price: {input: 0.0000002000, output: 0.0000006000},
+        },
+        {
+            id: `${this.id}/mistral-large-latest`,
+            name: 'Large',
+            description: `Top-tier reasoning for high-complexity tasks and sophisticated problems.`,
             architecture: 'MistralForCausalLM',
             capabilities: {
                 embedding: false,
@@ -27,27 +45,9 @@ export class Mistral extends Provider {
             price: {input: 0.0000020000, output: 0.0000060000},
         },
         {
-            id: `${this.id}/pixtral-large-2411`,
-            name: 'Pixtral Large',
-            description: `Official pixtral-large-2411 Mistral AI model`,
-            architecture: '',
-            capabilities: {
-                embedding: false,
-                tool_call: true,
-                rerank: false,
-                features: [],
-                size: {vocab: 32768, embedding: 28672, input: 131072, output: 0},
-                text: {input: true, output: true},
-                image: {input: true, output: false},
-                audio: {input: false, output: false},
-                video: {input: false, output: false},
-            },
-            price: {input: 0.0000020000, output: 0.0000060000},
-        },
-        {
             id: `${this.id}/pixtral-large-latest`,
-            name: 'Pixtral Large Latest',
-            description: `Official pixtral-large-2411 Mistral AI model`,
+            name: 'Pixtral',
+            description: `Vision-capable large model with frontier reasoning capabilities.`,
             architecture: '',
             capabilities: {
                 embedding: false,
@@ -64,8 +64,8 @@ export class Mistral extends Provider {
         },
         {
             id: `${this.id}/ministral-8b-latest`,
-            name: 'Ministral 8b Latest',
-            description: `Official ministral-8b-2410 Mistral AI model`,
+            name: 'Ministral (8B) 24.10',
+            description: `Powerful model for on-device use casesl`,
             architecture: '',
             capabilities: {
                 embedding: false,
@@ -82,8 +82,8 @@ export class Mistral extends Provider {
         },
         {
             id: `${this.id}/ministral-3b-latest`,
-            name: 'Ministral 3b Latest',
-            description: `Official ministral-3b-2410 Mistral AI model`,
+            name: 'Ministral (3B) 24.10',
+            description: `Most efficient edge model`,
             architecture: '',
             capabilities: {
                 embedding: false,
@@ -135,9 +135,9 @@ export class Mistral extends Provider {
             price: {input: 0.0000001500, output: 0.0000001500},
         },
         {
-            id: `${this.id}/codestral-2405`,
+            id: `${this.id}/codestral-latest`,
             name: 'Codestral',
-            description: `Official codestral-2405 Mistral AI model`,
+            description: `State-of-the-art Mistral model trained specifically for code tasks`,
             architecture: 'MistralForCausalLM',
             capabilities: {
                 embedding: false,
@@ -150,30 +150,12 @@ export class Mistral extends Provider {
                 audio: {input: false, output: false},
                 video: {input: false, output: false},
             },
-            price: {input: 0.0000002000, output: 0.0000006000},
+            price: {input: 0.0000003000, output: 0.0000009000},
         },
         {
-            id: `${this.id}/mistral-large-2407`,
-            name: 'Mistral Large',
-            description: `Official mistral-large-2407 Mistral AI model`,
-            architecture: 'MistralForCausalLM',
-            capabilities: {
-                embedding: false,
-                tool_call: true,
-                rerank: false,
-                features: [],
-                size: {vocab: 32768, embedding: 12288, input: 131072, output: 0},
-                text: {input: true, output: true},
-                image: {input: false, output: false},
-                audio: {input: false, output: false},
-                video: {input: false, output: false},
-            },
-            price: {input: 0.0000020000, output: 0.0000060000},
-        },
-        {
-            id: `${this.id}/mistral-small-2409`,
+            id: `${this.id}/mistral-small-latest`,
             name: 'Mistral Small',
-            description: `Official mistral-small-2409 Mistral AI model`,
+            description: `Cost-efficient, fast, and reliable option for use cases such as translation, summarization, and sentiment analysis.`,
             architecture: 'MistralForCausalLM',
             capabilities: {
                 embedding: false,
@@ -186,7 +168,7 @@ export class Mistral extends Provider {
                 audio: {input: false, output: false},
                 video: {input: false, output: false},
             },
-            price: {input: 0.0000002000, output: 0.0000006000},
+            price: {input: 0.0000001000, output: 0.0000003000},
         },
         {
             id: `${this.id}/open-mixtral-8x22b`,

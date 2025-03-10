@@ -9,6 +9,24 @@ export class xAI extends Provider {
     description = `xAI is an AI company with the mission of advancing scientific discovery and gaining a deeper understanding of our universe.`;
     models = [
         {
+            id: `${this.id}/grok-beta`,
+            name: 'Grok 3',
+            description: ``,
+            architecture: '',
+            capabilities: {
+                embedding: false,
+                tool_call: true,
+                rerank: false,
+                features: [],
+                size: {vocab: 0, embedding: 0, input: 131072, output: 0},
+                text: {input: true, output: true},
+                image: {input: false, output: false},
+                audio: {input: false, output: false},
+                video: {input: false, output: false},
+            },
+            price: {input: 0.0000050000, output: 0.0000150000},
+        },
+        {
             id: `${this.id}/grok-2-1212`,
             name: 'Grok 2',
             description: ``,
