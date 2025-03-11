@@ -1,4 +1,4 @@
-import {generateText} from "ai";
+import {generateText, LanguageModel} from "ai";
 import {EventEmitter} from 'events';
 import {Config, IAgent, Output} from "./types";
 import {Prompt} from "../prompt";
@@ -38,7 +38,7 @@ export class Agent<OUTPUT = string> extends EventEmitter implements IAgent<OUTPU
 
         const {text, finishReason, usage} = await generateText({
             prompt: prompt,
-            model: languageModel(this.config.init.model),
+            model: languageModel(this.config.init.model) as LanguageModel,
             maxTokens: this.config.init.maxTokens || DEFAULT_MAX_TOKENS,
             maxSteps: 2,
             temperature: this.config.init.temperature || DEFAULT_TEMPERATURE,
