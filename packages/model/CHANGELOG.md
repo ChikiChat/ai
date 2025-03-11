@@ -1,5 +1,11 @@
 # AI SDK (model) 👋
 
+## 1.2.2
+
+### Patch Changes
+
+- a0e2d34: chore: packages update
+
 ## 1.2.1
 
 ### Patch Changes
