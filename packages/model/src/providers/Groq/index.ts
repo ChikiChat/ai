@@ -15,7 +15,7 @@ export class Groq extends Provider {
             architecture: '',
             capabilities: {
                 embedding: false,
-                tool_call: false,
+                tool_call: true,
                 rerank: false,
                 features: [],
                 size: {vocab: 0, embedding: 0, input: 131072, output: 131072},
@@ -46,12 +46,12 @@ export class Groq extends Provider {
         },
         {
             id: `${this.id}/qwen-qwq-32b`,
-            name: 'Qwen (32B) Qwq',
+            name: 'Qwen (32B) QwQ',
             description: '',
             architecture: '',
             capabilities: {
                 embedding: false,
-                tool_call: false,
+                tool_call: true,
                 rerank: false,
                 features: [],
                 size: {vocab: 0, embedding: 0, input: 131072, output: 131072},
@@ -69,7 +69,7 @@ export class Groq extends Provider {
             architecture: '',
             capabilities: {
                 embedding: false,
-                tool_call: false,
+                tool_call: true,
                 rerank: false,
                 features: [],
                 size: {vocab: 0, embedding: 0, input: 131072, output: 131072},
@@ -87,7 +87,7 @@ export class Groq extends Provider {
             architecture: '',
             capabilities: {
                 embedding: false,
-                tool_call: false,
+                tool_call: true,
                 rerank: false,
                 features: [],
                 size: {vocab: 0, embedding: 0, input: 131072, output: 131072},

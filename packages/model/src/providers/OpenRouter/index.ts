@@ -28,7 +28,7 @@ export class OpenRouter extends Provider {
         },
         {
             id: `${this.id}/qwen/qwq-32b:free`,
-            name: 'Qwq (32B)',
+            name: 'QwQ (32B) (free)',
             description: '',
             architecture: 'Qwen2ForCausalLM',
             capabilities: {
@@ -46,7 +46,7 @@ export class OpenRouter extends Provider {
         },
         {
             id: `${this.id}/qwen/qwq-32b`,
-            name: 'Qwq (32B)',
+            name: 'QwQ (32B)',
             description: '',
             architecture: 'Qwen2ForCausalLM',
             capabilities: {
@@ -82,7 +82,7 @@ export class OpenRouter extends Provider {
         },
         {
             id: `${this.id}/moonshotai/moonlight-16b-a3b-instruct:free`,
-            name: 'Moonlight 16b A3b Instruct',
+            name: 'Moonlight 16b A3b Instruct (free)',
             description: '',
             architecture: 'DeepseekV3ForCausalLM',
             capabilities: {
@@ -100,7 +100,7 @@ export class OpenRouter extends Provider {
         },
         {
             id: `${this.id}/nousresearch/deephermes-3-llama-3-8b-preview:free`,
-            name: 'Deephermes 3 LLaMA 3 8b Preview',
+            name: 'Deephermes 3 LLaMA 3 8b Preview (free)',
             description: '',
             architecture: 'LlamaForCausalLM',
             capabilities: {
@@ -118,7 +118,7 @@ export class OpenRouter extends Provider {
         },
         {
             id: `${this.id}/cognitivecomputations/dolphin3.0-r1-mistral-24b:free`,
-            name: 'Dolphin 3.0 (24B) R1 Mistral',
+            name: 'Dolphin 3.0 (24B) R1 Mistral (free)',
             description: '',
             architecture: 'MistralForCausalLM',
             capabilities: {
@@ -136,7 +136,7 @@ export class OpenRouter extends Provider {
         },
         {
             id: `${this.id}/cognitivecomputations/dolphin3.0-mistral-24b:free`,
-            name: 'Dolphin 3.0 (24B) Mistral',
+            name: 'Dolphin 3.0 (24B) Mistral (free)',
             description: '',
             architecture: 'MistralForCausalLM',
             capabilities: {
@@ -208,7 +208,7 @@ export class OpenRouter extends Provider {
         },
         {
             id: `${this.id}/qwen/qwen2.5-vl-72b-instruct:free`,
-            name: 'Qwen 2.5 (72B) Vl Instruct',
+            name: 'Qwen 2.5 (72B) Vl Instruct (free)',
             description: '',
             architecture: 'Qwen2_5_VLForConditionalGeneration',
             capabilities: {
@@ -244,7 +244,7 @@ export class OpenRouter extends Provider {
         },
         {
             id: `${this.id}/sophosympatheia/rogue-rose-103b-v0.2:free`,
-            name: 'Rogue Rose 103b V0.2',
+            name: 'Rogue Rose 103b V0.2 (free)',
             description: '',
             architecture: 'LlamaForCausalLM',
             capabilities: {
@@ -334,7 +334,7 @@ export class OpenRouter extends Provider {
         },
         {
             id: `${this.id}/meta-llama/llama-3.3-70b-instruct:free`,
-            name: 'LLaMA 3.3 (70B) Instruct',
+            name: 'LLaMA 3.3 (70B) Instruct (free)',
             description: '',
             architecture: 'LlamaForCausalLM',
             capabilities: {
@@ -370,7 +370,7 @@ export class OpenRouter extends Provider {
         },
         {
             id: `${this.id}/qwen/qwq-32b-preview`,
-            name: 'Qwq (32B) (Preview)',
+            name: 'QwQ (32B) (Preview)',
             description: '',
             architecture: 'Qwen2ForCausalLM',
             capabilities: {
@@ -424,7 +424,7 @@ export class OpenRouter extends Provider {
         },
         {
             id: `${this.id}/qwen/qwen-2.5-coder-32b-instruct:free`,
-            name: 'Qwen 2.5 (32B) Coder Instruct',
+            name: 'Qwen 2.5 (32B) Coder Instruct (free)',
             description: '',
             architecture: 'Qwen2ForCausalLM',
             capabilities: {
@@ -550,7 +550,7 @@ export class OpenRouter extends Provider {
         },
         {
             id: `${this.id}/nvidia/llama-3.1-nemotron-70b-instruct:free`,
-            name: 'LLaMA 3.1 (70B) Nemotron Instruct Hugging Face',
+            name: 'LLaMA 3.1 (70B) Nemotron Instruct Hugging Face (free)',
             description: '',
             architecture: 'LlamaForCausalLM',
             capabilities: {
@@ -622,7 +622,7 @@ export class OpenRouter extends Provider {
         },
         {
             id: `${this.id}/meta-llama/llama-3.2-1b-instruct:free`,
-            name: 'LLaMA 3.2 (1B) Instruct',
+            name: 'LLaMA 3.2 (1B) Instruct (free)',
             description: '',
             architecture: 'LlamaForCausalLM',
             capabilities: {
@@ -856,7 +856,7 @@ export class OpenRouter extends Provider {
         },
         {
             id: `${this.id}/meta-llama/llama-3.1-8b-instruct:free`,
-            name: 'LLaMA 3.1 (8B) Instruct',
+            name: 'LLaMA 3.1 (8B) Instruct (free)',
             description: '',
             architecture: 'LlamaForCausalLM',
             capabilities: {
@@ -928,7 +928,7 @@ export class OpenRouter extends Provider {
         },
         {
             id: `${this.id}/qwen/qwen-2-7b-instruct:free`,
-            name: 'Qwen 2 (7B) Instruct',
+            name: 'Qwen 2 (7B) Instruct (free)',
             description: '',
             architecture: 'Qwen2ForCausalLM',
             capabilities: {
@@ -1036,7 +1036,7 @@ export class OpenRouter extends Provider {
         },
         {
             id: `${this.id}/microsoft/phi-3-mini-128k-instruct:free`,
-            name: 'Phi 3 Mini Instruct',
+            name: 'Phi 3 Mini Instruct (free)',
             description: '',
             architecture: 'Phi3ForCausalLM',
             capabilities: {
@@ -1072,7 +1072,7 @@ export class OpenRouter extends Provider {
         },
         {
             id: `${this.id}/microsoft/phi-3-medium-128k-instruct:free`,
-            name: 'Phi 3 Medium Instruct',
+            name: 'Phi 3 Medium Instruct (free)',
             description: '',
             architecture: 'Phi3ForCausalLM',
             capabilities: {
@@ -1198,7 +1198,7 @@ export class OpenRouter extends Provider {
         },
         {
             id: `${this.id}/meta-llama/llama-3-8b-instruct:free`,
-            name: 'LLaMA 3 (8B) Instruct',
+            name: 'LLaMA 3 (8B) Instruct (free)',
             description: '',
             architecture: 'LlamaForCausalLM',
             capabilities: {
@@ -1306,7 +1306,7 @@ export class OpenRouter extends Provider {
         },
         {
             id: `${this.id}/openchat/openchat-7b:free`,
-            name: 'OpenChat 3.6 (8B)',
+            name: 'OpenChat 3.6 (8B) (free)',
             description: '',
             architecture: 'LlamaForCausalLM',
             capabilities: {
@@ -1378,7 +1378,7 @@ export class OpenRouter extends Provider {
         },
         {
             id: `${this.id}/undi95/toppy-m-7b:free`,
-            name: 'Toppy M (7B)',
+            name: 'Toppy M (7B) (free)',
             description: '',
             architecture: 'MistralForCausalLM',
             capabilities: {
@@ -1504,7 +1504,7 @@ export class OpenRouter extends Provider {
         },
         {
             id: `${this.id}/huggingfaceh4/zephyr-7b-beta:free`,
-            name: 'Zephyr (7B) Beta',
+            name: 'Zephyr (7B) Beta (free)',
             description: '',
             architecture: 'MistralForCausalLM',
             capabilities: {
@@ -1540,7 +1540,7 @@ export class OpenRouter extends Provider {
         },
         {
             id: `${this.id}/gryphe/mythomax-l2-13b:free`,
-            name: 'MythoMax L2 (13B)',
+            name: 'MythoMax L2 (13B) (free)',
             description: '',
             architecture: 'LlamaForCausalLM',
             capabilities: {
