@@ -9,7 +9,7 @@ import {
     languageModel,
     usageModel
 } from '@chikichat/model';
-import {generateText} from 'ai';
+import {generateText, LanguageModel} from 'ai';
 import {z} from 'zod';
 import {Task} from '../task';
 
@@ -87,7 +87,7 @@ export class TaskLlmGenerate extends Task<typeof InputSchema, typeof OutputSchem
 
         const {text, usage} = await generateText({
             prompt: prompt,
-            model: languageModel(model),
+            model: languageModel(model) as LanguageModel,
             maxTokens: maxTokens,
             temperature: temperature,
             topP: topP,

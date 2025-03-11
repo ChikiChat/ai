@@ -1,4 +1,4 @@
-import {CoreMessage, generateText} from "ai";
+import {CoreMessage, generateText, LanguageModel} from "ai";
 import {EventEmitter} from 'events';
 import {ConfigStep, IAgent, Input, Output} from "./types";
 import {Prompt} from "../prompt";
@@ -83,7 +83,7 @@ export class AgentReAct<OUTPUT = string> extends EventEmitter implements IAgent<
         this.messages.push({role: 'user', content: prompt});
         const {text, finishReason, usage} = await generateText({
             messages: this.messages,
-            model: languageModel(input.model),
+            model: languageModel(input.model) as LanguageModel,
             maxTokens: input.maxTokens || DEFAULT_MAX_TOKENS,
             maxSteps: 2,
             temperature: input.temperature || DEFAULT_TEMPERATURE,
