@@ -70,8 +70,8 @@ importers:
         specifier: ^1.1.15
         version: 1.1.15(zod@3.24.1)
       '@ai-sdk/cohere':
-        specifier: ^1.1.13
-        version: 1.1.13(zod@3.24.1)
+        specifier: ^1.2.7
+        version: 1.2.7(zod@3.24.1)
       '@ai-sdk/google':
         specifier: ^1.1.20
         version: 1.1.20(zod@3.24.1)
@@ -111,6 +111,12 @@ packages:
 
   '@ai-sdk/cohere@1.1.13':
     resolution: {integrity: sha512-ZWC6IeM+DMfoLKyPcwW9nBDFIe3wvKm9sY9lcUrJAKJwtCuTtjtON5wZNsTYVrDbJlRVZTunBP/Q/JChEysKIA==}
+    engines: {node: '>=18'}
+    peerDependencies:
+      zod: ^3.0.0
+
+  '@ai-sdk/cohere@1.2.7':
+    resolution: {integrity: sha512-lWTfTn/RzNKi6y+X4nC7PYUS/wuwCeTAlscCkLseHgP4hj3k63r1IojCRY0o9YlBCuMT8k6+IkkZj11pxF9f2g==}
     engines: {node: '>=18'}
     peerDependencies:
       zod: ^3.0.0
@@ -1798,6 +1804,12 @@ snapshots:
     dependencies:
       '@ai-sdk/provider': 1.0.10
       '@ai-sdk/provider-utils': 2.1.11(zod@3.24.1)
+      zod: 3.24.1
+
+  '@ai-sdk/cohere@1.2.7(zod@3.24.1)':
+    dependencies:
+      '@ai-sdk/provider': 1.1.2
+      '@ai-sdk/provider-utils': 2.2.6(zod@3.24.1)
       zod: 3.24.1
 
   '@ai-sdk/google@1.1.20(zod@3.24.1)':
