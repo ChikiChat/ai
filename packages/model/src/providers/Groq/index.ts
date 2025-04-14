@@ -28,7 +28,7 @@ export class Groq extends Provider {
         },
         {
             id: `${this.id}/deepseek-r1-distill-llama-70b`,
-            name: 'Deepeek R1 (70B) Distill LLaMA',
+            name: 'DeepSeek R1 (70B) Distill LLaMA',
             description: '',
             architecture: 'LlamaForCausalLM',
             capabilities: {
