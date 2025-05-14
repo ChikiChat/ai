@@ -1,5 +1,0 @@
----
-'@chikichat/model': patch
----
-
-iteration
