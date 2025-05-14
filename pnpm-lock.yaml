@@ -59,10 +59,10 @@ importers:
         version: 20.17.12
       tsup:
         specifier: ^8.4.0
-        version: 8.4.0(typescript@5.8.2)(yaml@2.7.1)
+        version: 8.4.0(typescript@5.8.3)(yaml@2.7.1)
       typescript:
-        specifier: ^5.8.2
-        version: 5.8.2
+        specifier: ^5.8.3
+        version: 5.8.3
 
   packages/model:
     dependencies:
@@ -96,10 +96,10 @@ importers:
         version: 20.17.12
       tsup:
         specifier: ^8.4.0
-        version: 8.4.0(typescript@5.8.2)(yaml@2.7.1)
+        version: 8.4.0(typescript@5.8.3)(yaml@2.7.1)
       typescript:
-        specifier: ^5.8.2
-        version: 5.8.2
+        specifier: ^5.8.3
+        version: 5.8.3
 
 packages:
 
@@ -1772,11 +1772,6 @@ packages:
     resolution: {integrity: sha512-EGjWssW7Tsk4DGfE+5yluuljS1OGYWiI1J6e8puZz9nTMM51Oug8CD5Zo4gWMsOhq5BI+1bF+rWTm4Vbj3ivRA==}
     engines: {node: '>= 18'}
 
-  typescript@5.8.2:
-    resolution: {integrity: sha512-aJn6wq13/afZp/jT9QZmwEjDqqvSGp1VT5GVg+f/t6/oVyrgXM6BY1h9BRh/O5p3PlUPAe+WuiEZOmb/49RqoQ==}
-    engines: {node: '>=14.17'}
-    hasBin: true
-
   typescript@5.8.3:
     resolution: {integrity: sha512-p1diW6TqL9L07nNxvRMM7hMMw4c5XOo/1ibL4aAIGmSAt9slTE1Xgw5KWuof2uTOvCg9BY7ZRi+GaF+7sfgPeQ==}
     engines: {node: '>=14.17'}
@@ -3397,7 +3392,7 @@ snapshots:
 
   ts-interface-checker@0.1.13: {}
 
-  tsup@8.4.0(typescript@5.8.2)(yaml@2.7.1):
+  tsup@8.4.0(typescript@5.8.3)(yaml@2.7.1):
     dependencies:
       bundle-require: 5.1.0(esbuild@0.25.1)
       cac: 6.7.14
@@ -3416,7 +3411,7 @@ snapshots:
       tinyglobby: 0.2.12
       tree-kill: 1.2.2
     optionalDependencies:
-      typescript: 5.8.2
+      typescript: 5.8.3
     transitivePeerDependencies:
       - jiti
       - supports-color
@@ -3455,8 +3450,6 @@ snapshots:
       prelude-ls: 1.2.1
 
   typed-function@4.2.1: {}
-
-  typescript@5.8.2: {}
 
   typescript@5.8.3: {}
 
