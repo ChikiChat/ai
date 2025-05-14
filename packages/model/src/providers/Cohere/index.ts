@@ -9,6 +9,24 @@ export class Cohere extends Provider {
     description = `Cohere is the leading AI platform for enterprise. Augment your workforce, automate workflows, and enrich customer experiences with secure and scalable AI.`;
     models = [
         {
+            id: `${this.id}/command-a-03-2025`,
+            name: 'Command A',
+            description: `Command A is our most efficient and performant model to date, specializing in agentic AI, multilingual, and human evaluations for real-life use cases.`,
+            architecture: 'Cohere2ForCausalLM',
+            capabilities: {
+                embedding: false,
+                tool_call: true,
+                rerank: false,
+                features: [],
+                size: {vocab: 256000, embedding: 12288, input: 256000, output: 8000},
+                text: {input: true, output: true},
+                image: {input: false, output: false},
+                audio: {input: false, output: false},
+                video: {input: false, output: false},
+            },
+            price: {input: 0.0000025000, output: 0.0000100000},
+        },
+        {
             id: `${this.id}/command`,
             name: 'Command',
             description: `An instruction-following conversational model that performs language tasks with high quality, more reliably and with a longer context than our base generative models.`,

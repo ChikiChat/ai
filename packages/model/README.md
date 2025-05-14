@@ -30,7 +30,7 @@ pnpm i @chikichat/model
 - [ ] Perplexity
 - [ ] Qwen
 - [x] SambaNova
-- [ ] Together
+- [x] Together
 - [ ] Vertex AI
 - [x] xAI
 
