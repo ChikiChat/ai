@@ -9,8 +9,8 @@ export class GoogleGenerativeAI extends Provider {
     description = `Create, discover, summarize and automate with Google Cloud's generative AI products and services`;
     models = [
         {
-            id: `${this.id}/gemini-2.5-pro-preview-03-25`,
-            name: 'Gemini 2.5 Pro Preview 03-25',
+            id: `${this.id}/gemini-2.5-pro-preview-05-06`,
+            name: 'Gemini 2.5 Pro Preview 05-06',
             description: `State-of-the-art multipurpose model, which excels at coding and complex reasoning tasks`,
             architecture: '',
             capabilities: {
@@ -24,7 +24,25 @@ export class GoogleGenerativeAI extends Provider {
                 audio: {input: true, output: false},
                 video: {input: true, output: false},
             },
-            price: {input: 0.0000001000, output: 0.0000004000},
+            price: {input: 0.0000012500, output: 0.0000100000},
+        },
+        {
+            id: `${this.id}/gemini-2.5-flash-preview-04-17`,
+            name: 'Gemini 2.5 Flash Preview 04-17',
+            description: `State-of-the-art multipurpose model, which excels at coding and complex reasoning tasks`,
+            architecture: '',
+            capabilities: {
+                embedding: false,
+                tool_call: true,
+                rerank: false,
+                features: [],
+                size: {vocab: 0, embedding: 0, input: 1048576, output: 65536},
+                text: {input: true, output: true},
+                image: {input: true, output: false},
+                audio: {input: true, output: false},
+                video: {input: true, output: false},
+            },
+            price: {input: 0.0000001500, output: 0.0000035000},
         },
         {
             id: `${this.id}/gemini-2.0-flash`,
